@@ -1,0 +1,8 @@
+{
+    "gridHeight": 20,
+    "gridWidth": 20,
+    "gridLayout": "RECTANGULAR",
+    "gridOrientation": "FLAT_TOP",
+    "cubeCoordinatesToRegionHexes": [
+    ]
+}

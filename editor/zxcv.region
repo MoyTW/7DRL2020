@@ -1,0 +1,6808 @@
+{
+    "gridHeight": 20,
+    "gridWidth": 20,
+    "gridLayout": "RECTANGULAR",
+    "gridOrientation": "FLAT_TOP",
+    "cubeCoordinatesToRegionHexes": [
+        {
+            "gridX": 0,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": -4
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": -4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": -4
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": -4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": -5
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": -5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": -5
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": -5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": -6
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": -6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": -6
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": -6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": -7
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": -7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": -7
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": -7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": -8
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": -8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": -8
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": -8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": -9
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": -9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": -9
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": -9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": -4
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": -4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": -4
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": -4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": -5
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": -5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": -5
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": -5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": -6
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": -6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": -6
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": -6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": -7
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": -7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": -7
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": -7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": -8
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": -8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": -8
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": -8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": -4
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": -4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": -4
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": -4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": -5
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": -5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": -5
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": -5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": -6
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": -6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": -6
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": -6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": -7
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": -7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": -7
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": -7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": -4
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": -4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": -4
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": -4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": -5
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": -5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": -5
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": -5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": -6
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": -6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": -6
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": -6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": -4
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": -4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": -4
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": -4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": -5
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": -5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": -5
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": -5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": -4
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": -4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": -4
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": -4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": -3
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": -3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": -2
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": -2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": -1
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": -1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": 0
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": 0
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": 1
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": 1
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": 2
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": 2
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": 3
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": 3
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": 4
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": 4
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 14
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 14
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 14
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 14
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": 5
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": 5
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 15
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 15
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 15
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 15
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 14
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 14
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 14
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 14
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": 6
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": 6
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 16
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 16
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 16
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 16
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 15
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 15
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 15
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 15
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 14
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 14
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 14
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 14
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": 7
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": 7
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 17
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 17
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 17
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 17
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 16
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 16
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 16
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 16
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 15
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 15
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 15
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 15
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 14
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 14
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 14
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 14
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": 8
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": 8
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 18
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 18
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 18
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 18
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 17
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 17
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 17
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 17
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 16
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 16
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 16
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 16
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 15
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 15
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 15
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 15
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 14
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 14
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 14
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 14
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": 9
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": 9
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 0,
+            "gridZ": 19
+        },
+        {
+            "coordinates": {
+                "gridX": 0,
+                "gridZ": 19
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 1,
+            "gridZ": 19
+        },
+        {
+            "coordinates": {
+                "gridX": 1,
+                "gridZ": 19
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 2,
+            "gridZ": 18
+        },
+        {
+            "coordinates": {
+                "gridX": 2,
+                "gridZ": 18
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 3,
+            "gridZ": 18
+        },
+        {
+            "coordinates": {
+                "gridX": 3,
+                "gridZ": 18
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 4,
+            "gridZ": 17
+        },
+        {
+            "coordinates": {
+                "gridX": 4,
+                "gridZ": 17
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 5,
+            "gridZ": 17
+        },
+        {
+            "coordinates": {
+                "gridX": 5,
+                "gridZ": 17
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 6,
+            "gridZ": 16
+        },
+        {
+            "coordinates": {
+                "gridX": 6,
+                "gridZ": 16
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 7,
+            "gridZ": 16
+        },
+        {
+            "coordinates": {
+                "gridX": 7,
+                "gridZ": 16
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 8,
+            "gridZ": 15
+        },
+        {
+            "coordinates": {
+                "gridX": 8,
+                "gridZ": 15
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 9,
+            "gridZ": 15
+        },
+        {
+            "coordinates": {
+                "gridX": 9,
+                "gridZ": 15
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 10,
+            "gridZ": 14
+        },
+        {
+            "coordinates": {
+                "gridX": 10,
+                "gridZ": 14
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 11,
+            "gridZ": 14
+        },
+        {
+            "coordinates": {
+                "gridX": 11,
+                "gridZ": 14
+            },
+            "vegetationPercentage": 0,
+            "elevation": 0,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 12,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 12,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 13,
+            "gridZ": 13
+        },
+        {
+            "coordinates": {
+                "gridX": 13,
+                "gridZ": 13
+            },
+            "vegetationPercentage": 0,
+            "elevation": 50,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 14,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 14,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 15,
+            "gridZ": 12
+        },
+        {
+            "coordinates": {
+                "gridX": 15,
+                "gridZ": 12
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 16,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 16,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 25,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 17,
+            "gridZ": 11
+        },
+        {
+            "coordinates": {
+                "gridX": 17,
+                "gridZ": 11
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 18,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 18,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        },
+        {
+            "gridX": 19,
+            "gridZ": 10
+        },
+        {
+            "coordinates": {
+                "gridX": 19,
+                "gridZ": 10
+            },
+            "vegetationPercentage": 0,
+            "elevation": 75,
+            "hexEffects": [
+            ],
+            "passable": true,
+            "opaque": false,
+            "movementCost": 0.0
+        }
+    ]
+}
