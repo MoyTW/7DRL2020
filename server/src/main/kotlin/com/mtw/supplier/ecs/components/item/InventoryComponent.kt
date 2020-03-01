@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 class InventoryComponent(
     val size: Int = 26
 ): Component() {
-    override var _parentId: Int? = null
+    override var _parentId: String? = null
 
     private val contents: MutableList<Entity> = mutableListOf()
 

@@ -5,7 +5,7 @@ import kotlin.reflect.KClass
 
 @Serializable
 class Entity(
-    val id: Int,
+    val id: String,
     val name: String
 ) {
     private val components: MutableList<Component> = mutableListOf()

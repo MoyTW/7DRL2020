@@ -5,6 +5,7 @@ import com.mtw.supplier.ecs.components.CollisionComponent
 import com.mtw.supplier.ecs.components.EncounterLocationComponent
 import com.mtw.supplier.utils.XYCoordinates
 import kotlinx.serialization.Serializable
+import org.hexworks.cobalt.core.api.UUID
 
 interface EncounterTileView {
     val blocksMovement: Boolean
@@ -26,15 +27,77 @@ enum class ExitDirection {
     }
 }
 
+class DreamRoomBuilder(
+//    val map: DreamMap,
+    val width: Int,
+    val height: Int,
+    val exits: List<ExitDirection> = ExitDirection.ALL_DIRECTIONS
+) {
+
+    fun build(): DreamRoom {
+        val nodes: Array<Array<DreamTile>> = Array(width) { Array(height) { DreamTile() } }
+        val room = DreamRoom(UUID.randomUUID().toString(), width, height, exits, nodes)
+
+        // North wall
+        val northExitX = if(exits.contains(ExitDirection.NORTH)) { (1 until width - 1).random() } else { null }
+        for (x in 0 until width) {
+            val entity = if (x == northExitX) {
+                Entity(UUID.randomUUID().toString(), "Door")
+                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
+            } else {
+                Entity(UUID.randomUUID().toString(), "Wall")
+                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
+            }
+            room.placeEntity(entity, XYCoordinates(x, height - 1), false)
+        }
+        // East
+        val eastExitY = if(exits.contains(ExitDirection.EAST))  { (1 until height - 1).random() } else { null }
+        for (y in 0 until height - 1) {
+            val entity = if (y == eastExitY) {
+                Entity(UUID.randomUUID().toString(), "Door")
+                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
+            } else {
+                Entity(UUID.randomUUID().toString(), "Wall")
+                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
+            }
+            room.placeEntity(entity, XYCoordinates(width - 1, y), false)
+        }
+        // South
+        val southExitX = if(exits.contains(ExitDirection.SOUTH))  { (1 until width - 1).random() } else { null }
+        for (x in 0 until width - 1) {
+            val entity = if (x == southExitX) {
+                Entity(UUID.randomUUID().toString(), "Door")
+                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
+            } else {
+                Entity(UUID.randomUUID().toString(), "Wall")
+                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
+            }
+            room.placeEntity(entity, XYCoordinates(x, 0), false)
+        }
+        // West
+        val westExitX = if(exits.contains(ExitDirection.WEST))  { (1 until height - 1).random() } else { null }
+        for (y in 1 until height - 1) {
+            val entity = if (y == westExitX) {
+                Entity(UUID.randomUUID().toString(), "Door")
+                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
+            } else {
+                Entity(UUID.randomUUID().toString(), "Wall")
+                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
+            }
+            room.placeEntity(entity, XYCoordinates(0, y), false)
+        }
+        return room
+    }
+}
+
 @Serializable
-internal class DreamRoom(
-    val id: Int,
+class DreamRoom internal constructor(
+    val uuid: String,
     override val width: Int,
     override val height: Int,
-    val exits: List<ExitDirection>
+    val exits: List<ExitDirection>,
+    private val nodes: Array<Array<DreamTile>>
 ): EncounterTileMapView {
-    private val nodes: Array<Array<DreamTile>> = Array(width) { Array(height) { DreamTile() } }
-
     override fun getTileView(x: Int, y: Int): EncounterTileView? {
         // yeah, yeah, exceptions, control flow, you could do a width/height. TODO: cleanup maybe
         return try {

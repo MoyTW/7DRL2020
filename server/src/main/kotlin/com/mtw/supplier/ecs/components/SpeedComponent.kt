@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 class SpeedComponent(
     var _baseSpeed: Int
 ): Component() {
-    override var _parentId: Int? = null
+    override var _parentId: String? = null
 
     val baseSpeed: Int
         get() = _baseSpeed

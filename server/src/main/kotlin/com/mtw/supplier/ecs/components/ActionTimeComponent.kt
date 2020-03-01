@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 class ActionTimeComponent(
     private var _ticksUntilTurn: Int = 0
 ) : Component() {
-    override var _parentId: Int? = null
+    override var _parentId: String? = null
 
     val ticksUntilTurn: Int
         get() = _ticksUntilTurn

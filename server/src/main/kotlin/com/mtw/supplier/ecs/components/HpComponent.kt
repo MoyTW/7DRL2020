@@ -8,7 +8,7 @@ class HpComponent(
     var maxHp: Int,
     var currentHp: Int
 ): Component() {
-    override var _parentId: Int? = null
+    override var _parentId: String? = null
 
     fun removeHp(hp: Int) {
         this.currentHp -= hp

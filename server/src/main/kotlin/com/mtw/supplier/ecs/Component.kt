@@ -6,16 +6,16 @@ import java.lang.UnsupportedOperationException
 
 @Serializable
 abstract class Component {
-    abstract var _parentId: Int?
+    abstract var _parentId: String?
 
-    val parentId: Int
+    val parentId: String
         get() = _parentId!!
 
     fun getParent(encounterState: EncounterState): Entity {
         return encounterState.getEntity(this.parentId)
     }
 
-    internal fun notifyAdded(parentId: Int) {
+    internal fun notifyAdded(parentId: String) {
         if (this._parentId != null) {
             throw UnsupportedOperationException("You can't double-add a Component!")
         }

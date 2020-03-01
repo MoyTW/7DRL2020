@@ -6,10 +6,12 @@ import com.mtw.supplier.ecs.components.EncounterLocationComponent
 import com.mtw.supplier.ecs.components.PlayerComponent
 import com.mtw.supplier.encounter.rulebook.Action
 import com.mtw.supplier.encounter.state.map.DreamRoom
+import com.mtw.supplier.encounter.state.map.DreamRoomBuilder
 import com.mtw.supplier.encounter.state.map.EncounterTileMapView
 import com.mtw.supplier.encounter.state.map.ExitDirection
 import com.mtw.supplier.utils.XYCoordinates
 import kotlinx.serialization.Serializable
+import org.hexworks.cobalt.core.api.UUID
 
 @Serializable
 class EncounterMessageLog {
@@ -71,7 +73,7 @@ class EncounterState(
     }
 
     // TODO: Map sizing
-    private val dreamRoom: DreamRoom = DreamRoom(1, width, height, ExitDirection.ALL_DIRECTIONS)
+    private val dreamRoom: DreamRoom = DreamRoomBuilder(width, height).build()
 
     fun getEncounterTileMap(): EncounterTileMapView {
         return dreamRoom
@@ -99,10 +101,10 @@ class EncounterState(
         return this.entities().first { it.hasComponent(PlayerComponent::class) }
     }
 
-    fun getEntity(entityId: Int): Entity {
+    fun getEntity(entityId: String): Entity {
         return entities().firstOrNull { it.id == entityId } ?: throw EntityIdNotFoundException(entityId)
     }
-    class EntityIdNotFoundException(entityId: Int): Exception("Entity id $entityId could not be found!")
+    class EntityIdNotFoundException(entityId: String): Exception("Entity id $entityId could not be found!")
 
     fun getBlockingEntityAtPosition(pos: XYCoordinates): Entity? {
         return this.dreamRoom.getEntitiesAtPosition(pos).firstOrNull { it.getComponentOrNull(CollisionComponent::class)?.blocksMovement ?: false }

@@ -10,6 +10,7 @@ import com.mtw.supplier.encounter.rulebook.actions.MoveAction
 import com.mtw.supplier.encounter.rulebook.actions.WaitAction
 import com.mtw.supplier.encounter.state.EncounterState
 import com.mtw.supplier.utils.XYCoordinates
+import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.*
 import org.hexworks.zircon.api.application.AppConfig
 import org.hexworks.zircon.api.color.ANSITileColor
@@ -177,7 +178,7 @@ class GameState {
 
         val activatedAi = EnemyScoutAIComponent()
         activatedAi.isActive = true
-        val scout = Entity(state.getNextEntityId(), "Scout")
+        val scout = Entity(UUID.randomUUID().toString(), "Scout")
             .addComponent(activatedAi)
             .addComponent(HpComponent(10, 10))
             .addComponent(FighterComponent(0, 0, 0))
@@ -185,7 +186,7 @@ class GameState {
             .addComponent(CollisionComponent.defaultFighter())
             .addComponent(ActionTimeComponent(75))
             .addComponent(SpeedComponent(75))
-        val player = Entity(state.getNextEntityId(), "player")
+        val player = Entity(UUID.randomUUID().toString(), "player")
             .addComponent(PlayerComponent())
             .addComponent(HpComponent(50, 50))
             .addComponent(FighterComponent(5, 100, 100))

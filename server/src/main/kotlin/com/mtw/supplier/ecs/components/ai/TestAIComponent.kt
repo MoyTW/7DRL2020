@@ -17,7 +17,7 @@ import kotlin.math.abs
 
 @Serializable
 class TestAIComponent : AIComponent() {
-    override var _parentId: Int? = null
+    override var _parentId: String? = null
     override var isActive: Boolean = true
 
     private fun parentIsHostileTo(parentEntity: Entity, otherEntity: Entity, encounterState: EncounterState): Boolean {

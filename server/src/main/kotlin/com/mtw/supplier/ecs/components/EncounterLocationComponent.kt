@@ -5,4 +5,4 @@ import com.mtw.supplier.utils.XYCoordinates
 import kotlinx.serialization.Serializable
 
 @Serializable
-class EncounterLocationComponent(var position: XYCoordinates, override var _parentId: Int? = null): Component()
+class EncounterLocationComponent(var position: XYCoordinates, override var _parentId: String? = null): Component()

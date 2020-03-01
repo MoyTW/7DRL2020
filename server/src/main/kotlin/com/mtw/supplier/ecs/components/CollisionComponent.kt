@@ -9,7 +9,7 @@ class CollisionComponent(
     var blocksVision: Boolean,
     var attackOnHit: Boolean,
     var selfDestructOnHit: Boolean,
-    override var _parentId: Int? = null
+    override var _parentId: String? = null
 ): Component() {
     companion object {
         fun defaultProjectile(): CollisionComponent = CollisionComponent(

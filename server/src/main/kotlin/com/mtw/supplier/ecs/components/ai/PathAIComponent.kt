@@ -13,7 +13,7 @@ import java.util.*
 class PathAIComponent(
     val path: Path
 ) : AIComponent() {
-    override var _parentId: Int? = null
+    override var _parentId: String? = null
     override var isActive: Boolean = true
 
     override fun decideNextActions(encounterState: EncounterState): List<Action> {

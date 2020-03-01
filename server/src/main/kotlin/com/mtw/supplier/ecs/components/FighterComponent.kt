@@ -8,5 +8,5 @@ class FighterComponent(
     var hitDamage: Int,
     var toHit: Int,
     var toDodge: Int,
-    override var _parentId: Int? = null
+    override var _parentId: String? = null
 ): Component()

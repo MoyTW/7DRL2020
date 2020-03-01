@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class EnemyScoutAIComponent(): AIComponent() {
-    override var _parentId: Int? = null
+    override var _parentId: String? = null
     override var isActive: Boolean = false
 
     override fun decideNextActions(encounterState: EncounterState): List<Action> {

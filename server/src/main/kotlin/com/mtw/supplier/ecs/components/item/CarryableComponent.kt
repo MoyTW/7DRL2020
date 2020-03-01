@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class CarryableComponent: Component() {
-    override var _parentId: Int? = null
+    override var _parentId: String? = null
 }

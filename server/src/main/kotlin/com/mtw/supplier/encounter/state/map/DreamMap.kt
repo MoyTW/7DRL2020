@@ -8,15 +8,20 @@ package com.mtw.supplier.encounter.state.map
  *        ROOM
  */
 
-class DreamMap() {
+class DreamMap(
+    private val centerRoom: DreamRoom
+) {
     private val roomsById: MutableMap<Int, DreamRoom> = mutableMapOf()
-    private val roomGraph: MutableMap<DreamRoom, Pair<ExitDirection, DreamRoom>> = mutableMapOf()
+    private val roomGraph: MutableMap<DreamRoom, MutableMap<ExitDirection, DreamRoom>> = mutableMapOf()
 
     internal fun connectRooms(oldRoom: DreamRoom, exitDirection: ExitDirection, newRoom: DreamRoom) {
         TODO()
     }
 
-    private fun recalculatePositions() {
-        
+    private fun getConnectedRoomByDirection(room: DreamRoom, direction: ExitDirection): DreamRoom? {
+        return roomGraph[room]!![direction]
+    }
+
+    private fun recalculatePositions(primaryRoom: DreamRoom) {
     }
 }
