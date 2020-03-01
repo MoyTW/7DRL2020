@@ -59,6 +59,8 @@ dependencies {
 	implementation("no.tornado:tornadofx:1.7.17") {
 		exclude("org.jetbrains.kotlin")
 	}
+	implementation("org.hexworks.zircon:zircon.core-jvm:2020.0.2-PREVIEW")
+	implementation("org.hexworks.zircon:zircon.jvm.swing:2020.0.2-PREVIEW")
 
 }
 
