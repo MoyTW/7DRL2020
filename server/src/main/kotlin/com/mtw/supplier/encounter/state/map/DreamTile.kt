@@ -11,7 +11,7 @@ internal class DreamTile(
     var terrainBlocksMovement: Boolean = false,
     var terrainBlocksVision: Boolean = false,
     override val entities: MutableList<Entity> = mutableListOf()
-): EncounterTileView {
+): DreamTileI {
 
     override val blocksMovement: Boolean
         get() = terrainBlocksMovement ||

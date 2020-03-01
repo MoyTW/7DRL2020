@@ -7,11 +7,9 @@ import com.mtw.supplier.ecs.components.PlayerComponent
 import com.mtw.supplier.encounter.rulebook.Action
 import com.mtw.supplier.encounter.state.map.DreamRoom
 import com.mtw.supplier.encounter.state.map.DreamRoomBuilder
-import com.mtw.supplier.encounter.state.map.EncounterTileMapView
-import com.mtw.supplier.encounter.state.map.ExitDirection
+import com.mtw.supplier.encounter.state.map.DreamMapI
 import com.mtw.supplier.utils.XYCoordinates
 import kotlinx.serialization.Serializable
-import org.hexworks.cobalt.core.api.UUID
 
 @Serializable
 class EncounterMessageLog {
@@ -75,7 +73,7 @@ class EncounterState(
     // TODO: Map sizing
     private val dreamRoom: DreamRoom = DreamRoomBuilder(width, height).build()
 
-    fun getEncounterTileMap(): EncounterTileMapView {
+    fun getEncounterTileMap(): DreamMapI {
         return dreamRoom
     }
 

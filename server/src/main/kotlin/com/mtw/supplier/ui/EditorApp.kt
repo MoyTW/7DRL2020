@@ -17,8 +17,6 @@ import org.hexworks.zircon.api.color.ANSITileColor
 import org.hexworks.zircon.api.data.Position
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.extensions.toScreen
-import org.hexworks.zircon.api.graphics.Symbols
-import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.screen.Screen
 import org.hexworks.zircon.api.uievent.*
 
@@ -85,7 +83,7 @@ object EditorApp {
             .build()
         for (x in 0 until tiles.width) {
             for (y in 0 until tiles.height) {
-                val tile = tiles.getTileView(x, y)
+                val tile = tiles.getDreamTileI(x, y)
                 val drawTile = when {
                     tile?.explored == false-> { unexploredTile }
                     !fov!!.isInFoV(XYCoordinates(x, y)) -> { exploredTile }

@@ -1,6 +1,6 @@
 package com.mtw.supplier.encounter.state
 
-import com.mtw.supplier.encounter.state.map.EncounterTileMapView
+import com.mtw.supplier.encounter.state.map.DreamMapI
 import com.mtw.supplier.utils.XYCoordinates
 import kotlinx.serialization.Serializable
 import kotlin.math.max
@@ -18,11 +18,11 @@ class FoVCache internal constructor(val visiblePositions: Set<XYCoordinates>) {
     }
 
     companion object {
-        fun computeFoV(tileMapView: EncounterTileMapView, center: XYCoordinates, radius: Int): FoVCache {
+        fun computeFoV(tileMapI: DreamMapI, center: XYCoordinates, radius: Int): FoVCache {
             val visibleCells = RPASCal.calcVisibleCellsFrom(center, radius) {
-                tileMapView.getTileView(it.x, it.y)?.blocksVision == false
+                tileMapI.getDreamTileI(it.x, it.y)?.blocksVision == false
             }.filter {
-                0 <= it.x && it.x < tileMapView.width && 0 <= it.y && it.y < tileMapView.height
+                0 <= it.x && it.x < tileMapI.width && 0 <= it.y && it.y < tileMapI.height
             }.toSet()
             return FoVCache(visibleCells)
         }

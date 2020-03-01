@@ -8,17 +8,17 @@ import com.mtw.supplier.utils.XYCoordinates
 import kotlinx.serialization.Serializable
 import org.hexworks.cobalt.core.api.UUID
 
-interface EncounterTileView {
+interface DreamTileI {
     val blocksMovement: Boolean
     val explored: Boolean
     val blocksVision: Boolean
     val entities: List<Entity>
 }
 
-interface EncounterTileMapView {
+interface DreamMapI {
     val width: Int
     val height: Int
-    fun getTileView(x: Int, y: Int): EncounterTileView?
+    fun getDreamTileI(x: Int, y: Int): DreamTileI?
 }
 
 enum class ExitDirection {
@@ -99,8 +99,8 @@ class DreamRoom internal constructor(
     override val height: Int,
     val doors: Map<ExitDirection, Entity>,
     private val nodes: Array<Array<DreamTile>>
-): EncounterTileMapView {
-    override fun getTileView(x: Int, y: Int): EncounterTileView? {
+): DreamMapI {
+    override fun getDreamTileI(x: Int, y: Int): DreamTileI? {
         // yeah, yeah, exceptions, control flow, you could do a width/height. TODO: cleanup maybe
         return try {
             nodes[x][y]
