@@ -1,11 +1,10 @@
-package com.mtw.supplier.encounter.state
+package com.mtw.supplier.encounter.state.map
 
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.CollisionComponent
 import com.mtw.supplier.ecs.components.EncounterLocationComponent
 import com.mtw.supplier.utils.XYCoordinates
 import kotlinx.serialization.Serializable
-
 
 interface EncounterTileView {
     val blocksMovement: Boolean
@@ -20,37 +19,21 @@ interface EncounterTileMapView {
     fun getTileView(x: Int, y: Int): EncounterTileView?
 }
 
-@Serializable
-private class EncounterNode(
-    // Whether or not the node itself is passable
-    private var _explored: Boolean = false,
-    var terrainBlocksMovement: Boolean = false,
-    var terrainBlocksVision: Boolean = false,
-    override val entities: MutableList<Entity> = mutableListOf()
-): EncounterTileView {
-
-    override val blocksMovement: Boolean
-        get() = terrainBlocksMovement ||
-            entities.any{ it.getComponentOrNull(CollisionComponent::class)?.blocksMovement ?: false }
-
-    override val explored: Boolean
-        get() = _explored
-
-    override val blocksVision: Boolean
-        get() = terrainBlocksVision ||
-            entities.any{ it.getComponentOrNull(CollisionComponent::class)?.blocksVision ?: false }
-
-    fun markExplored() {
-        this._explored = true
+enum class ExitDirection {
+    NORTH, EAST, SOUTH, WEST;
+    companion object {
+        val ALL_DIRECTIONS = listOf(NORTH, EAST, SOUTH, WEST)
     }
 }
 
 @Serializable
-internal class EncounterMap(
+internal class DreamRoom(
+    val id: Int,
     override val width: Int,
-    override val height: Int
+    override val height: Int,
+    val exits: List<ExitDirection>
 ): EncounterTileMapView {
-    private val nodes: Array<Array<EncounterNode>> = Array(width) { Array(height) { EncounterNode() } }
+    private val nodes: Array<Array<DreamTile>> = Array(width) { Array(height) { DreamTile() } }
 
     override fun getTileView(x: Int, y: Int): EncounterTileView? {
         // yeah, yeah, exceptions, control flow, you could do a width/height. TODO: cleanup maybe

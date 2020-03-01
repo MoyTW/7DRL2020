@@ -5,6 +5,9 @@ import com.mtw.supplier.ecs.components.CollisionComponent
 import com.mtw.supplier.ecs.components.EncounterLocationComponent
 import com.mtw.supplier.ecs.components.PlayerComponent
 import com.mtw.supplier.encounter.rulebook.Action
+import com.mtw.supplier.encounter.state.map.DreamRoom
+import com.mtw.supplier.encounter.state.map.EncounterTileMapView
+import com.mtw.supplier.encounter.state.map.ExitDirection
 import com.mtw.supplier.utils.XYCoordinates
 import kotlinx.serialization.Serializable
 
@@ -53,12 +56,12 @@ class EncounterState(
         get() = this._completed
 
     fun calculatePlayerFoVAndMarkExploration() {
-        this.fovCache = FoVCache.computeFoV(this.encounterMap,
+        this.fovCache = FoVCache.computeFoV(this.dreamRoom,
             this.playerEntity().getComponent(EncounterLocationComponent::class).position,
             5
         ) // TOOD: Vision radius
         for (pos in this.fovCache!!.visiblePositions) {
-            encounterMap.markExplored(pos)
+            dreamRoom.markExplored(pos)
         }
     }
 
@@ -68,10 +71,10 @@ class EncounterState(
     }
 
     // TODO: Map sizing
-    private val encounterMap: EncounterMap = EncounterMap(width, height)
+    private val dreamRoom: DreamRoom = DreamRoom(1, width, height, ExitDirection.ALL_DIRECTIONS)
 
     fun getEncounterTileMap(): EncounterTileMapView {
-        return encounterMap
+        return dreamRoom
     }
 
     fun advanceTime(timeDiff: Int) {
@@ -89,7 +92,7 @@ class EncounterState(
 
     // TODO: Possibly maintain internal list
     fun entities(): List<Entity> {
-        return this.encounterMap.entities()
+        return this.dreamRoom.entities()
     }
 
     fun playerEntity(): Entity {
@@ -102,19 +105,19 @@ class EncounterState(
     class EntityIdNotFoundException(entityId: Int): Exception("Entity id $entityId could not be found!")
 
     fun getBlockingEntityAtPosition(pos: XYCoordinates): Entity? {
-        return this.encounterMap.getEntitiesAtPosition(pos).firstOrNull { it.getComponentOrNull(CollisionComponent::class)?.blocksMovement ?: false }
+        return this.dreamRoom.getEntitiesAtPosition(pos).firstOrNull { it.getComponentOrNull(CollisionComponent::class)?.blocksMovement ?: false }
     }
 
     fun positionBlocked(pos: XYCoordinates): Boolean {
-        return this.encounterMap.positionBlocked(pos)
+        return this.dreamRoom.positionBlocked(pos)
     }
 
     fun arePositionsAdjacent(pos1: XYCoordinates, pos2: XYCoordinates): Boolean {
-        return this.encounterMap.arePositionsAdjacent(pos1, pos2)
+        return this.dreamRoom.arePositionsAdjacent(pos1, pos2)
     }
 
     fun adjacentUnblockedPositions(pos: XYCoordinates): List<XYCoordinates> {
-        return this.encounterMap.adjacentUnblockedPositions(pos)
+        return this.dreamRoom.adjacentUnblockedPositions(pos)
     }
 
     /**
@@ -122,17 +125,17 @@ class EncounterState(
      * @throws NodeHasInsufficientSpaceException when node cannot find space for the entity
      */
     fun placeEntity(entity: Entity, targetPosition: XYCoordinates, ignoreCollision: Boolean = false): EncounterState {
-        this.encounterMap.placeEntity(entity, targetPosition, ignoreCollision)
+        this.dreamRoom.placeEntity(entity, targetPosition, ignoreCollision)
         return this
     }
 
     fun removeEntity(entity: Entity): EncounterState {
-        this.encounterMap.removeEntity(entity)
+        this.dreamRoom.removeEntity(entity)
         return this
     }
 
     fun teleportEntity(entity: Entity, targetPosition: XYCoordinates, ignoreCollision: Boolean = false) {
-        this.encounterMap.teleportEntity(entity, targetPosition, ignoreCollision)
+        this.dreamRoom.teleportEntity(entity, targetPosition, ignoreCollision)
     }
 }
 

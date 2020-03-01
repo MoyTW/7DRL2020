@@ -1,5 +1,6 @@
 package com.mtw.supplier.encounter.state
 
+import com.mtw.supplier.encounter.state.map.EncounterTileMapView
 import com.mtw.supplier.utils.XYCoordinates
 import kotlinx.serialization.Serializable
 import kotlin.math.max
