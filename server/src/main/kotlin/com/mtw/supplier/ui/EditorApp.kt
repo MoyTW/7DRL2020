@@ -1,28 +1,222 @@
 package com.mtw.supplier.ui
 
-import org.hexworks.zircon.api.CP437TilesetResources
-import org.hexworks.zircon.api.ColorThemes
-import org.hexworks.zircon.api.Components
-import org.hexworks.zircon.api.SwingApplications
+import com.mtw.supplier.ecs.Entity
+import com.mtw.supplier.ecs.components.*
+import com.mtw.supplier.ecs.components.ai.AIComponent
+import com.mtw.supplier.ecs.components.ai.EnemyScoutAIComponent
+import com.mtw.supplier.ecs.components.ai.PathAIComponent
+import com.mtw.supplier.encounter.EncounterRunner
+import com.mtw.supplier.encounter.rulebook.actions.MoveAction
+import com.mtw.supplier.encounter.rulebook.actions.WaitAction
+import com.mtw.supplier.encounter.state.EncounterState
+import com.mtw.supplier.utils.XYCoordinates
+import org.hexworks.zircon.api.*
 import org.hexworks.zircon.api.application.AppConfig
+import org.hexworks.zircon.api.color.ANSITileColor
+import org.hexworks.zircon.api.data.Position
+import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.extensions.toScreen
+import org.hexworks.zircon.api.graphics.Symbols
+import org.hexworks.zircon.api.grid.TileGrid
+import org.hexworks.zircon.api.screen.Screen
+import org.hexworks.zircon.api.uievent.*
+
+enum class Direction(val dx: Int, val dy: Int) {
+    N(0, 1),
+    NE(1, 1),
+    E(1, 0),
+    SE(1, -1),
+    S(0, -1),
+    SW(-1, -1),
+    W(-1, 0),
+    NW(-1, 1)
+}
+
+
 
 object EditorApp {
+    val gameState = GameState()
+    
     @JvmStatic
     fun main(args: Array<String>) {
         val tileGrid = SwingApplications.startTileGrid(
             AppConfig.newBuilder()
-                .withSize(60, 30)
+                .withSize(40, 40)
                 .withDefaultTileset(CP437TilesetResources.rexPaint16x16())
                 .build())
 
         val screen = tileGrid.toScreen()
 
-        screen.addComponent(Components.label()
-            .withText("Hello, Zircon!")
-            .withPosition(23, 10))
-
         screen.display()
         screen.theme = ColorThemes.arc()
+
+        tileGrid.processKeyboardEvents(KeyboardEventType.KEY_PRESSED) { keyboardEvent: KeyboardEvent, uiEventPhase: UIEventPhase ->
+            handleKeyPress(keyboardEvent)
+            renderGameState(screen)
+            UIEventResponse.pass()
+        }
+
+        renderGameState(screen)
+    }
+
+    private fun renderFoWTiles(screen: Screen) {
+        val tiles = gameState.encounterState.getEncounterTileMap()
+        val fov = gameState.encounterState.fovCache
+
+        val unexploredTile = Tile.newBuilder()
+            .withBackgroundColor(ANSITileColor.BLACK)
+            .build()
+        val exploredTile = Tile.newBuilder()
+            .withBackgroundColor(ANSITileColor.GRAY)
+            .build()
+        val visibleTile = Tile.newBuilder()
+            .withBackgroundColor(ANSITileColor.WHITE)
+            .build()
+        for (x in 0 until tiles.width) {
+            for (y in 0 until tiles.height) {
+                val tile = tiles.getTileView(x, y)
+                val drawTile = when {
+                    tile?.explored == false-> { unexploredTile }
+                    !fov!!.isInFoV(XYCoordinates(x, y)) -> { exploredTile }
+                    else -> { visibleTile }
+                }
+                screen.draw(drawTile, Position.create(x, screen.height - y - 1))
+            }
+        }
+    }
+
+    private fun renderPathEntities(screen: Screen, encounterState: EncounterState) {
+        val pathEntities = gameState.encounterState.entities()
+            .filter { it.hasComponent(EncounterLocationComponent::class) &&
+                it.hasComponent(PathAIComponent::class)}
+
+        val pathTile = Tile.newBuilder()
+            .withBackgroundColor(ANSITileColor.MAGENTA)
+            .build()
+        val projectileTile = Tile.newBuilder()
+            .withBackgroundColor(ANSITileColor.BRIGHT_MAGENTA)
+            .withCharacter(Symbols.BULLET_SMALL)
+            .build()
+
+        pathEntities.map {
+            val path = it.getComponent(PathAIComponent::class).path
+            val projectileSpeed = it.getComponent(SpeedComponent::class).speed
+            val projectileTicks = it.getComponent(ActionTimeComponent::class)!!.ticksUntilTurn
+
+            val playerSpeed = encounterState.playerEntity().getComponent(SpeedComponent::class).speed
+            val playerTicks = encounterState.playerEntity().getComponent(ActionTimeComponent::class)!!.ticksUntilTurn
+            if (projectileTicks <= playerTicks) {
+                val turns = ((playerTicks - projectileTicks) + playerSpeed) / projectileSpeed
+                val stops = path.project(turns)
+                if (stops.size > 1) {
+                    for (stop in stops.subList(1, stops.size)) {
+                        screen.draw(pathTile, Position.create(stop.x, screen.height - stop.y - 1))
+                    }
+                }
+            }
+        }
+
+        pathEntities.map {
+            val entityPos = it.getComponent(EncounterLocationComponent::class).position
+            screen.draw(projectileTile, Position.create(entityPos.x, screen.height - entityPos.y - 1))
+        }
+    }
+
+    private fun renderNonPathAIEntities(screen: Screen, encounterState: EncounterState) {
+        val enemyTile = Tile.newBuilder()
+            .withCharacter('s')
+            .withBackgroundColor(ANSITileColor.RED)
+            .buildCharacterTile()
+
+        val nonPathAiEntities = encounterState.entities()
+            .filter { it.hasComponent(EncounterLocationComponent::class) &&
+                it.hasComponent(AIComponent::class) &&
+                !it.hasComponent(PathAIComponent::class) }
+        nonPathAiEntities.map {
+            val entityPos = it.getComponent(EncounterLocationComponent::class).position
+            screen.draw(enemyTile, Position.create(entityPos.x, screen.height - entityPos.y - 1))
+        }
+    }
+
+    private fun renderPlayer(screen: Screen, encounterState: EncounterState) {
+        val playerTile = Tile.newBuilder()
+            .withCharacter('@')
+            .withForegroundColor(ANSITileColor.GREEN)
+            .withBackgroundColor(ANSITileColor.WHITE)
+            .buildCharacterTile()
+        val playerPos = encounterState.playerEntity().getComponent(EncounterLocationComponent::class).position
+        screen.draw(playerTile, Position.create(playerPos.x, screen.height - playerPos.y - 1))
+    }
+
+    private fun renderGameState(screen: Screen) {
+        screen.clear()
+        // Render the tiles
+        renderFoWTiles(screen)
+        renderPathEntities(screen, gameState.encounterState)
+        renderNonPathAIEntities(screen, gameState.encounterState)
+        renderPlayer(screen, gameState.encounterState)
+    }
+    
+    private fun handleKeyPress(event: KeyboardEvent): Boolean {
+        return when (event.code) {
+            KeyCode.NUMPAD_1 -> { gameState.postMoveAction(Direction.SW); true }
+            KeyCode.NUMPAD_2 -> { gameState.postMoveAction(Direction.S); true }
+            KeyCode.NUMPAD_3 -> { gameState.postMoveAction(Direction.SE); true }
+            KeyCode.NUMPAD_4 -> { gameState.postMoveAction(Direction.W); true }
+            KeyCode.NUMPAD_5 -> { gameState.postWaitAction(); true }
+            KeyCode.NUMPAD_6 -> { gameState.postMoveAction(Direction.E); true }
+            KeyCode.NUMPAD_7 -> { gameState.postMoveAction(Direction.NW); true }
+            KeyCode.NUMPAD_8 -> { gameState.postMoveAction(Direction.N); true }
+            KeyCode.NUMPAD_9 -> { gameState.postMoveAction(Direction.NE); true }
+            else -> { false }
+        }
+    }
+}
+
+class GameState {
+    var encounterState: EncounterState = generateNewGameState()
+        
+    internal fun postWaitAction() {
+        val action = WaitAction(encounterState!!.playerEntity())
+        EncounterRunner.runPlayerTurn(encounterState!!, action)
+        EncounterRunner.runUntilPlayerReady(encounterState!!)
+    }
+
+    internal fun postMoveAction(direction: Direction) {
+        val oldPlayerPos = encounterState!!.playerEntity().getComponent(EncounterLocationComponent::class).position
+        val newPlayerPos = oldPlayerPos.copy(
+            x = oldPlayerPos.x + direction.dx, y = oldPlayerPos.y + direction.dy)
+
+        val action = MoveAction(encounterState!!.playerEntity(), newPlayerPos)
+        EncounterRunner.runPlayerTurn(encounterState!!, action)
+        EncounterRunner.runUntilPlayerReady(encounterState!!)
+    }
+
+    private final fun generateNewGameState(): EncounterState {
+        val state = EncounterState(40, 40)
+
+        val activatedAi = EnemyScoutAIComponent()
+        activatedAi.isActive = true
+        val scout = Entity(state.getNextEntityId(), "Scout")
+            .addComponent(activatedAi)
+            .addComponent(HpComponent(10, 10))
+            .addComponent(FighterComponent(0, 0, 0))
+            .addComponent(FactionComponent(0))
+            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(ActionTimeComponent(75))
+            .addComponent(SpeedComponent(75))
+        val player = Entity(state.getNextEntityId(), "player")
+            .addComponent(PlayerComponent())
+            .addComponent(HpComponent(50, 50))
+            .addComponent(FighterComponent(5, 100, 100))
+            .addComponent(FactionComponent(2))
+            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(ActionTimeComponent(100))
+            .addComponent(SpeedComponent(100))
+
+        state.placeEntity(scout, XYCoordinates(10, 10))
+            .placeEntity(player, XYCoordinates(25, 25))
+        EncounterRunner.runUntilPlayerReady(state)
+        return state
     }
 }
