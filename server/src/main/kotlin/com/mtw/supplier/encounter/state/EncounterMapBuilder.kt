@@ -1,6 +1,7 @@
 package com.mtw.supplier.encounter.state
 
 import com.mtw.supplier.encounter.state.map.DreamRoom
+import com.mtw.supplier.encounter.state.map.ExitDirection
 import com.mtw.supplier.utils.XYCoordinates
 
 class Zone(
@@ -36,7 +37,7 @@ class EncounterMapBuilder(
 
     fun build() {
         // Generate the map with a border
-        val encounterMap = DreamRoom(mapWidth, mapHeight)
+        val encounterMap = DreamRoom(1, mapWidth, mapHeight, ExitDirection.ALL_DIRECTIONS)
         for (x in 0 until mapWidth) {
             for (y in 0 until mapHeight) {
                 if (x == 0 || x == mapWidth - 1 || y == 0 || y == mapHeight - 1) {

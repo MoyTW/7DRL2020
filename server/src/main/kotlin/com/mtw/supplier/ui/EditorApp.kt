@@ -36,6 +36,11 @@ enum class Direction(val dx: Int, val dy: Int) {
 
 object EditorApp {
     val gameState = GameState()
+    val WIDTH: Int = 40
+    val HEIGHT: Int = 40
+    val CENTER = XYCoordinates(WIDTH / 2, HEIGHT / 2)
+    private var cameraX: Int = 0
+    private var cameraY: Int = 0
     
     @JvmStatic
     fun main(args: Array<String>) {
@@ -59,6 +64,11 @@ object EditorApp {
         renderGameState(screen)
     }
 
+    private fun draw(screen: Screen, tile: Tile, pos: XYCoordinates) {
+        val screenPos = toCameraCoordinates(pos)
+        screen.draw(tile, Position.create(screenPos.x, screen.height - screenPos.y - 1))
+    }
+
     private fun renderFoWTiles(screen: Screen) {
         val tiles = gameState.encounterState.getEncounterTileMap()
         val fov = gameState.encounterState.fovCache
@@ -80,7 +90,7 @@ object EditorApp {
                     !fov!!.isInFoV(XYCoordinates(x, y)) -> { exploredTile }
                     else -> { visibleTile }
                 }
-                screen.draw(drawTile, Position.create(x, screen.height - y - 1))
+                draw(screen, drawTile, XYCoordinates(x, y))
             }
         }
     }
@@ -97,7 +107,7 @@ object EditorApp {
                 !it.hasComponent(PathAIComponent::class) }
         nonPathAiEntities.map {
             val entityPos = it.getComponent(EncounterLocationComponent::class).position
-            screen.draw(enemyTile, Position.create(entityPos.x, screen.height - entityPos.y - 1))
+            draw(screen, enemyTile, entityPos)
         }
     }
 
@@ -108,12 +118,20 @@ object EditorApp {
             .withBackgroundColor(ANSITileColor.WHITE)
             .buildCharacterTile()
         val playerPos = encounterState.playerEntity().getComponent(EncounterLocationComponent::class).position
-        screen.draw(playerTile, Position.create(playerPos.x, screen.height - playerPos.y - 1))
+        draw(screen, playerTile, playerPos)
+    }
+
+    private fun toCameraCoordinates(pos: XYCoordinates): XYCoordinates {
+        return XYCoordinates(pos.x - cameraX + CENTER.x, pos.y - cameraY + CENTER.y)
     }
 
     private fun renderGameState(screen: Screen) {
         screen.clear()
         // Render the tiles
+        val playerPos = gameState.encounterState.playerEntity().getComponent(EncounterLocationComponent::class).position
+        cameraX = playerPos.x
+        cameraY = playerPos.y
+
         renderFoWTiles(screen)
         renderNonPathAIEntities(screen, gameState.encounterState)
         renderPlayer(screen, gameState.encounterState)
