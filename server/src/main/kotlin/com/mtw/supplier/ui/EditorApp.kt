@@ -85,43 +85,6 @@ object EditorApp {
         }
     }
 
-    private fun renderPathEntities(screen: Screen, encounterState: EncounterState) {
-        val pathEntities = gameState.encounterState.entities()
-            .filter { it.hasComponent(EncounterLocationComponent::class) &&
-                it.hasComponent(PathAIComponent::class)}
-
-        val pathTile = Tile.newBuilder()
-            .withBackgroundColor(ANSITileColor.MAGENTA)
-            .build()
-        val projectileTile = Tile.newBuilder()
-            .withBackgroundColor(ANSITileColor.BRIGHT_MAGENTA)
-            .withCharacter(Symbols.BULLET_SMALL)
-            .build()
-
-        pathEntities.map {
-            val path = it.getComponent(PathAIComponent::class).path
-            val projectileSpeed = it.getComponent(SpeedComponent::class).speed
-            val projectileTicks = it.getComponent(ActionTimeComponent::class)!!.ticksUntilTurn
-
-            val playerSpeed = encounterState.playerEntity().getComponent(SpeedComponent::class).speed
-            val playerTicks = encounterState.playerEntity().getComponent(ActionTimeComponent::class)!!.ticksUntilTurn
-            if (projectileTicks <= playerTicks) {
-                val turns = ((playerTicks - projectileTicks) + playerSpeed) / projectileSpeed
-                val stops = path.project(turns)
-                if (stops.size > 1) {
-                    for (stop in stops.subList(1, stops.size)) {
-                        screen.draw(pathTile, Position.create(stop.x, screen.height - stop.y - 1))
-                    }
-                }
-            }
-        }
-
-        pathEntities.map {
-            val entityPos = it.getComponent(EncounterLocationComponent::class).position
-            screen.draw(projectileTile, Position.create(entityPos.x, screen.height - entityPos.y - 1))
-        }
-    }
-
     private fun renderNonPathAIEntities(screen: Screen, encounterState: EncounterState) {
         val enemyTile = Tile.newBuilder()
             .withCharacter('s')
@@ -152,7 +115,6 @@ object EditorApp {
         screen.clear()
         // Render the tiles
         renderFoWTiles(screen)
-        renderPathEntities(screen, gameState.encounterState)
         renderNonPathAIEntities(screen, gameState.encounterState)
         renderPlayer(screen, gameState.encounterState)
     }

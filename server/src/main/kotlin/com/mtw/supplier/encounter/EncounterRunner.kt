@@ -7,8 +7,6 @@ import com.mtw.supplier.ecs.components.ai.PathAIComponent
 import com.mtw.supplier.encounter.rulebook.Action
 import com.mtw.supplier.encounter.state.EncounterState
 import com.mtw.supplier.encounter.rulebook.Rulebook
-import com.mtw.supplier.encounter.rulebook.actions.FireProjectileAction
-import com.mtw.supplier.encounter.rulebook.actions.ProjectileType
 import com.mtw.supplier.utils.LinePathBuilder
 import com.mtw.supplier.utils.PathBuilder
 import org.slf4j.LoggerFactory
@@ -43,20 +41,6 @@ object EncounterRunner {
         return readyEntities
     }
 
-    private fun fireLaser(encounterState: EncounterState, player: Entity) {
-        val hostileEntities = encounterState.entities().filter {
-            it.hasComponent(AIComponent::class) && it.hasComponent(FactionComponent::class) }
-        // TODO: Range and FOV stuff
-        if (hostileEntities.isNotEmpty()) {
-            val playerPos = player.getComponent(EncounterLocationComponent::class).position
-
-            val target = hostileEntities[0]
-            val pathBuilder = LinePathBuilder(target.getComponent(EncounterLocationComponent::class).position)
-            // TODO: Do damage
-            //Rulebook.resolveAction(FireProjectileAction(player, 0, pathBuilder, 0, ProjectileType.LASER), encounterState)
-        }
-    }
-
     fun runPlayerTurn(encounterState: EncounterState, playerAction: Action) {
         if (encounterState.completed) { return }
 
@@ -67,9 +51,6 @@ object EncounterRunner {
 
         // Update the FoV for the player
         encounterState.calculatePlayerFoVAndMarkExploration()
-
-        // Shoot the player's laser
-        fireLaser(encounterState, playerAction.actor)
     }
 
     fun runUntilPlayerReady(encounterState: EncounterState) {

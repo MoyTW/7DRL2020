@@ -20,7 +20,6 @@ object Rulebook {
     fun resolveAction(action: Action, encounterState: EncounterState) {
         when (action.actionType) {
             ActionType.ATTACK -> resolveAttackAction(action as AttackAction, encounterState)
-            ActionType.FIRE_PROJECTILE -> resolveFireProjectileAction(action as FireProjectileAction, encounterState)
             ActionType.MOVE -> resolveMoveAction(action as MoveAction, encounterState)
             ActionType.USE_ITEM -> TODO()
             ActionType.WAIT -> resolveWaitAction(action as WaitAction, encounterState.messageLog)
@@ -79,23 +78,6 @@ object Rulebook {
             // TODO: "No AI == dead" is a sketchy definition of dead!
             entity.removeComponent(AIComponent::class)
             messageLog.logEvent("DEATH", "[${entity.name}] is dead!")
-        }
-    }
-
-    private fun resolveFireProjectileAction(action: FireProjectileAction, encounterState: EncounterState) {
-        val shooterPos = action.actor.getComponent(EncounterLocationComponent::class).position
-        repeat (action.numProjectiles) {
-            val path = action.pathBuilder.build(shooterPos)
-            val projectile = Entity(encounterState.getNextEntityId(), action.projectileType.displayName)
-                .addComponent(PathAIComponent(path))
-                .addComponent(FighterComponent(action.damage, 0, 0))
-                .addComponent(CollisionComponent.defaultProjectile())
-                .addComponent(ActionTimeComponent(action.speed))
-                .addComponent(SpeedComponent(action.speed))
-            encounterState.placeEntity(projectile, path.currentPosition(), ignoreCollision = true)
-
-            encounterState.messageLog.logAction(action, "SUCCESS",
-                "${action.actor.name} at $shooterPos fired ${action.projectileType} from ${path.currentPosition()}")
         }
     }
 
