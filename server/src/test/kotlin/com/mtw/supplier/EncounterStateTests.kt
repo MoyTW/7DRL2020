@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest
 @SpringBootTest
 class EncounterStateTests {
 
-    @Test
+    /*@Test
     fun doesStuff() {
         val fighterOne = Entity(1, "wolf")
             .addComponent(AIComponent())
@@ -38,5 +38,5 @@ class EncounterStateTests {
             .placeEntity(fighterOne, XYCoordinates(0, 0))
             .placeEntity(fighterTwo, XYCoordinates(4, 0))
         EncounterRunner.runEncounter(encounterState)
-    }
+    }*/
 }
