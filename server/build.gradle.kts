@@ -14,12 +14,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
 	kotlin("jvm")
+	application
 	id("org.springframework.boot") version "2.1.8.RELEASE"
 	id("io.spring.dependency-management") version "1.0.8.RELEASE"
 	kotlin("plugin.spring") version "1.3.50"
 	kotlin("plugin.jpa") version "1.3.50"
 	id("org.jetbrains.kotlin.plugin.serialization") version "1.3.50"
 	id("org.openjfx.javafxplugin") version "0.0.7"
+	id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
 javafx {
@@ -57,6 +59,11 @@ dependencies {
 	implementation("no.tornado:tornadofx:1.7.17") {
 		exclude("org.jetbrains.kotlin")
 	}
+
+}
+
+application {
+	mainClassName = "com.mtw.supplier.ui.EditorApp"
 }
 
 tasks.withType<KotlinCompile> {
