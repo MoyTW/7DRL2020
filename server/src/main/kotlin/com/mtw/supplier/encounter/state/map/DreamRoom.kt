@@ -23,6 +23,16 @@ interface EncounterTileMapView {
 
 enum class ExitDirection {
     NORTH, EAST, SOUTH, WEST;
+
+    fun opposite(): ExitDirection {
+        return when (this) {
+            NORTH -> SOUTH
+            EAST -> WEST
+            SOUTH -> NORTH
+            WEST -> EAST
+        }
+    }
+
     companion object {
         val ALL_DIRECTIONS = listOf(NORTH, EAST, SOUTH, WEST)
     }
@@ -34,12 +44,15 @@ class DreamRoomBuilder(
     val height: Int,
     val exits: List<ExitDirection> = ExitDirection.ALL_DIRECTIONS
 ) {
+    private val doors: MutableMap<ExitDirection, Entity> = mutableMapOf()
 
-    private fun doorOrWall(isDoor: Boolean): Entity {
+    private fun doorOrWall(isDoor: Boolean, direction: ExitDirection): Entity {
         return if (isDoor) {
-            Entity(UUID.randomUUID().toString(), "Door")
+            val door = Entity(UUID.randomUUID().toString(), "Door")
                 .addComponent(CollisionComponent.defaultBlocker())
-                .addComponent(DoorComponent())
+                .addComponent(DoorComponent(direction))
+            doors[direction] = door
+            door
         } else {
             Entity(UUID.randomUUID().toString(), "Wall")
                 .addComponent(CollisionComponent.defaultBlocker())
@@ -50,28 +63,28 @@ class DreamRoomBuilder(
         // North wall
         val northExitX = if(exits.contains(ExitDirection.NORTH)) { (1 until width - 1).random() } else { null }
         for (x in 0 until width) {
-            room.placeEntity(doorOrWall(x == northExitX), XYCoordinates(x, height - 1), false)
+            room.placeEntity(doorOrWall(x == northExitX, ExitDirection.NORTH), XYCoordinates(x, height - 1), false)
         }
         // East
         val eastExitY = if(exits.contains(ExitDirection.EAST))  { (1 until height - 1).random() } else { null }
         for (y in 0 until height - 1) {
-            room.placeEntity(doorOrWall(y == eastExitY), XYCoordinates(width - 1, y), false)
+            room.placeEntity(doorOrWall(y == eastExitY, ExitDirection.EAST), XYCoordinates(width - 1, y), false)
         }
         // South
         val southExitX = if(exits.contains(ExitDirection.SOUTH))  { (1 until width - 1).random() } else { null }
         for (x in 0 until width - 1) {
-            room.placeEntity(doorOrWall(x == southExitX), XYCoordinates(x, 0), false)
+            room.placeEntity(doorOrWall(x == southExitX, ExitDirection.SOUTH), XYCoordinates(x, 0), false)
         }
         // West
         val westExitX = if(exits.contains(ExitDirection.WEST))  { (1 until height - 1).random() } else { null }
         for (y in 1 until height - 1) {
-            room.placeEntity(doorOrWall(y == westExitX), XYCoordinates(0, y), false)
+            room.placeEntity(doorOrWall(y == westExitX, ExitDirection.WEST), XYCoordinates(0, y), false)
         }
     }
 
     fun build(): DreamRoom {
         val nodes: Array<Array<DreamTile>> = Array(width) { Array(height) { DreamTile() } }
-        val room = DreamRoom(UUID.randomUUID().toString(), width, height, exits, nodes)
+        val room = DreamRoom(UUID.randomUUID().toString(), width, height, doors, nodes)
 
         buildWalls(room)
 
@@ -84,7 +97,7 @@ class DreamRoom internal constructor(
     val uuid: String,
     override val width: Int,
     override val height: Int,
-    val exits: List<ExitDirection>,
+    val doors: Map<ExitDirection, Entity>,
     private val nodes: Array<Array<DreamTile>>
 ): EncounterTileMapView {
     override fun getTileView(x: Int, y: Int): EncounterTileView? {
@@ -100,9 +113,8 @@ class DreamRoom internal constructor(
         return x in 0 until width && y in 0 until height
     }
 
-    internal fun markBlockStatus(pos: XYCoordinates, terrainBlocksMovement: Boolean, terrainBlocksVision: Boolean) {
-        nodes[pos.x][pos.y].terrainBlocksMovement = terrainBlocksMovement
-        nodes[pos.x][pos.y].terrainBlocksVision = terrainBlocksVision
+    internal fun getDoor(direction: ExitDirection): Entity? {
+        return doors[direction]
     }
 
     internal fun markExplored(pos: XYCoordinates) {
