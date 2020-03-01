@@ -24,5 +24,11 @@ class CollisionComponent(
             attackOnHit = false,
             selfDestructOnHit = false
         )
+        fun defaultBlocker(): CollisionComponent = CollisionComponent(
+            blocksMovement = true,
+            blocksVision = true,
+            attackOnHit = false,
+            selfDestructOnHit = false
+        )
     }
 }

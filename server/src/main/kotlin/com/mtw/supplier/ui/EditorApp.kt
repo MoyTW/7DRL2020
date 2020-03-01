@@ -112,6 +112,17 @@ object EditorApp {
         }
     }
 
+    private fun renderDoors(screen: Screen, encounterState: EncounterState) {
+        val doorTile = Tile.newBuilder()
+            .withCharacter('%')
+            .withForegroundColor(ANSITileColor.BLUE)
+            .buildCharacterTile()
+        val doors = encounterState.entities().filter { it.hasComponent(DoorComponent::class) }
+        doors.map {
+            draw(screen, doorTile, it.getComponent(EncounterLocationComponent::class).position)
+        }
+    }
+
     private fun renderPlayer(screen: Screen, encounterState: EncounterState) {
         val playerTile = Tile.newBuilder()
             .withCharacter('@')
@@ -135,6 +146,7 @@ object EditorApp {
 
         renderFoWTiles(screen)
         renderNonPathAIEntities(screen, gameState.encounterState)
+        renderDoors(screen, gameState.encounterState)
         renderPlayer(screen, gameState.encounterState)
     }
     

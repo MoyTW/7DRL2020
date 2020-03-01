@@ -2,6 +2,7 @@ package com.mtw.supplier.encounter.state.map
 
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.CollisionComponent
+import com.mtw.supplier.ecs.components.DoorComponent
 import com.mtw.supplier.ecs.components.EncounterLocationComponent
 import com.mtw.supplier.utils.XYCoordinates
 import kotlinx.serialization.Serializable
@@ -34,58 +35,46 @@ class DreamRoomBuilder(
     val exits: List<ExitDirection> = ExitDirection.ALL_DIRECTIONS
 ) {
 
-    fun build(): DreamRoom {
-        val nodes: Array<Array<DreamTile>> = Array(width) { Array(height) { DreamTile() } }
-        val room = DreamRoom(UUID.randomUUID().toString(), width, height, exits, nodes)
+    private fun doorOrWall(isDoor: Boolean): Entity {
+        return if (isDoor) {
+            Entity(UUID.randomUUID().toString(), "Door")
+                .addComponent(CollisionComponent.defaultBlocker())
+                .addComponent(DoorComponent())
+        } else {
+            Entity(UUID.randomUUID().toString(), "Wall")
+                .addComponent(CollisionComponent.defaultBlocker())
+        }
+    }
 
+    private fun buildWalls(room: DreamRoom) {
         // North wall
         val northExitX = if(exits.contains(ExitDirection.NORTH)) { (1 until width - 1).random() } else { null }
         for (x in 0 until width) {
-            val entity = if (x == northExitX) {
-                Entity(UUID.randomUUID().toString(), "Door")
-                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
-            } else {
-                Entity(UUID.randomUUID().toString(), "Wall")
-                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
-            }
-            room.placeEntity(entity, XYCoordinates(x, height - 1), false)
+            room.placeEntity(doorOrWall(x == northExitX), XYCoordinates(x, height - 1), false)
         }
         // East
         val eastExitY = if(exits.contains(ExitDirection.EAST))  { (1 until height - 1).random() } else { null }
         for (y in 0 until height - 1) {
-            val entity = if (y == eastExitY) {
-                Entity(UUID.randomUUID().toString(), "Door")
-                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
-            } else {
-                Entity(UUID.randomUUID().toString(), "Wall")
-                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
-            }
-            room.placeEntity(entity, XYCoordinates(width - 1, y), false)
+            room.placeEntity(doorOrWall(y == eastExitY), XYCoordinates(width - 1, y), false)
         }
         // South
         val southExitX = if(exits.contains(ExitDirection.SOUTH))  { (1 until width - 1).random() } else { null }
         for (x in 0 until width - 1) {
-            val entity = if (x == southExitX) {
-                Entity(UUID.randomUUID().toString(), "Door")
-                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
-            } else {
-                Entity(UUID.randomUUID().toString(), "Wall")
-                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
-            }
-            room.placeEntity(entity, XYCoordinates(x, 0), false)
+            room.placeEntity(doorOrWall(x == southExitX), XYCoordinates(x, 0), false)
         }
         // West
         val westExitX = if(exits.contains(ExitDirection.WEST))  { (1 until height - 1).random() } else { null }
         for (y in 1 until height - 1) {
-            val entity = if (y == westExitX) {
-                Entity(UUID.randomUUID().toString(), "Door")
-                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
-            } else {
-                Entity(UUID.randomUUID().toString(), "Wall")
-                    .addComponent(CollisionComponent(blocksMovement = true, blocksVision = true, attackOnHit = false, selfDestructOnHit = false))
-            }
-            room.placeEntity(entity, XYCoordinates(0, y), false)
+            room.placeEntity(doorOrWall(y == westExitX), XYCoordinates(0, y), false)
         }
+    }
+
+    fun build(): DreamRoom {
+        val nodes: Array<Array<DreamTile>> = Array(width) { Array(height) { DreamTile() } }
+        val room = DreamRoom(UUID.randomUUID().toString(), width, height, exits, nodes)
+
+        buildWalls(room)
+
         return room
     }
 }
