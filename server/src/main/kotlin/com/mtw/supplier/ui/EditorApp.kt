@@ -1,6 +1,5 @@
-package com.mtw.supplier.editor
+package com.mtw.supplier.ui
 
-import com.mtw.supplier.editor.views.LayerView
 import tornadofx.App
 
 class EditorApp: App() {

@@ -1,19 +1,16 @@
-package com.mtw.supplier.editor
+package com.mtw.supplier.ui
 
-import com.mtw.supplier.Direction
 import com.mtw.supplier.Serializers
-import com.mtw.supplier.ecs.components.ActionTimeComponent
-import com.mtw.supplier.ecs.components.EncounterLocationComponent
-import com.mtw.supplier.ecs.components.PlayerComponent
-import com.mtw.supplier.ecs.components.SpeedComponent
+import com.mtw.supplier.ecs.Entity
+import com.mtw.supplier.ecs.components.*
 import com.mtw.supplier.ecs.components.ai.AIComponent
+import com.mtw.supplier.ecs.components.ai.EnemyScoutAIComponent
 import com.mtw.supplier.ecs.components.ai.PathAIComponent
+import com.mtw.supplier.encounter.EncounterRunner
+import com.mtw.supplier.encounter.rulebook.actions.MoveAction
+import com.mtw.supplier.encounter.rulebook.actions.WaitAction
 import com.mtw.supplier.encounter.state.EncounterState
 import com.mtw.supplier.utils.XYCoordinates
-import io.github.rybalkinsd.kohttp.dsl.httpGet
-import io.github.rybalkinsd.kohttp.dsl.httpPost
-import io.github.rybalkinsd.kohttp.ext.asString
-//import com.mtw.supplier.region.*
 import javafx.scene.Group
 import javafx.scene.control.ListView
 import javafx.scene.control.ScrollPane
@@ -23,8 +20,18 @@ import javafx.scene.layout.StackPane
 import javafx.scene.paint.Color
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
-import okhttp3.Response
 import tornadofx.*
+
+enum class Direction(val dx: Int, val dy: Int) {
+    N(0, 1),
+    NE(1, 1),
+    E(1, 0),
+    SE(1, -1),
+    S(0, -1),
+    SW(-1, -1),
+    W(-1, 0),
+    NW(-1, 1)
+}
 
 class GameScreen: View() {
     private val SERVER_PORT = 8080
@@ -43,7 +50,7 @@ class GameScreen: View() {
             menubar {
                 menu("File") {
                     item("Refersh", "Shortcut+R").action {
-                        encounterState = resetGame()
+                        encounterState = generateNewGameState()
                         encounterStateRender()
                     }
                     item("Quit", "Shortcut+Q").action {
@@ -68,92 +75,67 @@ class GameScreen: View() {
                 this.maxHeight = 200.0
             }
         }
-        encounterState = refreshEncounterState()
+        encounterState = generateNewGameState()
         encounterStateRender()
     }
 
     private fun handleKeyPress(event: KeyEvent) {
         when (event.code) {
-            KeyCode.NUMPAD1 -> { encounterState = postMoveAction(Direction.SW); encounterStateRender() }
-            KeyCode.NUMPAD2 -> { encounterState = postMoveAction(Direction.S); encounterStateRender() }
-            KeyCode.NUMPAD3 -> { encounterState = postMoveAction(Direction.SE); encounterStateRender() }
-            KeyCode.NUMPAD4 -> { encounterState = postMoveAction(Direction.W); encounterStateRender() }
-            KeyCode.NUMPAD5 -> { encounterState = postWaitAction(); encounterStateRender() }
-            KeyCode.NUMPAD6 -> { encounterState = postMoveAction(Direction.E); encounterStateRender() }
-            KeyCode.NUMPAD7 -> { encounterState = postMoveAction(Direction.NW); encounterStateRender() }
-            KeyCode.NUMPAD8 -> { encounterState = postMoveAction(Direction.N); encounterStateRender() }
-            KeyCode.NUMPAD9 -> { encounterState = postMoveAction(Direction.NE); encounterStateRender() }
+            KeyCode.NUMPAD1 -> { postMoveAction(Direction.SW); encounterStateRender() }
+            KeyCode.NUMPAD2 -> { postMoveAction(Direction.S); encounterStateRender() }
+            KeyCode.NUMPAD3 -> { postMoveAction(Direction.SE); encounterStateRender() }
+            KeyCode.NUMPAD4 -> { postMoveAction(Direction.W); encounterStateRender() }
+            KeyCode.NUMPAD5 -> { postWaitAction(); encounterStateRender() }
+            KeyCode.NUMPAD6 -> { postMoveAction(Direction.E); encounterStateRender() }
+            KeyCode.NUMPAD7 -> { postMoveAction(Direction.NW); encounterStateRender() }
+            KeyCode.NUMPAD8 -> { postMoveAction(Direction.N); encounterStateRender() }
+            KeyCode.NUMPAD9 -> { postMoveAction(Direction.NE); encounterStateRender() }
             else -> {}
         }
     }
 
-    private fun postWaitAction(): EncounterState? {
-        val response: Response = httpPost {
-            host = "localhost"
-            port = SERVER_PORT
-            path = "/game/player/action/wait"
-        }
-        response.use {
-            val body = response.asString()
-            return if (body != null) {
-                json.parse(EncounterState.serializer(), body)
-            } else {
-                null
-            }
-        }
+    private fun postWaitAction() {
+        val action = WaitAction(encounterState!!.playerEntity())
+        EncounterRunner.runPlayerTurn(encounterState!!, action)
+        EncounterRunner.runUntilPlayerReady(encounterState!!)
     }
 
-    private fun postMoveAction(direction: Direction): EncounterState? {
-        val response: Response = httpPost {
-            host = "localhost"
-            port = SERVER_PORT
-            path = "/game/player/action/move"
-            body {
-                json {
-                    "direction" to direction.name
-                }
-            }
-        }
-        response.use {
-            val body = response.asString()
-            return if (body != null) {
-                json.parse(EncounterState.serializer(), body)
-            } else {
-                null
-            }
-        }
+    private fun postMoveAction(direction: Direction) {
+        val oldPlayerPos = encounterState!!.playerEntity().getComponent(EncounterLocationComponent::class).position
+        val newPlayerPos = oldPlayerPos.copy(
+            x = oldPlayerPos.x + direction.dx, y = oldPlayerPos.y + direction.dy)
+
+        val action = MoveAction(encounterState!!.playerEntity(), newPlayerPos)
+        EncounterRunner.runPlayerTurn(encounterState!!, action)
+        EncounterRunner.runUntilPlayerReady(encounterState!!)
     }
 
-    private fun refreshEncounterState(): EncounterState? {
-        val response: Response = httpGet {
-            host = "localhost"
-            port = SERVER_PORT
-            path = "/game/state"
-        }
-        response.use {
-            val body = response.asString()
-            return if (body != null) {
-                json.parse(EncounterState.serializer(), body)
-            } else {
-                null
-            }
-        }
-    }
+    private final fun generateNewGameState(): EncounterState {
+        val state = EncounterState(40, 40)
 
-    private fun resetGame(): EncounterState? {
-        val response: Response = httpPost {
-            host = "localhost"
-            port = SERVER_PORT
-            path = "/game/reset"
-        }
-        response.use {
-            val body = response.asString()
-            return if (body != null) {
-                json.parse(EncounterState.serializer(), body)
-            } else {
-                null
-            }
-        }
+        val activatedAi = EnemyScoutAIComponent()
+        activatedAi.isActive = true
+        val scout = Entity(state.getNextEntityId(), "Scout")
+            .addComponent(activatedAi)
+            .addComponent(HpComponent(10, 10))
+            .addComponent(FighterComponent(0, 0, 0))
+            .addComponent(FactionComponent(0))
+            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(ActionTimeComponent(75))
+            .addComponent(SpeedComponent(75))
+        val player = Entity(state.getNextEntityId(), "player")
+            .addComponent(PlayerComponent())
+            .addComponent(HpComponent(50, 50))
+            .addComponent(FighterComponent(5, 100, 100))
+            .addComponent(FactionComponent(2))
+            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(ActionTimeComponent(100))
+            .addComponent(SpeedComponent(100))
+
+        state.placeEntity(scout, XYCoordinates(10, 10))
+            .placeEntity(player, XYCoordinates(25, 25))
+        EncounterRunner.runUntilPlayerReady(state)
+        return state
     }
 
     private fun mapXToScreenXCenter(x: Int): Double {
