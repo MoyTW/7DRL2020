@@ -2,7 +2,7 @@ package com.mtw.supplier.encounter.state
 
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.CollisionComponent
-import com.mtw.supplier.ecs.components.EncounterLocationComponent
+import com.mtw.supplier.ecs.components.RoomPositionComponent
 import com.mtw.supplier.ecs.components.PlayerComponent
 import com.mtw.supplier.encounter.rulebook.Action
 import com.mtw.supplier.encounter.state.map.*
@@ -55,7 +55,7 @@ class EncounterState(
 
     fun calculatePlayerFoVAndMarkExploration() {
         this.fovCache = FoVCache.computeFoV(this.dreamMap,
-            this.playerEntity().getComponent(EncounterLocationComponent::class).asAbsolutePosition(this),
+            this.playerEntity().getComponent(RoomPositionComponent::class).asAbsolutePosition(this),
             5
         ) // TOOD: Vision radius
         for (pos in this.fovCache!!.visiblePositions) {

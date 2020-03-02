@@ -1,14 +1,11 @@
 package com.mtw.supplier.ecs.components.ai
 
 import com.mtw.supplier.ecs.Entity
-import com.mtw.supplier.ecs.components.EncounterLocationComponent
+import com.mtw.supplier.ecs.components.RoomPositionComponent
 import com.mtw.supplier.ecs.components.FactionComponent
 import com.mtw.supplier.encounter.state.EncounterState
 import com.mtw.supplier.encounter.rulebook.Action
-import com.mtw.supplier.encounter.rulebook.actions.AttackAction
-import com.mtw.supplier.encounter.rulebook.actions.MoveAction
 import com.mtw.supplier.encounter.rulebook.actions.WaitAction
-import com.mtw.supplier.encounter.state.EncounterStateUtils.aStarWithNewGrid
 import kotlinx.serialization.Serializable
 
 
@@ -34,8 +31,8 @@ class TestAIComponent : AIComponent() {
             ?: return listOf(WaitAction(parentEntity))
 
 
-        val parentLocation = parentEntity.getComponent(EncounterLocationComponent::class).roomPosition
-        val firstOtherEntityLocation = firstOtherAliveEnemy.getComponent(EncounterLocationComponent::class).roomPosition
+        val parentLocation = parentEntity.getComponent(RoomPositionComponent::class).roomPosition
+        val firstOtherEntityLocation = firstOtherAliveEnemy.getComponent(RoomPositionComponent::class).roomPosition
 
         return listOf(WaitAction(parentEntity))
         /*

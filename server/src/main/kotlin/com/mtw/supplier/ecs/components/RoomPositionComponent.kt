@@ -7,7 +7,7 @@ import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 
 @Serializable
-class EncounterLocationComponent(var roomPosition: RoomPosition, var roomUuid: String): Component() {
+class RoomPositionComponent(var roomPosition: RoomPosition, var roomUuid: String): Component() {
     override var _parentId: String? = null
 
     fun asAbsolutePosition(encounterState: EncounterState): AbsolutePosition {

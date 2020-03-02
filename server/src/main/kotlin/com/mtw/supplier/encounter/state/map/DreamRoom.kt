@@ -3,8 +3,7 @@ package com.mtw.supplier.encounter.state.map
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.CollisionComponent
 import com.mtw.supplier.ecs.components.DoorComponent
-import com.mtw.supplier.ecs.components.EncounterLocationComponent
-import com.mtw.supplier.encounter.state.EncounterState
+import com.mtw.supplier.ecs.components.RoomPositionComponent
 import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 import org.hexworks.cobalt.core.api.UUID
@@ -167,24 +166,24 @@ class DreamRoom internal constructor(
      * @throws NodeHasInsufficientSpaceException when node cannot find space for the entity
      */
     internal fun placeEntity(entity: Entity, targetPosition: RoomPosition, ignoreCollision: Boolean) {
-        if (entity.hasComponent(EncounterLocationComponent::class)) {
+        if (entity.hasComponent(RoomPositionComponent::class)) {
             throw EntityAlreadyHasLocation("Specified entity ${entity.name} already has a location, cannot be placed!")
         } else if (!ignoreCollision && this.positionBlocked(targetPosition)) {
             throw NodeHasInsufficientSpaceException("Node $targetPosition is full, cannot place ${entity.name}")
         }
 
         this.nodes[targetPosition.x][targetPosition.y].entities.add(entity)
-        entity.addComponent(EncounterLocationComponent(targetPosition, this.uuid))
+        entity.addComponent(RoomPositionComponent(targetPosition, this.uuid))
     }
     class EntityAlreadyHasLocation(message: String): Exception(message)
     class NodeHasInsufficientSpaceException(message: String): Exception(message)
 
     internal fun removeEntity(entity: Entity) {
-        if (!entity.hasComponent(EncounterLocationComponent::class)) {
+        if (!entity.hasComponent(RoomPositionComponent::class)) {
             throw EntityHasNoLocation("Specified entity ${entity.name} has no location, cannot remove!")
         }
 
-        val locationComponent = entity.getComponent(EncounterLocationComponent::class)
+        val locationComponent = entity.getComponent(RoomPositionComponent::class)
         val (x, y) = locationComponent.roomPosition
         this.nodes[x][y].entities.remove(entity)
         entity.removeComponent(locationComponent)

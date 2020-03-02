@@ -1,10 +1,7 @@
 package com.mtw.supplier.ecs.components.ai
 
-import com.mtw.supplier.ecs.components.EncounterLocationComponent
 import com.mtw.supplier.encounter.rulebook.Action
-import com.mtw.supplier.encounter.rulebook.actions.MoveAction
 import com.mtw.supplier.encounter.state.EncounterState
-import com.mtw.supplier.encounter.state.EncounterStateUtils
 import kotlinx.serialization.Serializable
 
 @Serializable

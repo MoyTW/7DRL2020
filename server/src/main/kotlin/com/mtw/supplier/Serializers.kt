@@ -30,7 +30,7 @@ object Serializers {
                 // other
                 ActionTimeComponent::class with ActionTimeComponent.serializer()
                 CollisionComponent::class with CollisionComponent.serializer()
-                EncounterLocationComponent::class with EncounterLocationComponent.serializer()
+                RoomPositionComponent::class with RoomPositionComponent.serializer()
                 FactionComponent::class with FactionComponent.serializer()
                 HpComponent::class with HpComponent.serializer()
                 FighterComponent::class with FighterComponent.serializer()
