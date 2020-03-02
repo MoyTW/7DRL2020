@@ -5,6 +5,6 @@ import com.mtw.supplier.encounter.state.map.ExitDirection
 import kotlinx.serialization.Serializable
 
 @Serializable
-class DoorComponent(val direction: ExitDirection): Component() {
+class DoorComponent(val direction: ExitDirection, var closed: Boolean = true): Component() {
     override var _parentId: String? = null
 }

@@ -93,7 +93,21 @@ object Rulebook {
 
         if (targetNodeSameAsCurrentNode) {
             encounterState.messageLog.logAction(action, "INVALID", "Target node ${action.targetPosition} and source node are identical!")
-        } else if (targetNodeBlocked) {
+        } else if (encounterState.getBlockingEntityAtPosition(action.targetPosition)?.hasComponent(DoorComponent::class) == true) {
+            val door = encounterState.getBlockingEntityAtPosition(action.targetPosition)!!
+            val doorDoor = door.getComponent(DoorComponent::class)
+            val doorCollision = door.getComponent(CollisionComponent::class)
+            // If closed, open, else close
+            if (doorDoor.closed) {
+                doorCollision.blocksMovement = false
+                doorCollision.blocksVision = false
+                doorDoor.closed = false
+            } else {
+                doorCollision.blocksMovement = true
+                doorCollision.blocksVision = true
+                doorDoor.closed = true
+            }
+        }  else if (targetNodeBlocked) {
             val collisionComponent = action.actor.getComponent(CollisionComponent::class)
             if (collisionComponent.attackOnHit) {
                 val blockingEntity = encounterState.getBlockingEntityAtPosition(action.targetPosition)
