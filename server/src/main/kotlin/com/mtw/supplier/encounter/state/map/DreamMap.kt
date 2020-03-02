@@ -13,6 +13,13 @@ import kotlinx.serialization.Serializable
  *        ROOM
  */
 
+interface DreamMapI {
+    fun getDreamTileI(pos: AbsolutePosition): DreamTileI?
+    fun getAllDreamTileIs(): Map<AbsolutePosition, DreamTileI>
+    fun getDoors(roomUuid: String): Map<ExitDirection, Entity>
+    val entities: List<Entity>
+}
+
 class DreamMapBuilder(val numRooms: Int = 20) {
     fun build(): DreamMap {
         val map = DreamMap()
@@ -132,9 +139,9 @@ class DreamMap: DreamMapI {
         get() = roomsById.flatMap { it.value.entities() }
 
 
-    /******************************************************************************************************************
-     * Entity Management
-     ******************************************************************************************************************/
+    override fun getDoors(roomUuid: String): Map<ExitDirection, Entity> {
+        return this.roomsById[roomUuid]!!.doors
+    }
 
     internal fun absoluteToRoomPosition(absolute: AbsolutePosition): RoomPosition? {
         this.activeRoomsToAbsolutePositions.map {

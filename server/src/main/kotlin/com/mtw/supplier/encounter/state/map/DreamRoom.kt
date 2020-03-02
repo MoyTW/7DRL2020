@@ -15,12 +15,6 @@ interface DreamTileI {
     val entities: List<Entity>
 }
 
-interface DreamMapI {
-    fun getDreamTileI(pos: AbsolutePosition): DreamTileI?
-    fun getAllDreamTileIs(): Map<AbsolutePosition, DreamTileI>
-    val entities: List<Entity>
-}
-
 enum class ExitDirection {
     NORTH, EAST, SOUTH, WEST;
 

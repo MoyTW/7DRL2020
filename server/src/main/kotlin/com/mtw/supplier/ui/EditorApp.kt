@@ -69,7 +69,7 @@ object EditorApp {
     }
 
     private fun renderFoWTiles(screen: Screen) {
-        val tiles = gameState.encounterState.getEncounterTileMap()
+        val tiles = gameState.encounterState.getDreamMapI()
         val fov = gameState.encounterState.fovCache
 
         val unexploredTile = Tile.newBuilder()

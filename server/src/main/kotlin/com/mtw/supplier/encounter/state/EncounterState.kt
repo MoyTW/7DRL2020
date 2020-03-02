@@ -71,7 +71,7 @@ class EncounterState(
     // TODO: Map sizing
     private val dreamMap: DreamMap = DreamMapBuilder().build()
 
-    fun getEncounterTileMap(): DreamMapI {
+    fun getDreamMapI(): DreamMapI {
         return dreamMap
     }
 
