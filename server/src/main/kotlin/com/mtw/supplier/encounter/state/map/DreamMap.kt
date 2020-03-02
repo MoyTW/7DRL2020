@@ -155,9 +155,12 @@ class DreamMap: DreamMapI {
         TODO()
     }
 
-    // TODO: you can't actually pass between rooms lol
     internal fun teleportEntity(entity: Entity, targetPosition: AbsolutePosition, ignoreCollision: Boolean) {
+
         val roomPosition = absoluteToRoomPosition(targetPosition)!!
-        return this.roomsById[roomPosition.roomUuid]!!.teleportEntity(entity, roomPosition, ignoreCollision)
+        // Remove from origin room
+        this.roomsById[entity.getComponent(RoomPositionComponent::class).roomPosition.roomUuid]!!.removeEntity(entity)
+        // Place into target room
+        return this.roomsById[roomPosition.roomUuid]!!.placeEntity(entity, roomPosition, ignoreCollision)
     }
 }

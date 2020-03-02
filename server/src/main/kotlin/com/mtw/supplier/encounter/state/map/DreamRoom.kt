@@ -189,10 +189,4 @@ class DreamRoom internal constructor(
         entity.removeComponent(locationComponent)
     }
     class EntityHasNoLocation(message: String): Exception(message)
-
-    internal fun teleportEntity(entity: Entity, targetPosition: RoomPosition, ignoreCollision: Boolean) {
-        this.removeEntity(entity)
-        this.placeEntity(entity, targetPosition, ignoreCollision)
-    }
-
 }
