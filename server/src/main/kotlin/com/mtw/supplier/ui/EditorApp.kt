@@ -136,7 +136,7 @@ object EditorApp {
     private fun renderGameState(screen: Screen) {
         screen.clear()
         // Render the tiles
-        val playerPos = gameState.encounterState.playerEntity().getComponent(RoomPositionComponent::class).roomPosition
+        val playerPos = gameState.encounterState.playerEntity().getComponent(RoomPositionComponent::class).asAbsolutePosition(gameState.encounterState)
         cameraX = playerPos.x
         cameraY = playerPos.y
 
