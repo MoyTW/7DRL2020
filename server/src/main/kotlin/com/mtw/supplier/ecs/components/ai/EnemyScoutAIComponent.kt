@@ -17,6 +17,7 @@ class EnemyScoutAIComponent(): AIComponent() {
 
         val actions = mutableListOf<Action>()
 
+        /*
         val parent = encounterState.getEntity(this.parentId)
         val parentPos = parent.getComponent(EncounterLocationComponent::class).roomPosition
         val playerPos = encounterState.playerEntity().getComponent(EncounterLocationComponent::class).roomPosition
@@ -28,6 +29,8 @@ class EnemyScoutAIComponent(): AIComponent() {
                 actions.add(MoveAction(actor = parent, targetPosition = path[0]))
             }
         }
+        */
+
         return actions
     }
 }

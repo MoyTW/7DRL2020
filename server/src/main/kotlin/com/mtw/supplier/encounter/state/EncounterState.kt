@@ -7,6 +7,7 @@ import com.mtw.supplier.ecs.components.PlayerComponent
 import com.mtw.supplier.encounter.rulebook.Action
 import com.mtw.supplier.encounter.state.map.DreamMap
 import com.mtw.supplier.encounter.state.map.DreamMapI
+import com.mtw.supplier.encounter.state.map.RoomPosition
 import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 
@@ -56,7 +57,7 @@ class EncounterState(
 
     fun calculatePlayerFoVAndMarkExploration() {
         this.fovCache = FoVCache.computeFoV(this.dreamMap,
-            this.playerEntity().getComponent(EncounterLocationComponent::class).roomPosition,
+            this.playerEntity().getComponent(EncounterLocationComponent::class).asAbsolutePosition(this),
             5
         ) // TOOD: Vision radius
         for (pos in this.fovCache!!.visiblePositions) {
@@ -124,17 +125,21 @@ class EncounterState(
      * @throws NodeHasInsufficientSpaceException when node cannot find space for the entity
      */
     fun placeEntity(entity: Entity, targetPosition: AbsolutePosition, ignoreCollision: Boolean = false): EncounterState {
-        this.dreamRoom.placeEntity(entity, targetPosition, ignoreCollision)
+        this.dreamMap.placeEntity(entity, targetPosition, ignoreCollision)
         return this
     }
 
     fun removeEntity(entity: Entity): EncounterState {
-        this.dreamRoom.removeEntity(entity)
+        this.dreamMap.removeEntity(entity)
         return this
     }
 
     fun teleportEntity(entity: Entity, targetPosition: AbsolutePosition, ignoreCollision: Boolean = false) {
-        this.dreamRoom.teleportEntity(entity, targetPosition, ignoreCollision)
+        this.dreamMap.teleportEntity(entity, targetPosition, ignoreCollision)
+    }
+
+    fun roomToAbsolutePosition(roomPosition: RoomPosition): AbsolutePosition {
+        return this.dreamMap.roomToAbsolutePosition(roomPosition)
     }
 }
 

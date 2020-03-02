@@ -4,6 +4,8 @@ import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.CollisionComponent
 import com.mtw.supplier.ecs.components.DoorComponent
 import com.mtw.supplier.ecs.components.EncounterLocationComponent
+import com.mtw.supplier.encounter.state.EncounterState
+import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 import org.hexworks.cobalt.core.api.UUID
 
@@ -16,6 +18,7 @@ interface DreamTileI {
 
 interface DreamMapI {
     fun getDreamTileI(x: Int, y: Int): DreamTileI?
+    fun getAllDreamTileIs(): Map<AbsolutePosition, DreamTileI>
     val entities: List<Entity>
 }
 

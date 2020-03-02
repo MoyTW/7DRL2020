@@ -81,16 +81,13 @@ object EditorApp {
         val visibleTile = Tile.newBuilder()
             .withBackgroundColor(ANSITileColor.WHITE)
             .build()
-        for (x in 0 until tiles.width) {
-            for (y in 0 until tiles.height) {
-                val tile = tiles.getDreamTileI(x, y)
-                val drawTile = when {
-                    tile?.explored == false-> { unexploredTile }
-                    !fov!!.isInFoV(AbsolutePosition(x, y)) -> { exploredTile }
-                    else -> { visibleTile }
-                }
-                draw(screen, drawTile, AbsolutePosition(x, y))
+        tiles.getAllDreamTileIs().map { (pos, tile) ->
+            val drawTile = when {
+                !tile.explored -> { unexploredTile }
+                !fov!!.isInFoV(pos) -> { exploredTile }
+                else -> { visibleTile }
             }
+            draw(screen, drawTile, pos)
         }
     }
 
@@ -105,7 +102,7 @@ object EditorApp {
                 it.hasComponent(AIComponent::class) &&
                 !it.hasComponent(PathAIComponent::class) }
         nonPathAiEntities.map {
-            val entityPos = it.getComponent(EncounterLocationComponent::class).roomPosition
+            val entityPos = it.getComponent(EncounterLocationComponent::class).asAbsolutePosition(encounterState)
             draw(screen, enemyTile, entityPos)
         }
     }
@@ -117,7 +114,7 @@ object EditorApp {
             .buildCharacterTile()
         val doors = encounterState.entities().filter { it.hasComponent(DoorComponent::class) }
         doors.map {
-            draw(screen, doorTile, it.getComponent(EncounterLocationComponent::class).roomPosition)
+            draw(screen, doorTile, it.getComponent(EncounterLocationComponent::class).asAbsolutePosition(encounterState))
         }
     }
 
@@ -127,7 +124,8 @@ object EditorApp {
             .withForegroundColor(ANSITileColor.GREEN)
             .withBackgroundColor(ANSITileColor.WHITE)
             .buildCharacterTile()
-        val playerPos = encounterState.playerEntity().getComponent(EncounterLocationComponent::class).roomPosition
+        val playerPos = encounterState.playerEntity().getComponent(EncounterLocationComponent::class)
+            .asAbsolutePosition(encounterState)
         draw(screen, playerTile, playerPos)
     }
 
@@ -178,7 +176,7 @@ class GameState {
         val newPlayerPos = oldPlayerPos.copy(
             x = oldPlayerPos.x + direction.dx, y = oldPlayerPos.y + direction.dy)
 
-        val action = MoveAction(encounterState!!.playerEntity(), newPlayerPos)
+        val action = MoveAction(encounterState!!.playerEntity(), encounterState.roomToAbsolutePosition(newPlayerPos))
         EncounterRunner.runPlayerTurn(encounterState!!, action)
         EncounterRunner.runUntilPlayerReady(encounterState!!)
     }

@@ -37,7 +37,8 @@ class TestAIComponent : AIComponent() {
         val parentLocation = parentEntity.getComponent(EncounterLocationComponent::class).roomPosition
         val firstOtherEntityLocation = firstOtherAliveEnemy.getComponent(EncounterLocationComponent::class).roomPosition
 
-        // wow ugly!
+        return listOf(WaitAction(parentEntity))
+        /*
         return if (encounterState.arePositionsAdjacent(parentLocation, firstOtherEntityLocation)) {
             listOf(AttackAction(parentEntity, firstOtherAliveEnemy))
         } else  {
@@ -48,5 +49,6 @@ class TestAIComponent : AIComponent() {
                 listOf(WaitAction(parentEntity))
             }
         }
+        */
     }
 }

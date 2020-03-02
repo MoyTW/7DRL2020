@@ -18,6 +18,13 @@ class DreamMap: DreamMapI {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun getAllDreamTileIs(): Map<AbsolutePosition, DreamTileI> {
+        // For each map, get all tiles
+        // For each tile, convert to absolute position
+        // Dump them out
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override val entities: List<Entity>
         get() = roomsById.flatMap { it.value.entities() }
 
@@ -42,13 +49,21 @@ class DreamMap: DreamMapI {
         return roomsById[uuid]
     }
 
+    fun markExplored(pos: AbsolutePosition) {
+        TODO()
+    }
+
     /******************************************************************************************************************
      * Entity Management
      ******************************************************************************************************************/
 
-    private fun absoluteToRoomPosition(absolute: AbsolutePosition): RoomPosition? {
+    internal fun absoluteToRoomPosition(absolute: AbsolutePosition): RoomPosition? {
         // Get the room overlapping that position
         // Convert to room coordinates
+        TODO()
+    }
+
+    internal fun roomToAbsolutePosition(roomPosition: RoomPosition): AbsolutePosition {
         TODO()
     }
 
@@ -67,6 +82,18 @@ class DreamMap: DreamMapI {
     }
 
     internal fun adjacentUnblockedPositions(pos: AbsolutePosition): List<AbsolutePosition> {
+        TODO()
+    }
+
+    internal fun placeEntity(entity: Entity, targetPosition: AbsolutePosition, ignoreCollision: Boolean) {
+        TODO()
+    }
+
+    internal fun removeEntity(entity: Entity) {
+        TODO()
+    }
+
+    internal fun teleportEntity(entity: Entity, targetPosition: AbsolutePosition, ignoreCollision: Boolean) {
         TODO()
     }
 }
