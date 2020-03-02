@@ -14,23 +14,35 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class DreamMap: DreamMapI {
-    override fun getDreamTileI(x: Int, y: Int): DreamTileI? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    // This is in Absolute XY
+    override fun getDreamTileI(pos: AbsolutePosition): DreamTileI? {
+        val roomPosition = absoluteToRoomPosition(pos)
+        return this.roomsById[roomPosition!!.roomUuid]!!.getTile(roomPosition)
     }
 
     override fun getAllDreamTileIs(): Map<AbsolutePosition, DreamTileI> {
-        // For each map, get all tiles
-        // For each tile, convert to absolute position
-        // Dump them out
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val acc: MutableMap<AbsolutePosition, DreamTileI> = mutableMapOf()
+        this.activeRoomsToAbsolutePositions.map {
+            val room = this.roomsById[it.key]!!
+            room.allTiles().map {
+                acc[roomToAbsolutePosition(it.key)] = it.value
+            }
+        }
+        return acc
     }
 
     override val entities: List<Entity>
         get() = roomsById.flatMap { it.value.entities() }
 
     private val roomsById: MutableMap<String, DreamRoom> = mutableMapOf()
+    private val activeRoomsToAbsolutePositions: MutableMap<String, AbsolutePosition> = mutableMapOf()
     // You'll have to remember to link/unlink both ways!
     private val roomGraph: MutableMap<String, MutableMap<ExitDirection, String>> = mutableMapOf()
+
+    fun initFirstRoom(room: DreamRoom) {
+        this.roomsById[room.uuid] = room
+        activeRoomsToAbsolutePositions[room.uuid] = AbsolutePosition(0, 0)
+    }
 
     internal fun connectRooms(existingRoom: DreamRoom, exitDirection: ExitDirection, newRoom: DreamRoom) {
         if (roomGraph[existingRoom.uuid]?.get(exitDirection) != null) {
@@ -50,7 +62,8 @@ class DreamMap: DreamMapI {
     }
 
     fun markExplored(pos: AbsolutePosition) {
-        TODO()
+        val roomPosition = absoluteToRoomPosition(pos)
+        this.roomsById[roomPosition!!.roomUuid]!!.getTile(roomPosition)?.markExplored()
     }
 
     /******************************************************************************************************************
@@ -58,21 +71,35 @@ class DreamMap: DreamMapI {
      ******************************************************************************************************************/
 
     internal fun absoluteToRoomPosition(absolute: AbsolutePosition): RoomPosition? {
-        // Get the room overlapping that position
-        // Convert to room coordinates
-        TODO()
+        this.activeRoomsToAbsolutePositions.map {
+            val room = this.roomsById[it.key]!!
+            val roomPosition = this.activeRoomsToAbsolutePositions[it.key]!!
+            /**
+             * You're in the room if:
+             * roomX <= absoluteX <= roomX + width && roomY <= absoluteY <= roomY + height
+             */
+            if (roomPosition.x <= absolute.x && absolute.x <= roomPosition.x + room.width &&
+                roomPosition.y <= absolute.y && absolute.y <= roomPosition.y + room.height)
+            {
+                return RoomPosition(absolute.x - roomPosition.x, absolute.y - roomPosition.y, room.uuid)
+            }
+        }
+        return null
     }
 
     internal fun roomToAbsolutePosition(roomPosition: RoomPosition): AbsolutePosition {
-        TODO()
+        val roomAbsolutePosition = this.activeRoomsToAbsolutePositions[roomPosition.roomUuid]!!
+        return AbsolutePosition(roomAbsolutePosition.x + roomPosition.x, roomAbsolutePosition.y + roomPosition.y)
     }
 
     internal fun getEntitiesAtPosition(pos: AbsolutePosition): List<Entity> {
-        TODO()
+        val roomPosition = absoluteToRoomPosition(pos)!!
+        return this.roomsById[roomPosition.roomUuid]!!.getEntitiesAtPosition(roomPosition)
     }
 
     internal fun positionBlocked(pos: AbsolutePosition): Boolean {
-        TODO()
+        val roomPosition = absoluteToRoomPosition(pos)!!
+        return this.roomsById[roomPosition.roomUuid]!!.positionBlocked(roomPosition)
     }
 
     internal fun arePositionsAdjacent(pos1: AbsolutePosition, pos2: AbsolutePosition): Boolean {
@@ -81,19 +108,24 @@ class DreamMap: DreamMapI {
         return dx < 2 && dy < 2 && (dx + dy != 0)
     }
 
+    // We actually need to write this one at this level...
     internal fun adjacentUnblockedPositions(pos: AbsolutePosition): List<AbsolutePosition> {
         TODO()
     }
 
     internal fun placeEntity(entity: Entity, targetPosition: AbsolutePosition, ignoreCollision: Boolean) {
-        TODO()
+        val roomPosition = absoluteToRoomPosition(targetPosition)!!
+        return this.roomsById[roomPosition.roomUuid]!!.placeEntity(entity, roomPosition, ignoreCollision)
     }
 
+    // Ok we need to actually write this one
     internal fun removeEntity(entity: Entity) {
         TODO()
     }
 
+    // TODO: you can't actually pass between rooms lol
     internal fun teleportEntity(entity: Entity, targetPosition: AbsolutePosition, ignoreCollision: Boolean) {
-        TODO()
+        val roomPosition = absoluteToRoomPosition(targetPosition)!!
+        return this.roomsById[roomPosition.roomUuid]!!.teleportEntity(entity, roomPosition, ignoreCollision)
     }
 }

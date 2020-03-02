@@ -5,9 +5,7 @@ import com.mtw.supplier.ecs.components.CollisionComponent
 import com.mtw.supplier.ecs.components.EncounterLocationComponent
 import com.mtw.supplier.ecs.components.PlayerComponent
 import com.mtw.supplier.encounter.rulebook.Action
-import com.mtw.supplier.encounter.state.map.DreamMap
-import com.mtw.supplier.encounter.state.map.DreamMapI
-import com.mtw.supplier.encounter.state.map.RoomPosition
+import com.mtw.supplier.encounter.state.map.*
 import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 
@@ -71,7 +69,10 @@ class EncounterState(
     }
 
     // TODO: Map sizing
-    private val dreamMap: DreamMap = DreamMap()
+    private val dreamMap: DreamMap = DreamMap().apply {
+        val room = DreamRoomBuilder(30, 30, ExitDirection.ALL_DIRECTIONS).build()
+        this.initFirstRoom(room)
+    }
 
     fun getEncounterTileMap(): DreamMapI {
         return dreamMap

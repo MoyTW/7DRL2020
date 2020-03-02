@@ -20,7 +20,7 @@ class FoVCache internal constructor(val visiblePositions: Set<AbsolutePosition>)
     companion object {
         fun computeFoV(tileMapI: DreamMapI, center: AbsolutePosition, radius: Int): FoVCache {
             val visibleCells = RPASCal.calcVisibleCellsFrom(center, radius) {
-                tileMapI.getDreamTileI(it.x, it.y)?.blocksVision == false
+                tileMapI.getDreamTileI(it)?.blocksVision == false
             }.toSet()
             return FoVCache(visibleCells)
         }
