@@ -13,36 +13,46 @@ import kotlinx.serialization.Serializable
  *        ROOM
  */
 
+class DreamMapBuilder(val numRooms: Int = 20) {
+    fun build(): DreamMap {
+        val map = DreamMap()
+        for (i in 0 until numRooms) {
+            val room = DreamRoomBuilder(15, 15, ExitDirection.ALL_DIRECTIONS).build()
+            map.addRoom(room)
+        }
+        map.initializeWith(map.inactiveRooms.random())
+
+        return map
+    }
+}
+
 @Serializable
 class DreamMap: DreamMapI {
-    // This is in Absolute XY
-    override fun getDreamTileI(pos: AbsolutePosition): DreamTileI? {
-        val roomPosition = absoluteToRoomPosition(pos) ?: return null
-        return this.roomsById[roomPosition.roomUuid]?.getTile(roomPosition)
-    }
-
-    override fun getAllDreamTileIs(): Map<AbsolutePosition, DreamTileI> {
-        val acc: MutableMap<AbsolutePosition, DreamTileI> = mutableMapOf()
-        this.activeRoomsToAbsolutePositions.map {
-            val room = this.roomsById[it.key]!!
-            room.allTiles().map {
-                acc[roomToAbsolutePosition(it.key)] = it.value
-            }
-        }
-        return acc
-    }
-
-    override val entities: List<Entity>
-        get() = roomsById.flatMap { it.value.entities() }
-
     private val roomsById: MutableMap<String, DreamRoom> = mutableMapOf()
     private val activeRoomsToAbsolutePositions: MutableMap<String, AbsolutePosition> = mutableMapOf()
     // You'll have to remember to link/unlink both ways!
     private val roomGraph: MutableMap<String, MutableMap<ExitDirection, String>> = mutableMapOf()
 
-    fun initFirstRoom(room: DreamRoom) {
-        this.roomsById[room.uuid] = room
+    /******************************************************************************************************************
+     * Rooms
+     ******************************************************************************************************************/
+
+    val activeRooms: List<DreamRoom>
+        get() = roomsById.filter { activeRoomsToAbsolutePositions.containsKey(it.key) }.values.toList()
+
+    val inactiveRooms: List<DreamRoom>
+        get() = roomsById.filter { !activeRoomsToAbsolutePositions.containsKey(it.key) }.values.toList()
+
+    fun initializeWith(room: DreamRoom) {
+        addRoom(room)
         activeRoomsToAbsolutePositions[room.uuid] = AbsolutePosition(0, 0)
+    }
+
+    fun addRoom(room: DreamRoom) {
+        if (this.roomsById[room.uuid] != null && this.roomsById[room.uuid] != room) {
+            throw RuntimeException("ROOM IS ATTEMPTING TO BE REASSIGNED DON'T DO THIS")
+        }
+        this.roomsById[room.uuid] = room
     }
 
     internal fun connectRooms(existingRoom: DreamRoom, exitDirection: ExitDirection, newRoom: DreamRoom) {
@@ -61,7 +71,7 @@ class DreamMap: DreamMapI {
         roomGraph[newRoom.uuid]?.set(exitDirection.opposite(), existingRoom.uuid)
 
         val existingDoor = existingRoom.getDoor(exitDirection)!!
-        val existingDoorAbsolutePosition = roomToAbsolutePosition(existingDoor.getComponent(RoomPositionComponent::class).roomPosition)
+        val existingDoorAbsolutePosition = roomToAbsolutePosition(existingDoor.getComponent(RoomPositionComponent::class).roomPosition)!!
 
         val newRoomDoor = newRoom.getDoor(exitDirection.opposite())!!
         val newRoomDoorPosition = newRoomDoor.getComponent(RoomPositionComponent::class).roomPosition
@@ -91,12 +101,36 @@ class DreamMap: DreamMapI {
         return roomsById[uuid]
     }
 
+    /******************************************************************************************************************
+     * Tiles
+     ******************************************************************************************************************/
+
     fun markExplored(pos: AbsolutePosition) {
         val roomPosition = absoluteToRoomPosition(pos)
         if (roomPosition != null) {
             this.roomsById[roomPosition.roomUuid]?.getTile(roomPosition)?.markExplored()
         }
     }
+
+    override fun getDreamTileI(pos: AbsolutePosition): DreamTileI? {
+        val roomPosition = absoluteToRoomPosition(pos) ?: return null
+        return this.roomsById[roomPosition.roomUuid]?.getTile(roomPosition)
+    }
+
+    override fun getAllDreamTileIs(): Map<AbsolutePosition, DreamTileI> {
+        val acc: MutableMap<AbsolutePosition, DreamTileI> = mutableMapOf()
+        this.activeRoomsToAbsolutePositions.map { uuidToPosition ->
+            val room = this.roomsById[uuidToPosition.key]!!
+            room.allTiles().map {
+                acc[roomToAbsolutePosition(it.key)!!] = it.value
+            }
+        }
+        return acc
+    }
+
+    override val entities: List<Entity>
+        get() = roomsById.flatMap { it.value.entities() }
+
 
     /******************************************************************************************************************
      * Entity Management
@@ -119,8 +153,8 @@ class DreamMap: DreamMapI {
         return null
     }
 
-    internal fun roomToAbsolutePosition(roomPosition: RoomPosition): AbsolutePosition {
-        val roomAbsolutePosition = this.activeRoomsToAbsolutePositions[roomPosition.roomUuid]!!
+    internal fun roomToAbsolutePosition(roomPosition: RoomPosition): AbsolutePosition? {
+        val roomAbsolutePosition = this.activeRoomsToAbsolutePositions[roomPosition.roomUuid] ?: return null
         return AbsolutePosition(roomAbsolutePosition.x + roomPosition.x, roomAbsolutePosition.y + roomPosition.y)
     }
 

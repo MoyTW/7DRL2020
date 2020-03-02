@@ -29,11 +29,11 @@ object Rulebook {
     private fun resolveAttackAction(action: AttackAction, encounterState: EncounterState) {
         val attacker = action.actor
         val attackerPos = attacker.getComponent(RoomPositionComponent::class)
-            .asAbsolutePosition(encounterState)
+            .asAbsolutePosition(encounterState)!! // TODO: this isn't...always true
 
         val defender = action.target
         val defenderPos = defender.getComponent(RoomPositionComponent::class)
-            .asAbsolutePosition(encounterState)
+            .asAbsolutePosition(encounterState)!! // TODO: this isn't...always true
 
         // TODO: Range & visibility & such
         if (!encounterState.arePositionsAdjacent(attackerPos, defenderPos)) {
@@ -85,7 +85,7 @@ object Rulebook {
     private fun resolveMoveAction(action: MoveAction, encounterState: EncounterState) {
         val currentPosition = action.actor
             .getComponent(RoomPositionComponent::class)
-            .asAbsolutePosition(encounterState)
+            .asAbsolutePosition(encounterState)!!  // TODO: this isn't...always true
 
         val targetNodeSameAsCurrentNode = currentPosition == action.targetPosition
         val targetNodeBlocked = encounterState.positionBlocked(action.targetPosition)

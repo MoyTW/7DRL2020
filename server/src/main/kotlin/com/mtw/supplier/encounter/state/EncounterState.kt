@@ -55,7 +55,7 @@ class EncounterState(
 
     fun calculatePlayerFoVAndMarkExploration() {
         this.fovCache = FoVCache.computeFoV(this.dreamMap,
-            this.playerEntity().getComponent(RoomPositionComponent::class).asAbsolutePosition(this),
+            this.playerEntity().getComponent(RoomPositionComponent::class).asAbsolutePosition(this)!!,
             5
         ) // TOOD: Vision radius
         for (pos in this.fovCache!!.visiblePositions) {
@@ -69,12 +69,7 @@ class EncounterState(
     }
 
     // TODO: Map sizing
-    private val dreamMap: DreamMap = DreamMap().apply {
-        val room = DreamRoomBuilder(15, 15, ExitDirection.ALL_DIRECTIONS).build()
-        this.initFirstRoom(room)
-        val secondRoom = DreamRoomBuilder(15, 15, ExitDirection.ALL_DIRECTIONS).build()
-        this.connectRooms(room, ExitDirection.WEST, secondRoom)
-    }
+    private val dreamMap: DreamMap = DreamMapBuilder().build()
 
     fun getEncounterTileMap(): DreamMapI {
         return dreamMap
@@ -141,7 +136,7 @@ class EncounterState(
         this.dreamMap.teleportEntity(entity, targetPosition, ignoreCollision)
     }
 
-    fun roomToAbsolutePosition(roomPosition: RoomPosition): AbsolutePosition {
+    fun roomToAbsolutePosition(roomPosition: RoomPosition): AbsolutePosition? {
         return this.dreamMap.roomToAbsolutePosition(roomPosition)
     }
 }

@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 class RoomPositionComponent(var roomPosition: RoomPosition, var roomUuid: String): Component() {
     override var _parentId: String? = null
 
-    fun asAbsolutePosition(encounterState: EncounterState): AbsolutePosition {
+    fun asAbsolutePosition(encounterState: EncounterState): AbsolutePosition? {
         return encounterState.roomToAbsolutePosition(roomPosition)
     }
 }

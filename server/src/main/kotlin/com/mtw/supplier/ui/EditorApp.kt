@@ -103,7 +103,9 @@ object EditorApp {
                 !it.hasComponent(PathAIComponent::class) }
         nonPathAiEntities.map {
             val entityPos = it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)
-            draw(screen, enemyTile, entityPos)
+            if (entityPos != null) {
+                draw(screen, enemyTile, entityPos)
+            }
         }
     }
 
@@ -114,7 +116,10 @@ object EditorApp {
             .buildCharacterTile()
         val doors = encounterState.entities().filter { it.hasComponent(DoorComponent::class) }
         doors.map {
-            draw(screen, doorTile, it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState))
+            val position = it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)
+            if (position != null) {
+                draw(screen, doorTile, position)
+            }
         }
     }
 
@@ -126,7 +131,7 @@ object EditorApp {
             .buildCharacterTile()
         val playerPos = encounterState.playerEntity().getComponent(RoomPositionComponent::class)
             .asAbsolutePosition(encounterState)
-        draw(screen, playerTile, playerPos)
+        draw(screen, playerTile, playerPos!!)
     }
 
     private fun toCameraCoordinates(pos: AbsolutePosition): AbsolutePosition {
@@ -136,7 +141,7 @@ object EditorApp {
     private fun renderGameState(screen: Screen) {
         screen.clear()
         // Render the tiles
-        val playerPos = gameState.encounterState.playerEntity().getComponent(RoomPositionComponent::class).asAbsolutePosition(gameState.encounterState)
+        val playerPos = gameState.encounterState.playerEntity().getComponent(RoomPositionComponent::class).asAbsolutePosition(gameState.encounterState)!!
         cameraX = playerPos.x
         cameraY = playerPos.y
 
@@ -166,19 +171,19 @@ class GameState {
     var encounterState: EncounterState = generateNewGameState()
         
     internal fun postWaitAction() {
-        val action = WaitAction(encounterState!!.playerEntity())
-        EncounterRunner.runPlayerTurn(encounterState!!, action)
-        EncounterRunner.runUntilPlayerReady(encounterState!!)
+        val action = WaitAction(encounterState.playerEntity())
+        EncounterRunner.runPlayerTurn(encounterState, action)
+        EncounterRunner.runUntilPlayerReady(encounterState)
     }
 
     internal fun postMoveAction(direction: Direction) {
-        val oldPlayerPos = encounterState!!.playerEntity().getComponent(RoomPositionComponent::class).roomPosition
+        val oldPlayerPos = encounterState.playerEntity().getComponent(RoomPositionComponent::class).roomPosition
         val newPlayerPos = oldPlayerPos.copy(
             x = oldPlayerPos.x + direction.dx, y = oldPlayerPos.y + direction.dy)
 
-        val action = MoveAction(encounterState!!.playerEntity(), encounterState.roomToAbsolutePosition(newPlayerPos))
-        EncounterRunner.runPlayerTurn(encounterState!!, action)
-        EncounterRunner.runUntilPlayerReady(encounterState!!)
+        val action = MoveAction(encounterState.playerEntity(), encounterState.roomToAbsolutePosition(newPlayerPos)!!)
+        EncounterRunner.runPlayerTurn(encounterState, action)
+        EncounterRunner.runUntilPlayerReady(encounterState)
     }
 
     private final fun generateNewGameState(): EncounterState {
