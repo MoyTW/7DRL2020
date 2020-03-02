@@ -3,7 +3,6 @@ package com.mtw.supplier.encounter.rulebook
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.*
 import com.mtw.supplier.ecs.components.ai.AIComponent
-import com.mtw.supplier.ecs.components.ai.PathAIComponent
 import com.mtw.supplier.encounter.rulebook.actions.*
 import com.mtw.supplier.encounter.state.EncounterState
 import com.mtw.supplier.encounter.state.EncounterMessageLog
@@ -29,10 +28,10 @@ object Rulebook {
 
     private fun resolveAttackAction(action: AttackAction, encounterState: EncounterState) {
         val attacker = action.actor
-        val attackerPos = attacker.getComponent(EncounterLocationComponent::class).position
+        val attackerPos = attacker.getComponent(EncounterLocationComponent::class).roomPosition
 
         val defender = action.target
-        val defenderPos = defender.getComponent(EncounterLocationComponent::class).position
+        val defenderPos = defender.getComponent(EncounterLocationComponent::class).roomPosition
 
         // TODO: Range & visibility & such
         if (!encounterState.arePositionsAdjacent(attackerPos, defenderPos)) {
@@ -84,7 +83,7 @@ object Rulebook {
     private fun resolveMoveAction(action: MoveAction, encounterState: EncounterState) {
         val currentPosition = action.actor
             .getComponent(EncounterLocationComponent::class)
-            .position
+            .roomPosition
 
         val targetNodeSameAsCurrentNode = currentPosition == action.targetPosition
         val targetNodeBlocked = encounterState.positionBlocked(action.targetPosition)

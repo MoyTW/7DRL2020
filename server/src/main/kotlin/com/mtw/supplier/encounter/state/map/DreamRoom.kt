@@ -4,7 +4,6 @@ import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.CollisionComponent
 import com.mtw.supplier.ecs.components.DoorComponent
 import com.mtw.supplier.ecs.components.EncounterLocationComponent
-import com.mtw.supplier.utils.XYCoordinates
 import kotlinx.serialization.Serializable
 import org.hexworks.cobalt.core.api.UUID
 
@@ -16,9 +15,8 @@ interface DreamTileI {
 }
 
 interface DreamMapI {
-    val width: Int
-    val height: Int
     fun getDreamTileI(x: Int, y: Int): DreamTileI?
+    val entities: List<Entity>
 }
 
 enum class ExitDirection {
@@ -39,7 +37,6 @@ enum class ExitDirection {
 }
 
 class DreamRoomBuilder(
-//    val map: DreamMap,
     val width: Int,
     val height: Int,
     val exits: List<ExitDirection> = ExitDirection.ALL_DIRECTIONS
@@ -63,22 +60,22 @@ class DreamRoomBuilder(
         // North wall
         val northExitX = if(exits.contains(ExitDirection.NORTH)) { (1 until width - 1).random() } else { null }
         for (x in 0 until width) {
-            room.placeEntity(doorOrWall(x == northExitX, ExitDirection.NORTH), XYCoordinates(x, height - 1), false)
+            room.placeEntity(doorOrWall(x == northExitX, ExitDirection.NORTH), RoomPosition(x, height - 1), false)
         }
         // East
         val eastExitY = if(exits.contains(ExitDirection.EAST))  { (1 until height - 1).random() } else { null }
         for (y in 0 until height - 1) {
-            room.placeEntity(doorOrWall(y == eastExitY, ExitDirection.EAST), XYCoordinates(width - 1, y), false)
+            room.placeEntity(doorOrWall(y == eastExitY, ExitDirection.EAST), RoomPosition(width - 1, y), false)
         }
         // South
         val southExitX = if(exits.contains(ExitDirection.SOUTH))  { (1 until width - 1).random() } else { null }
         for (x in 0 until width - 1) {
-            room.placeEntity(doorOrWall(x == southExitX, ExitDirection.SOUTH), XYCoordinates(x, 0), false)
+            room.placeEntity(doorOrWall(x == southExitX, ExitDirection.SOUTH), RoomPosition(x, 0), false)
         }
         // West
         val westExitX = if(exits.contains(ExitDirection.WEST))  { (1 until height - 1).random() } else { null }
         for (y in 1 until height - 1) {
-            room.placeEntity(doorOrWall(y == westExitX, ExitDirection.WEST), XYCoordinates(0, y), false)
+            room.placeEntity(doorOrWall(y == westExitX, ExitDirection.WEST), RoomPosition(0, y), false)
         }
     }
 
@@ -93,22 +90,19 @@ class DreamRoomBuilder(
 }
 
 @Serializable
+data class RoomPosition(
+    val x: Int,
+    val y: Int
+)
+
+@Serializable
 class DreamRoom internal constructor(
     val uuid: String,
-    override val width: Int,
-    override val height: Int,
+    val width: Int,
+    val height: Int,
     val doors: Map<ExitDirection, Entity>,
     private val nodes: Array<Array<DreamTile>>
-): DreamMapI {
-    override fun getDreamTileI(x: Int, y: Int): DreamTileI? {
-        // yeah, yeah, exceptions, control flow, you could do a width/height. TODO: cleanup maybe
-        return try {
-            nodes[x][y]
-        } catch (e: ArrayIndexOutOfBoundsException) {
-            null
-        }
-    }
-
+) {
     internal fun isInBounds(x: Int, y: Int): Boolean {
         return x in 0 until width && y in 0 until height
     }
@@ -117,28 +111,21 @@ class DreamRoom internal constructor(
         return doors[direction]
     }
 
-    internal fun markExplored(pos: XYCoordinates) {
+    internal fun markExplored(pos: RoomPosition) {
         nodes[pos.x][pos.y].markExplored()
     }
 
-    internal fun positionBlocked(pos: XYCoordinates): Boolean {
+    internal fun positionBlocked(pos: RoomPosition): Boolean {
         if (!isInBounds(pos.x, pos.y)) { return true }
         return nodes[pos.x][pos.y].blocksMovement
     }
 
-    internal fun arePositionsAdjacent(pos1: XYCoordinates, pos2: XYCoordinates): Boolean {
-        val dx = kotlin.math.abs(pos1.x - pos2.x)
-        val dy = kotlin.math.abs(pos1.y - pos2.y)
-        val adjacent = dx < 2 && dy < 2 && (dx + dy != 0)
-        return adjacent
-    }
-
-    internal fun adjacentUnblockedPositions(pos: XYCoordinates): List<XYCoordinates> {
-        val adjacentUnblockedPositions = mutableListOf<XYCoordinates>()
+    internal fun adjacentUnblockedPositions(pos: RoomPosition): List<RoomPosition> {
+        val adjacentUnblockedPositions = mutableListOf<RoomPosition>()
         for(x in (pos.x - 1..pos.x + 1)) {
             for (y in (pos.y - 1..pos.y + 1)) {
                 if (x != y && isInBounds(x, y) && !nodes[x][y].blocksMovement) {
-                    adjacentUnblockedPositions.add(XYCoordinates(x, y))
+                    adjacentUnblockedPositions.add(RoomPosition(x, y))
                 }
             }
         }
@@ -150,7 +137,7 @@ class DreamRoom internal constructor(
         return this.nodes.flatten().flatMap { it.entities }.sortedBy { it.id }
     }
 
-    internal fun getEntitiesAtPosition(pos: XYCoordinates): List<Entity> {
+    internal fun getEntitiesAtPosition(pos: RoomPosition): List<Entity> {
         if (!isInBounds(pos.x, pos.y)) { return emptyList() }
         return this.nodes[pos.x][pos.y].entities
     }
@@ -159,7 +146,7 @@ class DreamRoom internal constructor(
      * @throws EntityAlreadyHasLocation when a node already has a location
      * @throws NodeHasInsufficientSpaceException when node cannot find space for the entity
      */
-    internal fun placeEntity(entity: Entity, targetPosition: XYCoordinates, ignoreCollision: Boolean) {
+    internal fun placeEntity(entity: Entity, targetPosition: RoomPosition, ignoreCollision: Boolean) {
         if (entity.hasComponent(EncounterLocationComponent::class)) {
             throw EntityAlreadyHasLocation("Specified entity ${entity.name} already has a location, cannot be placed!")
         } else if (!ignoreCollision && this.positionBlocked(targetPosition)) {
@@ -167,7 +154,7 @@ class DreamRoom internal constructor(
         }
 
         this.nodes[targetPosition.x][targetPosition.y].entities.add(entity)
-        entity.addComponent(EncounterLocationComponent(targetPosition))
+        entity.addComponent(EncounterLocationComponent(targetPosition, this.uuid))
     }
     class EntityAlreadyHasLocation(message: String): Exception(message)
     class NodeHasInsufficientSpaceException(message: String): Exception(message)
@@ -178,13 +165,13 @@ class DreamRoom internal constructor(
         }
 
         val locationComponent = entity.getComponent(EncounterLocationComponent::class)
-        val (x, y) = locationComponent.position
+        val (x, y) = locationComponent.roomPosition
         this.nodes[x][y].entities.remove(entity)
         entity.removeComponent(locationComponent)
     }
     class EntityHasNoLocation(message: String): Exception(message)
 
-    internal fun teleportEntity(entity: Entity, targetPosition: XYCoordinates, ignoreCollision: Boolean) {
+    internal fun teleportEntity(entity: Entity, targetPosition: RoomPosition, ignoreCollision: Boolean) {
         this.removeEntity(entity)
         this.placeEntity(entity, targetPosition, ignoreCollision)
     }

@@ -9,10 +9,7 @@ import com.mtw.supplier.encounter.rulebook.actions.AttackAction
 import com.mtw.supplier.encounter.rulebook.actions.MoveAction
 import com.mtw.supplier.encounter.rulebook.actions.WaitAction
 import com.mtw.supplier.encounter.state.EncounterStateUtils.aStarWithNewGrid
-import com.mtw.supplier.utils.XYCoordinates
 import kotlinx.serialization.Serializable
-import java.util.*
-import kotlin.math.abs
 
 
 @Serializable
@@ -37,8 +34,8 @@ class TestAIComponent : AIComponent() {
             ?: return listOf(WaitAction(parentEntity))
 
 
-        val parentLocation = parentEntity.getComponent(EncounterLocationComponent::class).position
-        val firstOtherEntityLocation = firstOtherAliveEnemy.getComponent(EncounterLocationComponent::class).position
+        val parentLocation = parentEntity.getComponent(EncounterLocationComponent::class).roomPosition
+        val firstOtherEntityLocation = firstOtherAliveEnemy.getComponent(EncounterLocationComponent::class).roomPosition
 
         // wow ugly!
         return if (encounterState.arePositionsAdjacent(parentLocation, firstOtherEntityLocation)) {

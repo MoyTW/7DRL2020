@@ -5,6 +5,7 @@ import com.mtw.supplier.ecs.components.CollisionComponent
 import com.mtw.supplier.ecs.components.EncounterLocationComponent
 import com.mtw.supplier.ecs.components.PlayerComponent
 import com.mtw.supplier.encounter.rulebook.Action
+import com.mtw.supplier.encounter.state.map.DreamMap
 import com.mtw.supplier.encounter.state.map.DreamRoom
 import com.mtw.supplier.encounter.state.map.DreamRoomBuilder
 import com.mtw.supplier.encounter.state.map.DreamMapI
@@ -56,12 +57,12 @@ class EncounterState(
         get() = this._completed
 
     fun calculatePlayerFoVAndMarkExploration() {
-        this.fovCache = FoVCache.computeFoV(this.dreamRoom,
-            this.playerEntity().getComponent(EncounterLocationComponent::class).position,
+        this.fovCache = FoVCache.computeFoV(this.dreamMap,
+            this.playerEntity().getComponent(EncounterLocationComponent::class).roomPosition,
             5
         ) // TOOD: Vision radius
         for (pos in this.fovCache!!.visiblePositions) {
-            dreamRoom.markExplored(pos)
+            dreamMap.markExplored(pos)
         }
     }
 
@@ -71,10 +72,10 @@ class EncounterState(
     }
 
     // TODO: Map sizing
-    private val dreamRoom: DreamRoom = DreamRoomBuilder(width, height).build()
+    private val dreamMap: DreamMap = DreamMap()
 
     fun getEncounterTileMap(): DreamMapI {
-        return dreamRoom
+        return dreamMap
     }
 
     fun advanceTime(timeDiff: Int) {
@@ -90,9 +91,9 @@ class EncounterState(
     class EncounterCannotBeCompletedTwiceException: Exception("Encounter cannot be completed twice!")
 
 
-    // TODO: Possibly maintain internal list
+    // TODO: Possibly maintain internal list?
     fun entities(): List<Entity> {
-        return this.dreamRoom.entities()
+        return this.dreamMap.entities
     }
 
     fun playerEntity(): Entity {
@@ -105,19 +106,19 @@ class EncounterState(
     class EntityIdNotFoundException(entityId: String): Exception("Entity id $entityId could not be found!")
 
     fun getBlockingEntityAtPosition(pos: XYCoordinates): Entity? {
-        return this.dreamRoom.getEntitiesAtPosition(pos).firstOrNull { it.getComponentOrNull(CollisionComponent::class)?.blocksMovement ?: false }
+        return this.dreamMap.getEntitiesAtPosition(pos).firstOrNull { it.getComponentOrNull(CollisionComponent::class)?.blocksMovement ?: false }
     }
 
     fun positionBlocked(pos: XYCoordinates): Boolean {
-        return this.dreamRoom.positionBlocked(pos)
+        return this.dreamMap.positionBlocked(pos)
     }
 
     fun arePositionsAdjacent(pos1: XYCoordinates, pos2: XYCoordinates): Boolean {
-        return this.dreamRoom.arePositionsAdjacent(pos1, pos2)
+        return this.dreamMap.arePositionsAdjacent(pos1, pos2)
     }
 
     fun adjacentUnblockedPositions(pos: XYCoordinates): List<XYCoordinates> {
-        return this.dreamRoom.adjacentUnblockedPositions(pos)
+        return this.dreamMap.adjacentUnblockedPositions(pos)
     }
 
     /**

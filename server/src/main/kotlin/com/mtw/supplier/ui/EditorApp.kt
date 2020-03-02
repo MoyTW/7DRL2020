@@ -105,7 +105,7 @@ object EditorApp {
                 it.hasComponent(AIComponent::class) &&
                 !it.hasComponent(PathAIComponent::class) }
         nonPathAiEntities.map {
-            val entityPos = it.getComponent(EncounterLocationComponent::class).position
+            val entityPos = it.getComponent(EncounterLocationComponent::class).roomPosition
             draw(screen, enemyTile, entityPos)
         }
     }
@@ -117,7 +117,7 @@ object EditorApp {
             .buildCharacterTile()
         val doors = encounterState.entities().filter { it.hasComponent(DoorComponent::class) }
         doors.map {
-            draw(screen, doorTile, it.getComponent(EncounterLocationComponent::class).position)
+            draw(screen, doorTile, it.getComponent(EncounterLocationComponent::class).roomPosition)
         }
     }
 
@@ -127,7 +127,7 @@ object EditorApp {
             .withForegroundColor(ANSITileColor.GREEN)
             .withBackgroundColor(ANSITileColor.WHITE)
             .buildCharacterTile()
-        val playerPos = encounterState.playerEntity().getComponent(EncounterLocationComponent::class).position
+        val playerPos = encounterState.playerEntity().getComponent(EncounterLocationComponent::class).roomPosition
         draw(screen, playerTile, playerPos)
     }
 
@@ -138,7 +138,7 @@ object EditorApp {
     private fun renderGameState(screen: Screen) {
         screen.clear()
         // Render the tiles
-        val playerPos = gameState.encounterState.playerEntity().getComponent(EncounterLocationComponent::class).position
+        val playerPos = gameState.encounterState.playerEntity().getComponent(EncounterLocationComponent::class).roomPosition
         cameraX = playerPos.x
         cameraY = playerPos.y
 
@@ -174,7 +174,7 @@ class GameState {
     }
 
     internal fun postMoveAction(direction: Direction) {
-        val oldPlayerPos = encounterState!!.playerEntity().getComponent(EncounterLocationComponent::class).position
+        val oldPlayerPos = encounterState!!.playerEntity().getComponent(EncounterLocationComponent::class).roomPosition
         val newPlayerPos = oldPlayerPos.copy(
             x = oldPlayerPos.x + direction.dx, y = oldPlayerPos.y + direction.dy)
 
