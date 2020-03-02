@@ -17,8 +17,8 @@ import kotlinx.serialization.Serializable
 class DreamMap: DreamMapI {
     // This is in Absolute XY
     override fun getDreamTileI(pos: AbsolutePosition): DreamTileI? {
-        val roomPosition = absoluteToRoomPosition(pos)
-        return this.roomsById[roomPosition!!.roomUuid]!!.getTile(roomPosition)
+        val roomPosition = absoluteToRoomPosition(pos) ?: return null
+        return this.roomsById[roomPosition.roomUuid]?.getTile(roomPosition)
     }
 
     override fun getAllDreamTileIs(): Map<AbsolutePosition, DreamTileI> {
@@ -93,7 +93,9 @@ class DreamMap: DreamMapI {
 
     fun markExplored(pos: AbsolutePosition) {
         val roomPosition = absoluteToRoomPosition(pos)
-        this.roomsById[roomPosition!!.roomUuid]!!.getTile(roomPosition)?.markExplored()
+        if (roomPosition != null) {
+            this.roomsById[roomPosition.roomUuid]?.getTile(roomPosition)?.markExplored()
+        }
     }
 
     /******************************************************************************************************************
@@ -123,12 +125,12 @@ class DreamMap: DreamMapI {
     }
 
     internal fun getEntitiesAtPosition(pos: AbsolutePosition): List<Entity> {
-        val roomPosition = absoluteToRoomPosition(pos)!!
+        val roomPosition = absoluteToRoomPosition(pos) ?: return listOf()
         return this.roomsById[roomPosition.roomUuid]!!.getEntitiesAtPosition(roomPosition)
     }
 
     internal fun positionBlocked(pos: AbsolutePosition): Boolean {
-        val roomPosition = absoluteToRoomPosition(pos)!!
+        val roomPosition = absoluteToRoomPosition(pos) ?: return true
         return this.roomsById[roomPosition.roomUuid]!!.positionBlocked(roomPosition)
     }
 
