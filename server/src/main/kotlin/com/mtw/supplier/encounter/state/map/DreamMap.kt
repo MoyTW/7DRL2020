@@ -1,7 +1,7 @@
 package com.mtw.supplier.encounter.state.map
 
 import com.mtw.supplier.ecs.Entity
-import com.mtw.supplier.utils.XYCoordinates
+import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 
 /** You can only have MAX 5 visible rooms
@@ -46,27 +46,27 @@ class DreamMap: DreamMapI {
      * Entity Management
      ******************************************************************************************************************/
 
-    private fun absoluteToRoomPosition(absolute: XYCoordinates): RoomPosition? {
+    private fun absoluteToRoomPosition(absolute: AbsolutePosition): RoomPosition? {
         // Get the room overlapping that position
         // Convert to room coordinates
         TODO()
     }
 
-    internal fun getEntitiesAtPosition(pos: XYCoordinates): List<Entity> {
+    internal fun getEntitiesAtPosition(pos: AbsolutePosition): List<Entity> {
         TODO()
     }
 
-    internal fun positionBlocked(pos: XYCoordinates): Boolean {
+    internal fun positionBlocked(pos: AbsolutePosition): Boolean {
         TODO()
     }
 
-    internal fun arePositionsAdjacent(pos1: XYCoordinates, pos2: XYCoordinates): Boolean {
+    internal fun arePositionsAdjacent(pos1: AbsolutePosition, pos2: AbsolutePosition): Boolean {
         val dx = kotlin.math.abs(pos1.x - pos2.x)
         val dy = kotlin.math.abs(pos1.y - pos2.y)
         return dx < 2 && dy < 2 && (dx + dy != 0)
     }
 
-    internal fun adjacentUnblockedPositions(pos: XYCoordinates): List<XYCoordinates> {
+    internal fun adjacentUnblockedPositions(pos: AbsolutePosition): List<AbsolutePosition> {
         TODO()
     }
 }

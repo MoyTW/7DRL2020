@@ -1,34 +1,34 @@
 package com.mtw.supplier.encounter.state
 
-import com.mtw.supplier.utils.XYCoordinates
+import com.mtw.supplier.utils.AbsolutePosition
 import java.util.*
 import kotlin.Comparator
 import kotlin.math.abs
 import kotlin.math.sqrt
 
 object EncounterStateUtils {
-    fun distanceBetween(pos1: XYCoordinates, pos2: XYCoordinates): Float {
+    fun distanceBetween(pos1: AbsolutePosition, pos2: AbsolutePosition): Float {
         val dx = (pos1.x - pos2.x).toFloat()
         val dy = (pos1.y - pos2.y).toFloat()
         return sqrt(dx * dx + dy * dy)
     }
 
-    private val aStarComparator = Comparator<Pair<XYCoordinates, Double>> { o1, o2 -> o1!!.second.compareTo(o2!!.second) }
+    private val aStarComparator = Comparator<Pair<AbsolutePosition, Double>> { o1, o2 -> o1!!.second.compareTo(o2!!.second) }
 
-    private fun aStarHeuristic(startPos: XYCoordinates, endPos: XYCoordinates): Double {
+    private fun aStarHeuristic(startPos: AbsolutePosition, endPos: AbsolutePosition): Double {
         return abs(startPos.x.toDouble() - endPos.x.toDouble()) +
             abs(startPos.y.toDouble() - endPos.y.toDouble())
     }
 
-    fun aStarWithNewGrid(startPos: XYCoordinates,
-                         endPos: XYCoordinates,
-                         encounterState: EncounterState): List<XYCoordinates>? {
-        val frontier = PriorityQueue<Pair<XYCoordinates, Double>>(aStarComparator)
+    fun aStarWithNewGrid(startPos: AbsolutePosition,
+                         endPos: AbsolutePosition,
+                         encounterState: EncounterState): List<AbsolutePosition>? {
+        val frontier = PriorityQueue<Pair<AbsolutePosition, Double>>(aStarComparator)
         frontier.add(Pair(startPos, 0.0))
 
-        val cameFrom: MutableMap<XYCoordinates, XYCoordinates> = mutableMapOf()
+        val cameFrom: MutableMap<AbsolutePosition, AbsolutePosition> = mutableMapOf()
 
-        val costSoFar: MutableMap<XYCoordinates, Double> = mutableMapOf()
+        val costSoFar: MutableMap<AbsolutePosition, Double> = mutableMapOf()
         costSoFar[startPos] = 0.0
 
         while (frontier.isNotEmpty()) {

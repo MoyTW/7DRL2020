@@ -6,10 +6,8 @@ import com.mtw.supplier.ecs.components.EncounterLocationComponent
 import com.mtw.supplier.ecs.components.PlayerComponent
 import com.mtw.supplier.encounter.rulebook.Action
 import com.mtw.supplier.encounter.state.map.DreamMap
-import com.mtw.supplier.encounter.state.map.DreamRoom
-import com.mtw.supplier.encounter.state.map.DreamRoomBuilder
 import com.mtw.supplier.encounter.state.map.DreamMapI
-import com.mtw.supplier.utils.XYCoordinates
+import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -105,19 +103,19 @@ class EncounterState(
     }
     class EntityIdNotFoundException(entityId: String): Exception("Entity id $entityId could not be found!")
 
-    fun getBlockingEntityAtPosition(pos: XYCoordinates): Entity? {
+    fun getBlockingEntityAtPosition(pos: AbsolutePosition): Entity? {
         return this.dreamMap.getEntitiesAtPosition(pos).firstOrNull { it.getComponentOrNull(CollisionComponent::class)?.blocksMovement ?: false }
     }
 
-    fun positionBlocked(pos: XYCoordinates): Boolean {
+    fun positionBlocked(pos: AbsolutePosition): Boolean {
         return this.dreamMap.positionBlocked(pos)
     }
 
-    fun arePositionsAdjacent(pos1: XYCoordinates, pos2: XYCoordinates): Boolean {
+    fun arePositionsAdjacent(pos1: AbsolutePosition, pos2: AbsolutePosition): Boolean {
         return this.dreamMap.arePositionsAdjacent(pos1, pos2)
     }
 
-    fun adjacentUnblockedPositions(pos: XYCoordinates): List<XYCoordinates> {
+    fun adjacentUnblockedPositions(pos: AbsolutePosition): List<AbsolutePosition> {
         return this.dreamMap.adjacentUnblockedPositions(pos)
     }
 
@@ -125,7 +123,7 @@ class EncounterState(
      * @throws EntityAlreadyHasLocation when a node already has a location
      * @throws NodeHasInsufficientSpaceException when node cannot find space for the entity
      */
-    fun placeEntity(entity: Entity, targetPosition: XYCoordinates, ignoreCollision: Boolean = false): EncounterState {
+    fun placeEntity(entity: Entity, targetPosition: AbsolutePosition, ignoreCollision: Boolean = false): EncounterState {
         this.dreamRoom.placeEntity(entity, targetPosition, ignoreCollision)
         return this
     }
@@ -135,7 +133,7 @@ class EncounterState(
         return this
     }
 
-    fun teleportEntity(entity: Entity, targetPosition: XYCoordinates, ignoreCollision: Boolean = false) {
+    fun teleportEntity(entity: Entity, targetPosition: AbsolutePosition, ignoreCollision: Boolean = false) {
         this.dreamRoom.teleportEntity(entity, targetPosition, ignoreCollision)
     }
 }

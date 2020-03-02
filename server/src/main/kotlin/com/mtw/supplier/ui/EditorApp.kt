@@ -9,7 +9,7 @@ import com.mtw.supplier.encounter.EncounterRunner
 import com.mtw.supplier.encounter.rulebook.actions.MoveAction
 import com.mtw.supplier.encounter.rulebook.actions.WaitAction
 import com.mtw.supplier.encounter.state.EncounterState
-import com.mtw.supplier.utils.XYCoordinates
+import com.mtw.supplier.utils.AbsolutePosition
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.*
 import org.hexworks.zircon.api.application.AppConfig
@@ -37,7 +37,7 @@ object EditorApp {
     val gameState = GameState()
     val WIDTH: Int = 40
     val HEIGHT: Int = 40
-    val CENTER = XYCoordinates(WIDTH / 2, HEIGHT / 2)
+    val CENTER = AbsolutePosition(WIDTH / 2, HEIGHT / 2)
     private var cameraX: Int = 0
     private var cameraY: Int = 0
     
@@ -63,7 +63,7 @@ object EditorApp {
         renderGameState(screen)
     }
 
-    private fun draw(screen: Screen, tile: Tile, pos: XYCoordinates) {
+    private fun draw(screen: Screen, tile: Tile, pos: AbsolutePosition) {
         val screenPos = toCameraCoordinates(pos)
         screen.draw(tile, Position.create(screenPos.x, screen.height - screenPos.y - 1))
     }
@@ -86,10 +86,10 @@ object EditorApp {
                 val tile = tiles.getDreamTileI(x, y)
                 val drawTile = when {
                     tile?.explored == false-> { unexploredTile }
-                    !fov!!.isInFoV(XYCoordinates(x, y)) -> { exploredTile }
+                    !fov!!.isInFoV(AbsolutePosition(x, y)) -> { exploredTile }
                     else -> { visibleTile }
                 }
-                draw(screen, drawTile, XYCoordinates(x, y))
+                draw(screen, drawTile, AbsolutePosition(x, y))
             }
         }
     }
@@ -131,8 +131,8 @@ object EditorApp {
         draw(screen, playerTile, playerPos)
     }
 
-    private fun toCameraCoordinates(pos: XYCoordinates): XYCoordinates {
-        return XYCoordinates(pos.x - cameraX + CENTER.x, pos.y - cameraY + CENTER.y)
+    private fun toCameraCoordinates(pos: AbsolutePosition): AbsolutePosition {
+        return AbsolutePosition(pos.x - cameraX + CENTER.x, pos.y - cameraY + CENTER.y)
     }
 
     private fun renderGameState(screen: Screen) {
@@ -205,8 +205,8 @@ class GameState {
             .addComponent(ActionTimeComponent(100))
             .addComponent(SpeedComponent(100))
 
-        state.placeEntity(scout, XYCoordinates(10, 10))
-            .placeEntity(player, XYCoordinates(25, 25))
+        state.placeEntity(scout, AbsolutePosition(10, 10))
+            .placeEntity(player, AbsolutePosition(25, 25))
         EncounterRunner.runUntilPlayerReady(state)
         return state
     }

@@ -1,7 +1,7 @@
 package com.mtw.supplier.encounter.state
 
 import com.mtw.supplier.encounter.state.map.DreamMapI
-import com.mtw.supplier.utils.XYCoordinates
+import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 import kotlin.math.max
 import kotlin.math.min
@@ -11,14 +11,14 @@ import kotlin.math.sqrt
  * Keeps a list of coordinates visible from the current position.
  */
 @Serializable
-class FoVCache internal constructor(val visiblePositions: Set<XYCoordinates>) {
+class FoVCache internal constructor(val visiblePositions: Set<AbsolutePosition>) {
 
-    fun isInFoV(pos: XYCoordinates): Boolean {
+    fun isInFoV(pos: AbsolutePosition): Boolean {
         return visiblePositions.contains(pos)
     }
 
     companion object {
-        fun computeFoV(tileMapI: DreamMapI, center: XYCoordinates, radius: Int): FoVCache {
+        fun computeFoV(tileMapI: DreamMapI, center: AbsolutePosition, radius: Int): FoVCache {
             val visibleCells = RPASCal.calcVisibleCellsFrom(center, radius) {
                 tileMapI.getDreamTileI(it.x, it.y)?.blocksVision == false
             }.filter {
@@ -44,8 +44,8 @@ object RPASCal {
     val RESTRICTIVENESS: Int = 1
     val VISIBLE_ON_EQUAL: Boolean = true
 
-    fun calcVisibleCellsFrom(center: XYCoordinates, radius: Int,
-                             isTransparent: (cell: XYCoordinates) -> Boolean): Set<XYCoordinates> {
+    fun calcVisibleCellsFrom(center: AbsolutePosition, radius: Int,
+                             isTransparent: (cell: AbsolutePosition) -> Boolean): Set<AbsolutePosition> {
         return mutableSetOf(center)
             .union(visibleCellsInQuadrantFrom(center, Quadrant.NE, radius, isTransparent))
             .union(visibleCellsInQuadrantFrom(center, Quadrant.SE, radius, isTransparent))
@@ -53,17 +53,17 @@ object RPASCal {
             .union(visibleCellsInQuadrantFrom(center, Quadrant.NW, radius, isTransparent))
     }
 
-    private fun visibleCellsInQuadrantFrom(center: XYCoordinates, quadrant: Quadrant, radius: Int,
-                                           isTransparent: (cell: XYCoordinates) -> Boolean): Set<XYCoordinates> {
+    private fun visibleCellsInQuadrantFrom(center: AbsolutePosition, quadrant: Quadrant, radius: Int,
+                                           isTransparent: (cell: AbsolutePosition) -> Boolean): Set<AbsolutePosition> {
         return visibleCellsInOctantFrom(center, quadrant, radius, isTransparent, true)
             .union(visibleCellsInOctantFrom(center, quadrant, radius, isTransparent, false))
     }
 
-    private fun visibleCellsInOctantFrom(center: XYCoordinates, quadrant: Quadrant, radius: Int,
-                                         isTransparent: (cell: XYCoordinates) -> Boolean, isVertical: Boolean
-    ): Set<XYCoordinates> {
+    private fun visibleCellsInOctantFrom(center: AbsolutePosition, quadrant: Quadrant, radius: Int,
+                                         isTransparent: (cell: AbsolutePosition) -> Boolean, isVertical: Boolean
+    ): Set<AbsolutePosition> {
         var iteration: Int = 1
-        val visibleCells = mutableSetOf<XYCoordinates>()
+        val visibleCells = mutableSetOf<AbsolutePosition>()
         var obstructions = mutableListOf<CellAngles>()
 
         while (iteration <= radius &&
@@ -73,7 +73,7 @@ object RPASCal {
 
             // Python: for step in range(iteration + 1):
             for (step: Int in 0..iteration) {
-                val cell: XYCoordinates = cellAt(center, quadrant, step, iteration, isVertical)
+                val cell: AbsolutePosition = cellAt(center, quadrant, step, iteration, isVertical)
 
                 if (isCellInRadius(center, cell, radius)) {
                     val cellAngles = CellAngles(
@@ -98,20 +98,20 @@ object RPASCal {
     }
 
     private fun cellAt(
-        center: XYCoordinates,
+        center: AbsolutePosition,
         quadrant: Quadrant,
         step: Int,
         iteration: Int,
         isVertical: Boolean
-    ): XYCoordinates {
+    ): AbsolutePosition {
         return if (isVertical) {
-            XYCoordinates(center.x + step * quadrant.x, center.y + iteration * quadrant.y)
+            AbsolutePosition(center.x + step * quadrant.x, center.y + iteration * quadrant.y)
         } else {
-            XYCoordinates(center.x + iteration * quadrant.x, center.y + step * quadrant.y)
+            AbsolutePosition(center.x + iteration * quadrant.x, center.y + step * quadrant.y)
         }
     }
 
-    private fun isCellInRadius(center: XYCoordinates, cell: XYCoordinates, radius: Int): Boolean {
+    private fun isCellInRadius(center: AbsolutePosition, cell: AbsolutePosition, radius: Int): Boolean {
         val distance: Float = sqrt(
             ((center.x - cell.x).toFloat() * (center.x - cell.x).toFloat()) +
             ((center.y - cell.y).toFloat() * (center.y - cell.y).toFloat())

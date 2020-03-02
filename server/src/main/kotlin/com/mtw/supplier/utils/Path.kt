@@ -5,19 +5,19 @@ import kotlin.math.abs
 import kotlin.math.min
 
 @Serializable
-class Path(val positions: List<XYCoordinates>) {
+class Path(val positions: List<AbsolutePosition>) {
     var _currentStep: Int = 0
 
-    fun currentPosition(): XYCoordinates {
+    fun currentPosition(): AbsolutePosition {
         return positions[_currentStep]
     }
 
-    fun step(): XYCoordinates {
+    fun step(): AbsolutePosition {
         this._currentStep += 1
         return currentPosition()
     }
 
-    fun project(turns: Int): List<XYCoordinates> {
+    fun project(turns: Int): List<AbsolutePosition> {
         return positions.subList(_currentStep, min(positions.size - 1,_currentStep + turns + 1))
     }
 
@@ -27,18 +27,18 @@ class Path(val positions: List<XYCoordinates>) {
 }
 
 interface PathBuilder {
-    fun build(startPos: XYCoordinates): Path
+    fun build(startPos: AbsolutePosition): Path
 }
 
-class LinePathBuilder(val targetPos: XYCoordinates, val spread: Int = 0): PathBuilder {
-    override fun build(startPos: XYCoordinates): Path {
+class LinePathBuilder(val targetPos: AbsolutePosition, val spread: Int = 0): PathBuilder {
+    override fun build(startPos: AbsolutePosition): Path {
         val end = if (spread > 0) {
             // What? This is the same formula as the one I wrote in the 7DRL2016 but it's an incoherent formula
             // To be honest, though, I didn't have a...ton of time, so, that might be why. Maybe I just assumed spread
             // was 1 or something...?
             val dx: Int = (0..(spread * 2 + 1)).random() - 2
             val dy: Int = (0..(spread * 2 + 1)).random() - 2
-            XYCoordinates(targetPos.x + dx, targetPos.y + dy)
+            AbsolutePosition(targetPos.x + dx, targetPos.y + dy)
         } else {
             targetPos
         }
@@ -48,8 +48,8 @@ class LinePathBuilder(val targetPos: XYCoordinates, val spread: Int = 0): PathBu
     /**
      * Defines a straight-line path from (x0, y0) to (x1, y1), inclusive.
      */
-    fun linePath(start: XYCoordinates, end: XYCoordinates): Path {
-        val acc = mutableListOf<XYCoordinates>()
+    fun linePath(start: AbsolutePosition, end: AbsolutePosition): Path {
+        val acc = mutableListOf<AbsolutePosition>()
         acc.add(start)
 
         val isVertical = start.x - end.x == 0
@@ -70,15 +70,15 @@ class LinePathBuilder(val targetPos: XYCoordinates, val spread: Int = 0): PathBu
         while (!(cX == end.x && cY == end.y) && steps < 100) {
             if (isVertical) {
                 cY += yErr
-                acc.add(XYCoordinates(cX, cY))
+                acc.add(AbsolutePosition(cX, cY))
             } else if (error >= 0.5F) {
                 cY += yErr
                 error -= 1F
-                acc.add(XYCoordinates(cX, cY))
+                acc.add(AbsolutePosition(cX, cY))
             } else {
                 cX += xDiff
                 error += dError!!
-                acc.add(XYCoordinates(cX, cY))
+                acc.add(AbsolutePosition(cX, cY))
             }
             steps += 1
         }

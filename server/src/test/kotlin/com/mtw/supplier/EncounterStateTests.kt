@@ -1,12 +1,5 @@
 package com.mtw.supplier
 
-import com.mtw.supplier.ecs.Entity
-import com.mtw.supplier.ecs.components.*
-import com.mtw.supplier.ecs.components.ai.AIComponent
-import com.mtw.supplier.encounter.state.EncounterState
-import com.mtw.supplier.encounter.EncounterRunner
-import com.mtw.supplier.utils.XYCoordinates
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.springframework.boot.test.context.SpringBootTest
