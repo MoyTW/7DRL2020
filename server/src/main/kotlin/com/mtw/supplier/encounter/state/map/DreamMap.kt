@@ -1,6 +1,7 @@
 package com.mtw.supplier.encounter.state.map
 
 import com.mtw.supplier.ecs.Entity
+import com.mtw.supplier.ecs.components.RoomPositionComponent
 import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 
@@ -45,6 +46,10 @@ class DreamMap: DreamMapI {
     }
 
     internal fun connectRooms(existingRoom: DreamRoom, exitDirection: ExitDirection, newRoom: DreamRoom) {
+        if (this.roomsById[newRoom.uuid] == null) {
+            this.roomsById[newRoom.uuid] = newRoom
+        }
+
         if (roomGraph[existingRoom.uuid]?.get(exitDirection) != null) {
             throw RuntimeException("COULD NOT LINK: $existingRoom already had an exit link in $exitDirection")
         }
@@ -54,6 +59,31 @@ class DreamMap: DreamMapI {
 
         roomGraph[existingRoom.uuid]?.set(exitDirection, newRoom.uuid)
         roomGraph[newRoom.uuid]?.set(exitDirection.opposite(), existingRoom.uuid)
+
+        val existingDoor = existingRoom.getDoor(exitDirection)!!
+        val existingDoorAbsolutePosition = roomToAbsolutePosition(existingDoor.getComponent(RoomPositionComponent::class).roomPosition)
+
+        val newRoomDoor = newRoom.getDoor(exitDirection.opposite())!!
+        val newRoomDoorPosition = newRoomDoor.getComponent(RoomPositionComponent::class).roomPosition
+
+        // Line them up such that the doors match!
+        if (exitDirection == ExitDirection.NORTH) {
+            val newRoomX = existingDoorAbsolutePosition.x - newRoomDoorPosition.x
+            val newRoomY = existingDoorAbsolutePosition.y + 1
+            activeRoomsToAbsolutePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
+        } else if (exitDirection == ExitDirection.EAST) {
+            val newRoomX = existingDoorAbsolutePosition.x + 1
+            val newRoomY = existingDoorAbsolutePosition.y - newRoomDoorPosition.y
+            activeRoomsToAbsolutePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
+        } else if (exitDirection == ExitDirection.SOUTH) {
+            val newRoomX = existingDoorAbsolutePosition.x - newRoomDoorPosition.x
+            val newRoomY = existingDoorAbsolutePosition.y - existingRoom.height
+            activeRoomsToAbsolutePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
+        } else if (exitDirection == ExitDirection.WEST) {
+            val newRoomX = existingDoorAbsolutePosition.x - existingRoom.width
+            val newRoomY = existingDoorAbsolutePosition.y - newRoomDoorPosition.y
+            activeRoomsToAbsolutePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
+        }
     }
 
     private fun getConnectedRoomByDirection(room: DreamRoom, direction: ExitDirection): DreamRoom? {

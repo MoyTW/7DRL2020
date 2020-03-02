@@ -203,8 +203,8 @@ class GameState {
             .addComponent(ActionTimeComponent(100))
             .addComponent(SpeedComponent(100))
 
-        state.placeEntity(scout, AbsolutePosition(10, 10))
-            .placeEntity(player, AbsolutePosition(25, 25))
+        state.placeEntity(scout, AbsolutePosition(3, 3))
+            .placeEntity(player, AbsolutePosition(5, 5))
         EncounterRunner.runUntilPlayerReady(state)
         return state
     }

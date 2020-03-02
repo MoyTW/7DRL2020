@@ -70,8 +70,10 @@ class EncounterState(
 
     // TODO: Map sizing
     private val dreamMap: DreamMap = DreamMap().apply {
-        val room = DreamRoomBuilder(30, 30, ExitDirection.ALL_DIRECTIONS).build()
+        val room = DreamRoomBuilder(15, 15, ExitDirection.ALL_DIRECTIONS).build()
         this.initFirstRoom(room)
+        val secondRoom = DreamRoomBuilder(15, 15, ExitDirection.ALL_DIRECTIONS).build()
+        this.connectRooms(room, ExitDirection.WEST, secondRoom)
     }
 
     fun getEncounterTileMap(): DreamMapI {
