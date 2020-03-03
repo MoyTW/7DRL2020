@@ -76,7 +76,7 @@ object EncounterRunner {
             return true
         }
 
-        logger.info("========== START OF TURN ${encounterState.currentTime} ==========")
+        //logger.info("========== START OF TURN ${encounterState.currentTime} ==========")
         // TODO: Caching of various iterables, if crawling nodes is slow?
         while (readyEntities.isNotEmpty() && !readyEntities.first().hasComponent(PlayerComponent::class)) {
             val entity = readyEntities.first()
@@ -105,7 +105,7 @@ object EncounterRunner {
             encounterState.completeEncounter()
         }
 
-        logger.info("========== END OF TURN ${encounterState.currentTime} ==========")
+        //logger.info("========== END OF TURN ${encounterState.currentTime} ==========")
         return false
     }
 
