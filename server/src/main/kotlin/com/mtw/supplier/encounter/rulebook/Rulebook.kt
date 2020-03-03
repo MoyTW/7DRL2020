@@ -82,6 +82,30 @@ object Rulebook {
         }
     }
 
+    private fun openDoor(action: MoveAction, encounterState: EncounterState) {
+        val door = encounterState.getBlockingEntityAtPosition(action.targetPosition)!!
+        val doorDoor = door.getComponent(DoorComponent::class)
+        val doorCollision = door.getComponent(CollisionComponent::class)
+        // If closed, open. You can't collide with a closed door so once it's open it remains open until you go to another door.
+        if (doorDoor.closed) {
+            doorCollision.blocksMovement = false
+            doorCollision.blocksVision = false
+            doorDoor.closed = false
+            encounterState.messageLog.logAction(action, "SUCCESS", "${action.actor.name} opened ${door.name}")
+
+            // If you're opened you also need to close all other doors
+            val otherDoors = encounterState.getDreamMapI()
+                .getDoors(door.getComponent(RoomPositionComponent::class).roomUuid)
+                .filter { it.key != doorDoor.direction }
+            for (otherDoor in otherDoors) {
+                otherDoor.value.getComponent(DoorComponent::class).closed = true
+                otherDoor.value.getComponent(CollisionComponent::class).blocksMovement = true
+                otherDoor.value.getComponent(CollisionComponent::class).blocksVision = true
+                encounterState.messageLog.logEvent("DOOR CLOSED", "The door to the ${doorDoor.direction} slams shut!")
+            }
+        }
+    }
+
     private fun resolveMoveAction(action: MoveAction, encounterState: EncounterState) {
         val currentPosition = action.actor
             .getComponent(RoomPositionComponent::class)
@@ -94,25 +118,7 @@ object Rulebook {
         if (targetNodeSameAsCurrentNode) {
             encounterState.messageLog.logAction(action, "INVALID", "Target node ${action.targetPosition} and source node are identical!")
         } else if (encounterState.getBlockingEntityAtPosition(action.targetPosition)?.hasComponent(DoorComponent::class) == true) {
-            val door = encounterState.getBlockingEntityAtPosition(action.targetPosition)!!
-            val doorDoor = door.getComponent(DoorComponent::class)
-            val doorCollision = door.getComponent(CollisionComponent::class)
-            // If closed, open. You can't collide with a closed door so once it's open it remains open until you go to another door.
-            if (doorDoor.closed) {
-                doorCollision.blocksMovement = false
-                doorCollision.blocksVision = false
-                doorDoor.closed = false
-
-                // If you're opened you also need to close all other doors
-                val otherDoors = encounterState.getDreamMapI()
-                    .getDoors(door.getComponent(RoomPositionComponent::class).roomUuid)
-                    .filter { it.key != doorDoor.direction }
-                for (otherDoor in otherDoors) {
-                    otherDoor.value.getComponent(DoorComponent::class).closed = true
-                    otherDoor.value.getComponent(CollisionComponent::class).blocksMovement = true
-                    otherDoor.value.getComponent(CollisionComponent::class).blocksVision = true
-                }
-            }
+            openDoor(action, encounterState)
         }  else if (targetNodeBlocked) {
             val collisionComponent = action.actor.getComponent(CollisionComponent::class)
             if (collisionComponent.attackOnHit) {
