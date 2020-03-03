@@ -96,7 +96,7 @@ object Rulebook {
             // If you're opened you also need to close all other doors
             val otherDoors = encounterState.getDreamMapI()
                 .getDoors(door.getComponent(RoomPositionComponent::class).roomUuid)
-                .filter { it.key != doorDoor.direction }
+                .filter { it.key != doorDoor.direction && !it.value.getComponent(DoorComponent::class).closed }
             for (otherDoor in otherDoors) {
                 otherDoor.value.getComponent(DoorComponent::class).closed = true
                 otherDoor.value.getComponent(CollisionComponent::class).blocksMovement = true

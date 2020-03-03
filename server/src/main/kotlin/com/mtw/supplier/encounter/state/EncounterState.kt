@@ -8,6 +8,7 @@ import com.mtw.supplier.encounter.rulebook.Action
 import com.mtw.supplier.encounter.state.map.*
 import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
+import kotlin.math.min
 
 @Serializable
 class EncounterMessageLog {
@@ -31,8 +32,12 @@ class EncounterMessageLog {
         addEntry(eventString)
     }
 
-    fun getMessages(): List<String> {
-        return eventLog
+    fun getMessages(n: Int? = null): List<String> {
+        return if (n != null) {
+            eventLog.subList(0, min(eventLog.size, n))
+        } else {
+            eventLog
+        }
     }
 }
 

@@ -14,9 +14,13 @@ import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.*
 import org.hexworks.zircon.api.application.AppConfig
 import org.hexworks.zircon.api.color.ANSITileColor
+import org.hexworks.zircon.api.component.Label
+import org.hexworks.zircon.api.component.VBox
 import org.hexworks.zircon.api.data.Position
+import org.hexworks.zircon.api.data.Size
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.extensions.toScreen
+import org.hexworks.zircon.api.graphics.TileGraphics
 import org.hexworks.zircon.api.screen.Screen
 import org.hexworks.zircon.api.uievent.*
 
@@ -31,21 +35,27 @@ enum class Direction(val dx: Int, val dy: Int) {
     NW(-1, 1)
 }
 
-
+data class TileWindows(
+    val screen: Screen,
+    val mapGraphics: TileGraphics,
+    val logVBox: VBox
+)
 
 object EditorApp {
     val gameState = GameState()
-    val WIDTH: Int = 40
-    val HEIGHT: Int = 40
-    val CENTER = AbsolutePosition(WIDTH / 2, HEIGHT / 2)
+    val MAP_WIDTH: Int = 30
+    val MAP_HEIGHT: Int = 30
+    val MAP_CENTER = AbsolutePosition(MAP_WIDTH / 2, MAP_HEIGHT / 2)
+    val LOG_WIDTH: Int = 30
+    val LOG_HEIGHT: Int = 10
     private var cameraX: Int = 0
     private var cameraY: Int = 0
-    
+
     @JvmStatic
     fun main(args: Array<String>) {
         val tileGrid = SwingApplications.startTileGrid(
             AppConfig.newBuilder()
-                .withSize(40, 40)
+                .withSize(30, 40)
                 .withDefaultTileset(CP437TilesetResources.rexPaint16x16())
                 .build())
 
@@ -54,23 +64,35 @@ object EditorApp {
         screen.display()
         screen.theme = ColorThemes.arc()
 
+        val mapGraphics: TileGraphics = DrawSurfaces.tileGraphicsBuilder()
+            .withSize(Size.create(MAP_WIDTH, MAP_HEIGHT))
+            .build()
+        val logVBox: VBox = Components.vbox().withSize(LOG_WIDTH, LOG_HEIGHT).withPosition(0, MAP_HEIGHT).build()
+        for (y in 0 until LOG_HEIGHT) {
+            logVBox.addComponent(Components.label().withSize(LOG_WIDTH, 1).build())
+        }
+
+        val windows = TileWindows(screen, mapGraphics, logVBox)
+
+        screen.addComponent(logVBox)
+
         tileGrid.processKeyboardEvents(KeyboardEventType.KEY_PRESSED) { keyboardEvent: KeyboardEvent, uiEventPhase: UIEventPhase ->
             handleKeyPress(keyboardEvent)
-            renderGameState(screen)
+            renderGameState(windows, gameState.encounterState)
             UIEventResponse.pass()
         }
 
-        renderGameState(screen)
+        renderGameState(windows, gameState.encounterState)
     }
 
-    private fun draw(screen: Screen, tile: Tile, pos: AbsolutePosition) {
+    private fun draw(tileGraphics: TileGraphics, tile: Tile, pos: AbsolutePosition) {
         val screenPos = toCameraCoordinates(pos)
-        screen.draw(tile, Position.create(screenPos.x, screen.height - screenPos.y - 1))
+        tileGraphics.draw(tile, Position.create(screenPos.x, tileGraphics.height - screenPos.y - 1))
     }
 
-    private fun renderFoWTiles(screen: Screen) {
-        val tiles = gameState.encounterState.getDreamMapI()
-        val fov = gameState.encounterState.fovCache
+    private fun renderFoWTiles(tileGraphics: TileGraphics, encounterState: EncounterState) {
+        val tiles = encounterState.getDreamMapI()
+        val fov = encounterState.fovCache
 
         val unexploredTile = Tile.newBuilder()
             .withBackgroundColor(ANSITileColor.BLACK)
@@ -87,11 +109,11 @@ object EditorApp {
                 !fov!!.isInFoV(pos) -> { exploredTile }
                 else -> { visibleTile }
             }
-            draw(screen, drawTile, pos)
+            draw(tileGraphics, drawTile, pos)
         }
     }
 
-    private fun renderNonPathAIEntities(screen: Screen, encounterState: EncounterState) {
+    private fun renderNonPathAIEntities(tileGraphics: TileGraphics, encounterState: EncounterState) {
         val enemyTile = Tile.newBuilder()
             .withCharacter('s')
             .withBackgroundColor(ANSITileColor.RED)
@@ -104,12 +126,12 @@ object EditorApp {
         nonPathAiEntities.map {
             val entityPos = it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)
             if (entityPos != null) {
-                draw(screen, enemyTile, entityPos)
+                draw(tileGraphics, enemyTile, entityPos)
             }
         }
     }
 
-    private fun renderDoors(screen: Screen, encounterState: EncounterState) {
+    private fun renderDoors(tileGraphics: TileGraphics, encounterState: EncounterState) {
         val doorTile = Tile.newBuilder()
             .withCharacter('%')
             .withForegroundColor(ANSITileColor.BLUE)
@@ -118,12 +140,12 @@ object EditorApp {
         doors.map {
             val position = it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)
             if (position != null) {
-                draw(screen, doorTile, position)
+                draw(tileGraphics, doorTile, position)
             }
         }
     }
 
-    private fun renderPlayer(screen: Screen, encounterState: EncounterState) {
+    private fun renderPlayer(tileGraphics: TileGraphics, encounterState: EncounterState) {
         val playerTile = Tile.newBuilder()
             .withCharacter('@')
             .withForegroundColor(ANSITileColor.GREEN)
@@ -131,24 +153,41 @@ object EditorApp {
             .buildCharacterTile()
         val playerPos = encounterState.playerEntity().getComponent(RoomPositionComponent::class)
             .asAbsolutePosition(encounterState)
-        draw(screen, playerTile, playerPos!!)
+        draw(tileGraphics, playerTile, playerPos!!)
     }
 
     private fun toCameraCoordinates(pos: AbsolutePosition): AbsolutePosition {
-        return AbsolutePosition(pos.x - cameraX + CENTER.x, pos.y - cameraY + CENTER.y)
+        return AbsolutePosition(pos.x - cameraX + MAP_CENTER.x, pos.y - cameraY + MAP_CENTER.y)
     }
 
-    private fun renderGameState(screen: Screen) {
-        screen.clear()
-        // Render the tiles
-        val playerPos = gameState.encounterState.playerEntity().getComponent(RoomPositionComponent::class).asAbsolutePosition(gameState.encounterState)!!
+    private fun renderLog(logVBox: VBox, encounterState: EncounterState) {
+        val last10 = encounterState.messageLog.getMessages(10)
+
+        var y = 9
+        for (child in logVBox.children) {
+            (child as Label).text = last10.getOrNull(y) ?: ""
+            y -= 1
+        }
+    }
+
+    private fun renderGameState(windows: TileWindows, encounterState: EncounterState) {
+        // Draw the map
+        windows.mapGraphics.clear()
+        val playerPos = encounterState.playerEntity().getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)!!
         cameraX = playerPos.x
         cameraY = playerPos.y
 
-        renderFoWTiles(screen)
-        renderNonPathAIEntities(screen, gameState.encounterState)
-        renderDoors(screen, gameState.encounterState)
-        renderPlayer(screen, gameState.encounterState)
+        renderFoWTiles(windows.mapGraphics, encounterState)
+        renderNonPathAIEntities(windows.mapGraphics, encounterState)
+        renderDoors(windows.mapGraphics, encounterState)
+        renderPlayer(windows.mapGraphics, encounterState)
+
+        // Draw the log
+        renderLog(windows.logVBox, encounterState)
+
+        // Draw the screen
+        windows.screen.clear()
+        windows.screen.draw(windows.mapGraphics, Position.zero())
     }
     
     private fun handleKeyPress(event: KeyboardEvent): Boolean {
