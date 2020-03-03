@@ -78,6 +78,11 @@ class EncounterState(
     // TODO: Map sizing
     private val dreamMap: DreamMap = DreamMapBuilder().build()
 
+    fun drawAndConnectRoom(exitDirection: ExitDirection) {
+        val playerRoom = this.playerEntity().getComponent(RoomPositionComponent::class).roomUuid
+        this.dreamMap.drawAndConnectRoom(playerRoom, exitDirection)
+    }
+
     fun getDreamMapI(): DreamMapI {
         return dreamMap
     }

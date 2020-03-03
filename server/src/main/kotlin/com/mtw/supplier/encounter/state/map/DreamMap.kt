@@ -1,6 +1,7 @@
 package com.mtw.supplier.encounter.state.map
 
 import com.mtw.supplier.ecs.Entity
+import com.mtw.supplier.ecs.components.DoorComponent
 import com.mtw.supplier.ecs.components.RoomPositionComponent
 import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
@@ -62,7 +63,15 @@ class DreamMap: DreamMapI {
         this.roomsById[room.uuid] = room
     }
 
-    internal fun connectRooms(existingRoom: DreamRoom, exitDirection: ExitDirection, newRoom: DreamRoom) {
+    private fun drawInactiveRoom(): DreamRoom {
+        return inactiveRooms.random()
+    }
+
+    fun drawAndConnectRoom(existingRoomUuid: String, exitDirection: ExitDirection) {
+        connectRooms(this.roomsById[existingRoomUuid]!!, exitDirection, drawInactiveRoom())
+    }
+
+    private fun connectRooms(existingRoom: DreamRoom, exitDirection: ExitDirection, newRoom: DreamRoom) {
         if (this.roomsById[newRoom.uuid] == null) {
             this.roomsById[newRoom.uuid] = newRoom
         }
@@ -82,6 +91,9 @@ class DreamMap: DreamMapI {
 
         val newRoomDoor = newRoom.getDoor(exitDirection.opposite())!!
         val newRoomDoorPosition = newRoomDoor.getComponent(RoomPositionComponent::class).roomPosition
+
+        // Open the door
+        newRoomDoor.getComponent(DoorComponent::class).toggleOpen(newRoomDoor)
 
         // Line them up such that the doors match!
         if (exitDirection == ExitDirection.NORTH) {
