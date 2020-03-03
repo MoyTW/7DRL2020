@@ -5,6 +5,7 @@ import com.mtw.supplier.ecs.components.CollisionComponent
 import com.mtw.supplier.ecs.components.RoomPositionComponent
 import com.mtw.supplier.ecs.components.PlayerComponent
 import com.mtw.supplier.encounter.rulebook.Action
+import com.mtw.supplier.encounter.rulebook.ActionType
 import com.mtw.supplier.encounter.state.map.*
 import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
@@ -23,12 +24,13 @@ class EncounterMessageLog {
     }
 
     fun logAction(action: Action, status: String, text: String) {
-        val actionString = "[${action.actor.name}]:[${action.actionType.name}]:[$status] $text"
+        if (action.actionType == ActionType.MOVE) { return }
+        val actionString = text //"[${action.actor.name}]:[${action.actionType.name}]:[$status] $text"
         addEntry(actionString)
     }
 
     fun logEvent(eventType: String, text: String) {
-        val eventString = "<EVENT>:<$eventType> $text"
+        val eventString = "<$eventType> $text"
         addEntry(eventString)
     }
 

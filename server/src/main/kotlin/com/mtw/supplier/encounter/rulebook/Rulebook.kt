@@ -91,7 +91,7 @@ object Rulebook {
             doorCollision.blocksMovement = false
             doorCollision.blocksVision = false
             doorDoor.closed = false
-            encounterState.messageLog.logAction(action, "SUCCESS", "${action.actor.name} opened ${door.name}")
+            encounterState.messageLog.logEvent("DOOR OPENED", "The door to the ${doorDoor.direction} opens!")
 
             // If you're opened you also need to close all other doors
             val otherDoors = encounterState.getDreamMapI()
