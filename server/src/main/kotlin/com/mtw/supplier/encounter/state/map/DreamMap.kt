@@ -197,8 +197,8 @@ class DreamMap: DreamMapI {
              * You're in the room if:
              * roomX <= absoluteX <= roomX + width && roomY <= absoluteY <= roomY + height
              */
-            if (roomPosition.x <= absolute.x && absolute.x <= roomPosition.x + room.width &&
-                roomPosition.y <= absolute.y && absolute.y <= roomPosition.y + room.height)
+            if (roomPosition.x <= absolute.x && absolute.x < roomPosition.x + room.width &&
+                roomPosition.y <= absolute.y && absolute.y < roomPosition.y + room.height)
             {
                 return RoomPosition(absolute.x - roomPosition.x, absolute.y - roomPosition.y, room.uuid)
             }
