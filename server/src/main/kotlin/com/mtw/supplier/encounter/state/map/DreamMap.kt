@@ -26,7 +26,9 @@ class DreamMapBuilder(val numRooms: Int = 20) {
     fun build(): DreamMap {
         val map = DreamMap()
         for (i in 0 until numRooms) {
-            val room = DreamRoomBuilder(15, 15, ExitDirection.ALL_DIRECTIONS).build()
+            val width = (5..20).random()
+            val height = (5..20).random()
+            val room = DreamRoomBuilder(width, height, ExitDirection.ALL_DIRECTIONS).build()
             map.addRoom(room)
         }
         map.initializeWith(map.inactiveRooms.random())
@@ -138,10 +140,10 @@ class DreamMap: DreamMapI {
             activeRoomsToAbsolutePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
         } else if (exitDirection == ExitDirection.SOUTH) {
             val newRoomX = existingDoorAbsolutePosition.x - newRoomDoorPosition.x
-            val newRoomY = existingDoorAbsolutePosition.y - existingRoom.height
+            val newRoomY = existingDoorAbsolutePosition.y - newRoom.height
             activeRoomsToAbsolutePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
         } else if (exitDirection == ExitDirection.WEST) {
-            val newRoomX = existingDoorAbsolutePosition.x - existingRoom.width
+            val newRoomX = existingDoorAbsolutePosition.x - newRoom.width
             val newRoomY = existingDoorAbsolutePosition.y - newRoomDoorPosition.y
             activeRoomsToAbsolutePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
         }
