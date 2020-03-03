@@ -22,7 +22,7 @@ interface DreamMapI {
     val entities: List<Entity>
 }
 
-class DreamMapBuilder(val numRooms: Int = 3) {
+class DreamMapBuilder(val numRooms: Int = 20) {
     fun build(): DreamMap {
         val map = DreamMap()
         for (i in 0 until numRooms) {
@@ -80,7 +80,7 @@ class DreamMap: DreamMapI {
 
             // Unlink from both
             toUnlink.add(Pair(existingRoomUuid, it.key))
-            toUnlink.add(Pair(adjacentUuid, exitDirection.opposite()))
+            toUnlink.add(Pair(adjacentUuid, it.key.opposite()))
 
             // Remove the room from the map
             this.activeRoomsToAbsolutePositions.remove(adjacentUuid)
@@ -104,7 +104,8 @@ class DreamMap: DreamMapI {
         if (roomGraph[existingRoom.uuid]?.get(exitDirection) != null) {
             throw RuntimeException("COULD NOT LINK: $existingRoom already had an exit link in $exitDirection")
         }
-        if (roomGraph[newRoom.uuid]?.get(exitDirection.opposite()) != null) {
+        if (roomGraph.containsKey(newRoom.uuid) &&
+            roomGraph[newRoom.uuid]!![exitDirection.opposite()] != null) {
             throw RuntimeException("COULD NOT LINK: $newRoom already had an exit link in ${exitDirection.opposite()}")
         }
 
