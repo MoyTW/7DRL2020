@@ -9,6 +9,12 @@ import kotlinx.serialization.Serializable
 class DoorComponent(val direction: ExitDirection, var closed: Boolean = true): Component() {
     override var _parentId: String? = null
 
+    fun close(parent: Entity) {
+        if (!this.closed) {
+            toggleOpen(parent)
+        }
+    }
+
     fun toggleOpen(parent: Entity) {
         val collisionComponent = parent.getComponent(CollisionComponent::class)
         if (this.closed) {
