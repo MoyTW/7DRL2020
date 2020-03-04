@@ -22,7 +22,6 @@ import org.hexworks.zircon.api.data.Position
 import org.hexworks.zircon.api.data.Size
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.extensions.toScreen
-import org.hexworks.zircon.api.graphics.Layer
 import org.hexworks.zircon.api.graphics.TileGraphics
 import org.hexworks.zircon.api.screen.Screen
 import org.hexworks.zircon.api.uievent.*
@@ -124,6 +123,17 @@ object EditorApp {
         }
     }
 
+    private fun renderDisplayEntities(tileGraphics: TileGraphics, encounterState: EncounterState) {
+        encounterState.entities()
+            .filter { it.hasComponent(RoomPositionComponent::class) && it.hasComponent(DisplayComponent::class) }
+            .map {
+                val entityPos = it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)
+                if (entityPos != null) {
+                    draw(tileGraphics, it.getComponent(DisplayComponent::class).toTile(), entityPos)
+                }
+            }
+    }
+
     private fun renderNonPathAIEntities(tileGraphics: TileGraphics, encounterState: EncounterState) {
         val enemyTile = Tile.newBuilder()
             .withCharacter('s')
@@ -192,9 +202,11 @@ object EditorApp {
 
         renderFoWTiles(windows.mapFoWTileGraphics, encounterState)
 
+        renderDisplayEntities(windows.mapEntityTileGraphics, encounterState)
         renderNonPathAIEntities(windows.mapEntityTileGraphics, encounterState)
         renderDoors(windows.mapEntityTileGraphics, encounterState)
         renderPlayer(windows.mapEntityTileGraphics, encounterState)
+
 
         // Draw the log
         renderLog(windows.logVBox, encounterState)

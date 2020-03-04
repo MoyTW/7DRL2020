@@ -1,12 +1,8 @@
 package com.mtw.supplier.encounter.state.map
 
 import com.mtw.supplier.ecs.Entity
-import com.mtw.supplier.ecs.components.CollisionComponent
-import com.mtw.supplier.ecs.components.DoorComponent
 import com.mtw.supplier.ecs.components.RoomPositionComponent
-import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
-import org.hexworks.cobalt.core.api.UUID
 
 interface DreamTileI {
     val blocksMovement: Boolean
@@ -29,60 +25,6 @@ enum class ExitDirection {
 
     companion object {
         val ALL_DIRECTIONS = listOf(NORTH, EAST, SOUTH, WEST)
-    }
-}
-
-class DreamRoomBuilder(
-    val width: Int,
-    val height: Int,
-    val exits: List<ExitDirection> = ExitDirection.ALL_DIRECTIONS
-) {
-    private val roomUuid: String = UUID.randomUUID().toString()
-    private val doors: MutableMap<ExitDirection, Entity> = mutableMapOf()
-
-    private fun doorOrWall(isDoor: Boolean, direction: ExitDirection): Entity {
-        return if (isDoor) {
-            val door = Entity(UUID.randomUUID().toString(), "Door")
-                .addComponent(CollisionComponent.defaultBlocker())
-                .addComponent(DoorComponent(direction))
-            doors[direction] = door
-            door
-        } else {
-            Entity(UUID.randomUUID().toString(), "Wall")
-                .addComponent(CollisionComponent.defaultBlocker())
-        }
-    }
-
-    private fun buildWalls(room: DreamRoom) {
-        // North wall
-        val northExitX = if(exits.contains(ExitDirection.NORTH)) { (1 until width - 1).random() } else { null }
-        for (x in 0 until width) {
-            room.placeEntity(doorOrWall(x == northExitX, ExitDirection.NORTH), RoomPosition(x, height - 1, roomUuid), false)
-        }
-        // East
-        val eastExitY = if(exits.contains(ExitDirection.EAST))  { (1 until height - 1).random() } else { null }
-        for (y in 0 until height - 1) {
-            room.placeEntity(doorOrWall(y == eastExitY, ExitDirection.EAST), RoomPosition(width - 1, y, roomUuid), false)
-        }
-        // South
-        val southExitX = if(exits.contains(ExitDirection.SOUTH))  { (1 until width - 1).random() } else { null }
-        for (x in 0 until width - 1) {
-            room.placeEntity(doorOrWall(x == southExitX, ExitDirection.SOUTH), RoomPosition(x, 0, roomUuid), false)
-        }
-        // West
-        val westExitX = if(exits.contains(ExitDirection.WEST))  { (1 until height - 1).random() } else { null }
-        for (y in 1 until height - 1) {
-            room.placeEntity(doorOrWall(y == westExitX, ExitDirection.WEST), RoomPosition(0, y, roomUuid), false)
-        }
-    }
-
-    fun build(): DreamRoom {
-        val nodes: Array<Array<DreamTile>> = Array(width) { Array(height) { DreamTile() } }
-        val room = DreamRoom(roomUuid, width, height, doors, nodes)
-
-        buildWalls(room)
-
-        return room
     }
 }
 
@@ -131,6 +73,10 @@ class DreamRoom internal constructor(
     internal fun positionBlocked(pos: RoomPosition): Boolean {
         if (!isInBounds(pos.x, pos.y)) { return true }
         return nodes[pos.x][pos.y].blocksMovement
+    }
+
+    internal fun randomPlacementPosition(): RoomPosition {
+        return this.allTiles().filter { !it.value.blocksMovement }.map { it.key }.random()
     }
 
     internal fun adjacentUnblockedPositions(pos: RoomPosition): List<RoomPosition> {
