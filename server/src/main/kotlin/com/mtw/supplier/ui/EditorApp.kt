@@ -47,11 +47,13 @@ data class TileWindows(
 
 object EditorApp {
     val gameState = GameState()
+    val GAME_WIDTH: Int = 60
+    val GAME_HEIGHT: Int = 40
     val MAP_WIDTH: Int = 30
     val MAP_HEIGHT: Int = 30
     val MAP_CENTER = AbsolutePosition(MAP_WIDTH / 2, MAP_HEIGHT / 2)
-    val LOG_WIDTH: Int = 30
-    val LOG_HEIGHT: Int = 10
+    val LOG_WIDTH: Int = GAME_WIDTH
+    val LOG_HEIGHT: Int = GAME_HEIGHT - MAP_HEIGHT
     private var cameraX: Int = 0
     private var cameraY: Int = 0
 
@@ -59,7 +61,7 @@ object EditorApp {
     fun main(args: Array<String>) {
         val tileGrid = SwingApplications.startTileGrid(
             AppConfig.newBuilder()
-                .withSize(30, 40)
+                .withSize(GAME_WIDTH, GAME_HEIGHT)
                 .withDefaultTileset(CP437TilesetResources.rexPaint16x16())
                 .build())
 
