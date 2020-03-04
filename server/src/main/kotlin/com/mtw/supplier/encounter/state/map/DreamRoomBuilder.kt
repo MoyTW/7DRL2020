@@ -85,8 +85,8 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         ))),
     CURTIS_STREET_DOWN_DOWNSTAIRS(DreamRoomBlueprintData(
         "Down-downstairs at your parents' house",
-        "When you were fighting with my parents, abandoned your room. You slept on this couch, which you" +
-            " liked better than your bed. You don't remember why, but it feels nostalgic.",
+        "When you were fighting with your parents, your abandoned your room. You slept on this couch, " +
+            "which you liked better than your bed. You don't remember why, but it feels nostalgic.",
         minWidth = 7, maxWidth = 9,
         minHeight = 14, maxHeight = 16,
         wallColor = TileColor.create(255, 153, 204), // light-pink-ish
@@ -150,6 +150,8 @@ class DreamRoomBuilder(
 
     fun withDreamRoomBlueprint(blueprint: DreamRoomBlueprint): DreamRoomBuilder {
         val data = blueprint.blueprintData
+        this.name = data.name
+        this.commentary = data.commentary
         this.width = (data.minWidth..data.maxWidth).random()
         this.height = (data.minHeight..data.maxHeight).random()
         this.floorColor = data.floorColor

@@ -45,12 +45,13 @@ data class TileWindows(
     val screen: Screen,
     val mapFoWTileGraphics: TileGraphics,
     val mapEntityTileGraphics: TileGraphics,
+    val commentaryFragment: CommentaryFragment,
     val logVBox: VBox
 )
 
 class CommentaryFragment(val width: Int, val height: Int, positionX: Int, positionY: Int): Fragment {
     private var header: AttachedComponent
-    private val lines: List<Label>
+    private val lines: MutableList<AttachedComponent>
     override val root = VBoxBuilder.newBuilder().withSize(width, height).withPosition(positionX, positionY).build()
     private val maxTextLen: Int
         get() = this.width - 2
@@ -61,15 +62,7 @@ class CommentaryFragment(val width: Int, val height: Int, positionX: Int, positi
         header = root.addComponent(LabelBuilder.newBuilder()
             .withDecorations(ComponentDecorations.box(BoxType.SINGLE))
             .build())
-        lines = (0 until maxCommentaryLines).map {
-            LabelBuilder.newBuilder()
-                .withSize(maxTextLen, 1)
-                .withDecorations(ComponentDecorations.side(' ', ' '))
-                .build()
-        }.toList()
-
-        setText("BLUE the riibblk lksjd flkjs ldkjf slkdjfsl kdjf lskdjf sld",
-            "oh say can you see by the dawn's early light the blah blah i don't know the rest of these words")
+        lines = mutableListOf()
     }
 
     fun wordWrap(text: String, width: Int, maxLines: Int): List<String> {
@@ -77,7 +70,7 @@ class CommentaryFragment(val width: Int, val height: Int, positionX: Int, positi
         val words = text.split(' ').toMutableList()
         while (words.isNotEmpty() && lines.size < maxLines) {
             val sb = StringBuilder(words.removeAt(0))
-            while (words.isNotEmpty() && sb.length + words[0].length <= width) {
+            while (words.isNotEmpty() && sb.length + words[0].length < width) {
                 sb.append(" " + words.removeAt(0))
             }
             lines.add(sb.toString())
@@ -86,18 +79,24 @@ class CommentaryFragment(val width: Int, val height: Int, positionX: Int, positi
     }
 
     fun setText(newHeader: String, newCommentary: String) {
-        header.detach()
         root.clear()
+        header.detach()
         header = root.addComponent(LabelBuilder.newBuilder()
             .withText(newHeader.substring(0, min(newHeader.length, this.maxTextLen)))
             .withDecorations(ComponentDecorations.box(BoxType.SINGLE))
             .build())
+
         for (line in lines) {
-            root.addComponent(line)
+            line.detach()
         }
+        lines.clear()
         val wrappedLines = wordWrap(newCommentary, this.maxTextLen, this.maxCommentaryLines)
-        for (y in 0 until min(maxCommentaryLines, wrappedLines.size)) {
-            lines[y].text = wrappedLines[y]
+        for (wrappedLine in wrappedLines) {
+            lines.add(root.addComponent(LabelBuilder.newBuilder()
+                .withSize(maxTextLen + 2, 1)
+                .withDecorations(ComponentDecorations.side(' ', ' '))
+                .withText(wrappedLine)
+                .build()))
         }
     }
 }
@@ -139,8 +138,7 @@ object EditorApp {
         }
         val commentaryFragment = CommentaryFragment(GAME_WIDTH - MAP_WIDTH, GAME_HEIGHT - LOG_HEIGHT, MAP_WIDTH, 0)
 
-
-        val windows = TileWindows(screen, mapFoWTileGraphics, mapEntityTileGraphics, logVBox)
+        val windows = TileWindows(screen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, logVBox)
 
         screen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapFoWTileGraphics).build())
         screen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapEntityTileGraphics).build())
@@ -268,6 +266,8 @@ object EditorApp {
         renderDoors(windows.mapEntityTileGraphics, encounterState)
         renderPlayer(windows.mapEntityTileGraphics, encounterState)
 
+        // Set the commentary
+        windows.commentaryFragment.setText(encounterState.currentRoomName(), encounterState.currentRoomCommentary())
 
         // Draw the log
         renderLog(windows.logVBox, encounterState)

@@ -191,6 +191,14 @@ class DreamMap: DreamMapI {
         return acc
     }
 
+    fun getDreamRoomName(roomUuid: String): String {
+        return this.roomsById[roomUuid]!!.name
+    }
+
+    fun getDreamRoomCommentary(roomUuid: String): String {
+        return this.roomsById[roomUuid]!!.commentary
+    }
+
     override val entities: List<Entity>
         get() = roomsById.flatMap { it.value.entities() }
 

@@ -109,6 +109,14 @@ class EncounterState(
         return this.entities().first { it.hasComponent(PlayerComponent::class) }
     }
 
+    fun currentRoomName(): String {
+        return this.dreamMap.getDreamRoomName(this.playerEntity().getComponent(RoomPositionComponent::class).roomUuid)
+    }
+
+    fun currentRoomCommentary(): String {
+        return this.dreamMap.getDreamRoomCommentary(this.playerEntity().getComponent(RoomPositionComponent::class).roomUuid)
+    }
+
     fun getEntity(entityId: String): Entity {
         return entities().firstOrNull { it.id == entityId } ?: throw EntityIdNotFoundException(entityId)
     }
