@@ -30,5 +30,11 @@ class CollisionComponent(
             attackOnHit = false,
             selfDestructOnHit = false
         )
+        fun defaultPassable(): CollisionComponent = CollisionComponent(
+            blocksMovement = false,
+            blocksVision = false,
+            attackOnHit = false,
+            selfDestructOnHit = false
+        )
     }
 }

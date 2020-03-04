@@ -10,17 +10,17 @@ import org.hexworks.zircon.api.color.TileColor
 
 
 enum class EntityBlueprint(val createFn: () -> Entity) {
-    CURTIS_STREET_BEDROOM_MY_BED({
+    CURTIS_STREET_MY_BED({
         Entity(UUID.randomUUID().toString(), "My Teenage Bed")
             .addComponent(CollisionComponent.defaultFighter())
             .addComponent(DisplayComponent(character = 'B', foregroundRGB = RGB(0, 173, 238)))
         }),
-    CURTIS_STREET_BEDROOM_MY_DRESSER({
+    CURTIS_STREET_MY_DRESSER({
         Entity(UUID.randomUUID().toString(), "My Teenage Dresser")
             .addComponent(CollisionComponent.defaultFighter())
             .addComponent(DisplayComponent(character = 'D', foregroundRGB = RGB(0, 173, 238)))
         }),
-    CURTIS_STREET_BEDROOM_ALEXS_BED({
+    CURTIS_STREET_ALEXS_BED({
         Entity(UUID.randomUUID().toString(), "Alex's Childhood Bed")
             .addComponent(CollisionComponent.defaultBlocker())
             .addComponent(DisplayComponent(character = 'B', foregroundRGB = RGB(0, 139, 0)))
@@ -34,6 +34,26 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
         Entity(UUID.randomUUID().toString(), "A Segment Of The TV Couch")
             .addComponent(CollisionComponent.defaultBlocker())
             .addComponent(DisplayComponent(character = 'C', foregroundRGB = RGB(26, 26, 255)))
+    }),
+    CURTIS_STREET_MIDDLE_TOILET({
+        Entity(UUID.randomUUID().toString(), "The Middle Toilet")
+            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(DisplayComponent(character = 'O', foregroundRGB = RGB(0, 51, 51)))
+    }),
+    CURTIS_STREET_MIDDLE_SHOWER({
+        Entity(UUID.randomUUID().toString(), "The Middle Shower")
+            .addComponent(CollisionComponent.defaultBlocker())
+            .addComponent(DisplayComponent(character = 'S', foregroundRGB = RGB(204, 255, 255)))
+    }),
+    CURTIS_STREET_MIDDLE_SINK({
+        Entity(UUID.randomUUID().toString(), "The Middle Sink")
+            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(DisplayComponent(character = 's', foregroundRGB = RGB(0, 102, 0)))
+    }),
+    CURTIS_STREET_SMALL_PLASITC_TRASH_BIN({
+        Entity(UUID.randomUUID().toString(), "One Of The Tiny Trash Bins")
+            .addComponent(CollisionComponent.defaultPassable())
+            .addComponent(DisplayComponent(character = 'b', foregroundRGB = RGB(0, 10, 26)))
     }),
 }
 
@@ -49,22 +69,18 @@ data class DreamRoomBlueprintData(
 
 enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
     CURTIS_STREET_BEDROOM(DreamRoomBlueprintData(
-        minWidth = 8,
-        maxWidth = 8,
-        minHeight = 5,
-        maxHeight = 5,
+        minWidth = 8, maxWidth = 8,
+        minHeight = 5, maxHeight = 5,
         wallColor = TileColor.create(225, 198, 153), // Beige-ish
         floorColor = TileColor.create(133, 94, 66), // hopefully wood veneer-ish
         entities = listOf(
-            EntityBlueprint.CURTIS_STREET_BEDROOM_MY_BED,
-            EntityBlueprint.CURTIS_STREET_BEDROOM_MY_DRESSER,
-            EntityBlueprint.CURTIS_STREET_BEDROOM_ALEXS_BED
+            EntityBlueprint.CURTIS_STREET_MY_BED,
+            EntityBlueprint.CURTIS_STREET_MY_DRESSER,
+            EntityBlueprint.CURTIS_STREET_ALEXS_BED
         ))),
     CURTIS_STREET_DOWN_DOWNSTAIRS(DreamRoomBlueprintData(
-        minWidth = 7,
-        maxWidth = 9,
-        minHeight = 14,
-        maxHeight = 16,
+        minWidth = 7, maxWidth = 9,
+        minHeight = 14, maxHeight = 16,
         wallColor = TileColor.create(255, 153, 204), // light-pink-ish
         floorColor = TileColor.create(255, 153, 204), // hopefully hardwood-ish
         entities = listOf(
@@ -72,15 +88,19 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_DDS_COUCH,
             EntityBlueprint.CURTIS_STREET_DDS_COUCH,
             EntityBlueprint.CURTIS_STREET_DDS_COUCH
-        )))
+        ))),
+    CURTIS_STREET_MIDDLE_BATHROOM(DreamRoomBlueprintData(
+        minWidth = 5, maxWidth = 5,
+        minHeight = 7, maxHeight = 7,
+        wallColor = TileColor.create(255, 153, 204), // light-pink-ish
+        floorColor = TileColor.create(255, 153, 204), // hopefully hardwood-ish
+        entities = listOf(
+            EntityBlueprint.CURTIS_STREET_MIDDLE_TOILET,
+            EntityBlueprint.CURTIS_STREET_MIDDLE_SHOWER,
+            EntityBlueprint.CURTIS_STREET_MIDDLE_SINK,
+            EntityBlueprint.CURTIS_STREET_SMALL_PLASITC_TRASH_BIN
+        ))),
 }
-
-class CurtisStreetDownDownstairs() {
-    // Has a hardwood floor
-    // Has a big TV
-    // Has a big couch
-}
-
 class CurtisStreetDadsRoom() {
     // Has a huge bed
     // Has a dresser
