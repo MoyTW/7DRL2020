@@ -13,13 +13,16 @@ import com.mtw.supplier.utils.AbsolutePosition
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.*
 import org.hexworks.zircon.api.application.AppConfig
+import org.hexworks.zircon.api.builder.graphics.LayerBuilder
 import org.hexworks.zircon.api.color.ANSITileColor
+import org.hexworks.zircon.api.color.TileColor
 import org.hexworks.zircon.api.component.Label
 import org.hexworks.zircon.api.component.VBox
 import org.hexworks.zircon.api.data.Position
 import org.hexworks.zircon.api.data.Size
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.extensions.toScreen
+import org.hexworks.zircon.api.graphics.Layer
 import org.hexworks.zircon.api.graphics.TileGraphics
 import org.hexworks.zircon.api.screen.Screen
 import org.hexworks.zircon.api.uievent.*
@@ -37,7 +40,8 @@ enum class Direction(val dx: Int, val dy: Int) {
 
 data class TileWindows(
     val screen: Screen,
-    val mapGraphics: TileGraphics,
+    val mapFoWTileGraphics: TileGraphics,
+    val mapEntityTileGraphics: TileGraphics,
     val logVBox: VBox
 )
 
@@ -64,7 +68,10 @@ object EditorApp {
         screen.display()
         screen.theme = ColorThemes.arc()
 
-        val mapGraphics: TileGraphics = DrawSurfaces.tileGraphicsBuilder()
+        val mapFoWTileGraphics: TileGraphics = DrawSurfaces.tileGraphicsBuilder()
+            .withSize(Size.create(MAP_WIDTH, MAP_HEIGHT))
+            .build()
+        val mapEntityTileGraphics: TileGraphics = DrawSurfaces.tileGraphicsBuilder()
             .withSize(Size.create(MAP_WIDTH, MAP_HEIGHT))
             .build()
         val logVBox: VBox = Components.vbox().withSize(LOG_WIDTH, LOG_HEIGHT).withPosition(0, MAP_HEIGHT).build()
@@ -72,8 +79,10 @@ object EditorApp {
             logVBox.addComponent(Components.label().withSize(LOG_WIDTH, 1).build())
         }
 
-        val windows = TileWindows(screen, mapGraphics, logVBox)
+        val windows = TileWindows(screen, mapFoWTileGraphics, mapEntityTileGraphics, logVBox)
 
+        screen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapFoWTileGraphics).build())
+        screen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapEntityTileGraphics).build())
         screen.addComponent(logVBox)
 
         tileGrid.processKeyboardEvents(KeyboardEventType.KEY_PRESSED) { keyboardEvent: KeyboardEvent, uiEventPhase: UIEventPhase ->
@@ -116,7 +125,8 @@ object EditorApp {
     private fun renderNonPathAIEntities(tileGraphics: TileGraphics, encounterState: EncounterState) {
         val enemyTile = Tile.newBuilder()
             .withCharacter('s')
-            .withBackgroundColor(ANSITileColor.RED)
+            .withForegroundColor(ANSITileColor.BRIGHT_MAGENTA)
+            .withBackgroundColor(TileColor.transparent())
             .buildCharacterTile()
 
         val nonPathAiEntities = encounterState.entities()
@@ -134,7 +144,7 @@ object EditorApp {
     private fun renderDoors(tileGraphics: TileGraphics, encounterState: EncounterState) {
         val doorTile = Tile.newBuilder()
             .withCharacter('%')
-            .withForegroundColor(ANSITileColor.BLUE)
+            .withForegroundColor(ANSITileColor.BRIGHT_BLUE)
             .buildCharacterTile()
         val doors = encounterState.entities().filter { it.hasComponent(DoorComponent::class) }
         doors.map {
@@ -149,7 +159,7 @@ object EditorApp {
         val playerTile = Tile.newBuilder()
             .withCharacter('@')
             .withForegroundColor(ANSITileColor.GREEN)
-            .withBackgroundColor(ANSITileColor.WHITE)
+            .withBackgroundColor(TileColor.transparent())
             .buildCharacterTile()
         val playerPos = encounterState.playerEntity().getComponent(RoomPositionComponent::class)
             .asAbsolutePosition(encounterState)
@@ -172,22 +182,24 @@ object EditorApp {
 
     private fun renderGameState(windows: TileWindows, encounterState: EncounterState) {
         // Draw the map
-        windows.mapGraphics.clear()
+        windows.mapFoWTileGraphics.clear()
+        windows.mapEntityTileGraphics.clear()
         val playerPos = encounterState.playerEntity().getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)!!
         cameraX = playerPos.x
         cameraY = playerPos.y
 
-        renderFoWTiles(windows.mapGraphics, encounterState)
-        renderNonPathAIEntities(windows.mapGraphics, encounterState)
-        renderDoors(windows.mapGraphics, encounterState)
-        renderPlayer(windows.mapGraphics, encounterState)
+        renderFoWTiles(windows.mapFoWTileGraphics, encounterState)
+
+        renderNonPathAIEntities(windows.mapEntityTileGraphics, encounterState)
+        renderDoors(windows.mapEntityTileGraphics, encounterState)
+        renderPlayer(windows.mapEntityTileGraphics, encounterState)
 
         // Draw the log
         renderLog(windows.logVBox, encounterState)
 
         // Draw the screen
-        windows.screen.clear()
-        windows.screen.draw(windows.mapGraphics, Position.zero())
+        //windows.screen.clear()
+        //windows.screen.draw(windows.mapGraphics, Position.zero())
     }
     
     private fun handleKeyPress(event: KeyboardEvent): Boolean {
