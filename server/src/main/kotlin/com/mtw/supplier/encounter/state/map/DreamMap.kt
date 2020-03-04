@@ -34,7 +34,7 @@ class DreamMapBuilder(val numRooms: Int = 5) {
             } else {
                 val width = (5..20).random()
                 val height = (5..20).random()
-                map.addRoom(DreamRoomBuilder(width, height).build())
+                map.addRoom(DreamRoomBuilder(null, null, width, height).build())
             }
 
         }

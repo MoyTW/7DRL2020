@@ -11,12 +11,12 @@ import org.hexworks.zircon.api.color.TileColor
 
 enum class EntityBlueprint(val createFn: () -> Entity) {
     CURTIS_STREET_MY_BED({
-        Entity(UUID.randomUUID().toString(), "My Teenage Bed")
+        Entity(UUID.randomUUID().toString(), "Your Teenage Bed")
             .addComponent(CollisionComponent.defaultFighter())
             .addComponent(DisplayComponent(character = 'B', foregroundRGB = RGB(0, 173, 238)))
         }),
     CURTIS_STREET_MY_DRESSER({
-        Entity(UUID.randomUUID().toString(), "My Teenage Dresser")
+        Entity(UUID.randomUUID().toString(), "Your Teenage Dresser")
             .addComponent(CollisionComponent.defaultFighter())
             .addComponent(DisplayComponent(character = 'D', foregroundRGB = RGB(0, 173, 238)))
         }),
@@ -58,6 +58,8 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
 }
 
 data class DreamRoomBlueprintData(
+    val name: String,
+    val commentary: String,
     val minWidth: Int,
     val maxWidth: Int,
     val minHeight: Int,
@@ -69,6 +71,9 @@ data class DreamRoomBlueprintData(
 
 enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
     CURTIS_STREET_BEDROOM(DreamRoomBlueprintData(
+        "Your childhood and teenage bedroom",
+        "You shared it with your brother until you left for college, aside from those years you stole " +
+            "the TV room for yourself.",
         minWidth = 8, maxWidth = 8,
         minHeight = 5, maxHeight = 5,
         wallColor = TileColor.create(225, 198, 153), // Beige-ish
@@ -79,6 +84,9 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_ALEXS_BED
         ))),
     CURTIS_STREET_DOWN_DOWNSTAIRS(DreamRoomBlueprintData(
+        "Down-downstairs at your parents' house",
+        "When you were fighting with my parents, abandoned your room. You slept on this couch, which you" +
+            " liked better than your bed. You don't remember why, but it feels nostalgic.",
         minWidth = 7, maxWidth = 9,
         minHeight = 14, maxHeight = 16,
         wallColor = TileColor.create(255, 153, 204), // light-pink-ish
@@ -90,6 +98,9 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_DDS_COUCH
         ))),
     CURTIS_STREET_MIDDLE_BATHROOM(DreamRoomBlueprintData(
+        "The middle bathroom at your parents' house",
+        "This was your favorite bathroom. The shower was nice and hot, there was plenty of space near " +
+            "the sink, and the mirror was huge and always clear. You feel comfortable here.",
         minWidth = 5, maxWidth = 5,
         minHeight = 7, maxHeight = 7,
         wallColor = TileColor.create(255, 153, 204), // light-pink-ish
@@ -120,6 +131,8 @@ class CutisStreetLivingRoom() {
 }
 
 class DreamRoomBuilder(
+    var name: String? = null,
+    var commentary: String? = null,
     var width: Int? = null,
     var height: Int? = null,
     var floorColor: TileColor? = TileColor.transparent(),
@@ -188,7 +201,14 @@ class DreamRoomBuilder(
         }
 
         val nodes: Array<Array<DreamTile>> = Array(width!!) { Array(height!!) { DreamTile() } }
-        val room = DreamRoom(roomUuid, width!!, height!!, doors, nodes)
+        val room = DreamRoom(roomUuid,
+            name ?: "Somewhere strange",
+            commentary ?: "You know nothing about this place.",
+            width!!,
+            height!!,
+            doors,
+            nodes
+        )
 
         buildWalls(room)
         for (blueprint in this.entityBlueprints) {

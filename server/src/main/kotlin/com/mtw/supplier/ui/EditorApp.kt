@@ -13,18 +13,22 @@ import com.mtw.supplier.utils.AbsolutePosition
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.*
 import org.hexworks.zircon.api.application.AppConfig
+import org.hexworks.zircon.api.builder.component.LabelBuilder
+import org.hexworks.zircon.api.builder.component.VBoxBuilder
 import org.hexworks.zircon.api.builder.graphics.LayerBuilder
 import org.hexworks.zircon.api.color.ANSITileColor
 import org.hexworks.zircon.api.color.TileColor
-import org.hexworks.zircon.api.component.Label
-import org.hexworks.zircon.api.component.VBox
+import org.hexworks.zircon.api.component.*
 import org.hexworks.zircon.api.data.Position
 import org.hexworks.zircon.api.data.Size
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.extensions.toScreen
+import org.hexworks.zircon.api.graphics.BoxType
 import org.hexworks.zircon.api.graphics.TileGraphics
 import org.hexworks.zircon.api.screen.Screen
 import org.hexworks.zircon.api.uievent.*
+import java.lang.StringBuilder
+import kotlin.math.min
 
 enum class Direction(val dx: Int, val dy: Int) {
     N(0, 1),
@@ -43,6 +47,60 @@ data class TileWindows(
     val mapEntityTileGraphics: TileGraphics,
     val logVBox: VBox
 )
+
+class CommentaryFragment(val width: Int, val height: Int, positionX: Int, positionY: Int): Fragment {
+    private var header: AttachedComponent
+    private val lines: List<Label>
+    override val root = VBoxBuilder.newBuilder().withSize(width, height).withPosition(positionX, positionY).build()
+    private val maxTextLen: Int
+        get() = this.width - 2
+    private val maxCommentaryLines: Int
+        get() = this.height - 3
+
+    init {
+        header = root.addComponent(LabelBuilder.newBuilder()
+            .withDecorations(ComponentDecorations.box(BoxType.SINGLE))
+            .build())
+        lines = (0 until maxCommentaryLines).map {
+            LabelBuilder.newBuilder()
+                .withSize(maxTextLen, 1)
+                .withDecorations(ComponentDecorations.side(' ', ' '))
+                .build()
+        }.toList()
+
+        setText("BLUE the riibblk lksjd flkjs ldkjf slkdjfsl kdjf lskdjf sld",
+            "oh say can you see by the dawn's early light the blah blah i don't know the rest of these words")
+    }
+
+    fun wordWrap(text: String, width: Int, maxLines: Int): List<String> {
+        val lines = mutableListOf<String>()
+        val words = text.split(' ').toMutableList()
+        while (words.isNotEmpty() && lines.size < maxLines) {
+            val sb = StringBuilder(words.removeAt(0))
+            while (words.isNotEmpty() && sb.length + words[0].length <= width) {
+                sb.append(" " + words.removeAt(0))
+            }
+            lines.add(sb.toString())
+        }
+        return lines
+    }
+
+    fun setText(newHeader: String, newCommentary: String) {
+        header.detach()
+        root.clear()
+        header = root.addComponent(LabelBuilder.newBuilder()
+            .withText(newHeader.substring(0, min(newHeader.length, this.maxTextLen)))
+            .withDecorations(ComponentDecorations.box(BoxType.SINGLE))
+            .build())
+        for (line in lines) {
+            root.addComponent(line)
+        }
+        val wrappedLines = wordWrap(newCommentary, this.maxTextLen, this.maxCommentaryLines)
+        for (y in 0 until min(maxCommentaryLines, wrappedLines.size)) {
+            lines[y].text = wrappedLines[y]
+        }
+    }
+}
 
 object EditorApp {
     val gameState = GameState()
@@ -79,12 +137,15 @@ object EditorApp {
         for (y in 0 until LOG_HEIGHT) {
             logVBox.addComponent(Components.label().withSize(LOG_WIDTH, 1).build())
         }
+        val commentaryFragment = CommentaryFragment(GAME_WIDTH - MAP_WIDTH, GAME_HEIGHT - LOG_HEIGHT, MAP_WIDTH, 0)
+
 
         val windows = TileWindows(screen, mapFoWTileGraphics, mapEntityTileGraphics, logVBox)
 
         screen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapFoWTileGraphics).build())
         screen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapEntityTileGraphics).build())
         screen.addComponent(logVBox)
+        screen.addFragment(commentaryFragment)
 
         tileGrid.processKeyboardEvents(KeyboardEventType.KEY_PRESSED) { keyboardEvent: KeyboardEvent, uiEventPhase: UIEventPhase ->
             handleKeyPress(keyboardEvent)

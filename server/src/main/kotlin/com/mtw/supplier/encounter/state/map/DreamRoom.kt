@@ -38,6 +38,8 @@ data class RoomPosition(
 @Serializable
 class DreamRoom internal constructor(
     val uuid: String,
+    val name: String,
+    val commentary: String,
     val width: Int,
     val height: Int,
     val doors: Map<ExitDirection, Entity>,
