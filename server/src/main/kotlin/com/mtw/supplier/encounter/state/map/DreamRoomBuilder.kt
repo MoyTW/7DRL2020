@@ -25,6 +25,16 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
             .addComponent(CollisionComponent.defaultBlocker())
             .addComponent(DisplayComponent(character = 'B', foregroundRGB = RGB(0, 139, 0)))
     }),
+    CURTIS_STREET_BIG_TV({
+        Entity(UUID.randomUUID().toString(), "The Big Television")
+            .addComponent(CollisionComponent.defaultBlocker())
+            .addComponent(DisplayComponent(character = 'T', foregroundRGB = RGB(0, 0, 0)))
+    }),
+    CURTIS_STREET_DDS_COUCH({
+        Entity(UUID.randomUUID().toString(), "A Segment Of The TV Couch")
+            .addComponent(CollisionComponent.defaultBlocker())
+            .addComponent(DisplayComponent(character = 'C', foregroundRGB = RGB(26, 26, 255)))
+    }),
 }
 
 data class DreamRoomBlueprintData(
@@ -39,16 +49,29 @@ data class DreamRoomBlueprintData(
 
 enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
     CURTIS_STREET_BEDROOM(DreamRoomBlueprintData(
-        minWidth = 10,
-        maxWidth = 12,
-        minHeight = 8,
-        maxHeight = 8,
+        minWidth = 8,
+        maxWidth = 8,
+        minHeight = 5,
+        maxHeight = 5,
         wallColor = TileColor.create(225, 198, 153), // Beige-ish
-        floorColor = TileColor.create(133, 94, 66),
+        floorColor = TileColor.create(133, 94, 66), // hopefully wood veneer-ish
         entities = listOf(
             EntityBlueprint.CURTIS_STREET_BEDROOM_MY_BED,
             EntityBlueprint.CURTIS_STREET_BEDROOM_MY_DRESSER,
             EntityBlueprint.CURTIS_STREET_BEDROOM_ALEXS_BED
+        ))),
+    CURTIS_STREET_DOWN_DOWNSTAIRS(DreamRoomBlueprintData(
+        minWidth = 7,
+        maxWidth = 9,
+        minHeight = 14,
+        maxHeight = 16,
+        wallColor = TileColor.create(255, 153, 204), // light-pink-ish
+        floorColor = TileColor.create(255, 153, 204), // hopefully hardwood-ish
+        entities = listOf(
+            EntityBlueprint.CURTIS_STREET_BIG_TV,
+            EntityBlueprint.CURTIS_STREET_DDS_COUCH,
+            EntityBlueprint.CURTIS_STREET_DDS_COUCH,
+            EntityBlueprint.CURTIS_STREET_DDS_COUCH
         )))
 }
 

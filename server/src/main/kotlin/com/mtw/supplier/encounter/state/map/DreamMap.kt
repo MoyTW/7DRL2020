@@ -22,14 +22,21 @@ interface DreamMapI {
     val entities: List<Entity>
 }
 
-class DreamMapBuilder(val numRooms: Int = 3) {
+class DreamMapBuilder(val numRooms: Int = 5) {
     fun build(): DreamMap {
+        val roomBlueprints = DreamRoomBlueprint.values().toMutableList()
+
         val map = DreamMap()
         for (i in 0 until numRooms) {
-            val width = (5..20).random()
-            val height = (5..20).random()
-            val room = DreamRoomBuilder().withDreamRoomBlueprint(DreamRoomBlueprint.CURTIS_STREET_BEDROOM).build()
-            map.addRoom(room)
+            if (roomBlueprints.isNotEmpty()) {
+                map.addRoom(DreamRoomBuilder().withDreamRoomBlueprint(roomBlueprints[0]).build())
+                roomBlueprints.removeAt(0)
+            } else {
+                val width = (5..20).random()
+                val height = (5..20).random()
+                map.addRoom(DreamRoomBuilder(width, height).build())
+            }
+
         }
         map.initializeWith(map.inactiveRooms.random())
 
