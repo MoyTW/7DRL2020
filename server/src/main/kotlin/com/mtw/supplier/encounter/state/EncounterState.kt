@@ -45,8 +45,6 @@ class EncounterMessageLog {
 
 @Serializable
 class EncounterState(
-    private val width: Int = 10,
-    private val height: Int = 10,
     private var _currentTime: Int = 0,
     private var _completed: Boolean = false,
     private var entityIdIdx: Int = 0 // TODO: uh this be dumb tho

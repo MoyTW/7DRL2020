@@ -311,8 +311,8 @@ class GameState {
         EncounterRunner.runUntilPlayerReady(encounterState)
     }
 
-    private final fun generateNewGameState(): EncounterState {
-        val state = EncounterState(40, 40)
+    private fun generateNewGameState(): EncounterState {
+        val state = EncounterState()
 
         val player = Entity(UUID.randomUUID().toString(), "player")
             .addComponent(PlayerComponent())
