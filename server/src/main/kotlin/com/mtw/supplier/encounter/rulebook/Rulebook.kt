@@ -89,7 +89,7 @@ object Rulebook {
         if (doorDoor.closed) {
             doorDoor.toggleOpen(door)
             encounterState.drawAndConnectRoom(doorDoor.direction)
-            encounterState.messageLog.logEvent("DOOR OPENED", "The door to the ${doorDoor.direction} opens!")
+            // encounterState.messageLog.logEvent("DOOR OPENED", "The door to the ${doorDoor.direction} opens!")
 
             // If you're opened you also need to close all other doors
             encounterState.getDreamMapI()

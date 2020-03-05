@@ -30,8 +30,8 @@ class EncounterMessageLog {
     }
 
     fun logEvent(eventType: String, text: String) {
-        val eventString = "<$eventType> $text"
-        addEntry(eventString)
+        //val eventString = "<$eventType> $text"
+        addEntry(text)
     }
 
     fun getMessages(n: Int? = null): List<String> {
