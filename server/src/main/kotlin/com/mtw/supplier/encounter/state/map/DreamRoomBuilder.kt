@@ -48,12 +48,42 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     CURTIS_STREET_MIDDLE_SINK({
         Entity(UUID.randomUUID().toString(), "The Middle Sink")
             .addComponent(CollisionComponent.defaultFighter())
-            .addComponent(DisplayComponent(character = 's', foregroundRGB = RGB(0, 102, 0)))
+            .addComponent(DisplayComponent(character = 'I', foregroundRGB = RGB(0, 102, 0)))
     }),
     CURTIS_STREET_SMALL_PLASITC_TRASH_BIN({
         Entity(UUID.randomUUID().toString(), "One Of The Tiny Trash Bins")
             .addComponent(CollisionComponent.defaultPassable())
             .addComponent(DisplayComponent(character = 'b', foregroundRGB = RGB(0, 10, 26)))
+    }),
+    CURTIS_STREET_MIDDLE_MIRROR({
+        Entity(UUID.randomUUID().toString(), "Your Favourite Mirror")
+            .addComponent(CollisionComponent.defaultPassable())
+            .addComponent(DisplayComponent(character = 'm', foregroundRGB = RGB(255, 255, 255)))
+    }),
+    HOSPITAL_ER_CHAIR({
+        Entity(UUID.randomUUID().toString(), "An ER chair")
+            .addComponent(CollisionComponent.defaultPassable())
+            .addComponent(DisplayComponent(character = 'c', foregroundRGB = RGB(51, 119, 255)))
+    }),
+    HOSPITAL_ER_RECEPTIONIST({
+        Entity(UUID.randomUUID().toString(), "The ER receptionist")
+            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(DisplayComponent(character = 'R', foregroundRGB = RGB(153, 187, 255)))
+    }),
+    HOSPITAL_ER_ELDERLY_COUGHER({
+        Entity(UUID.randomUUID().toString(), "An elderly cougher")
+            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(DisplayComponent(character = 'G', foregroundRGB = RGB(255, 0, 0)))
+    }),
+    HOSPITAL_ER_BABY({
+        Entity(UUID.randomUUID().toString(), "A baby, in a pram")
+            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(DisplayComponent(character = 'B', foregroundRGB = RGB(255, 0, 0)))
+    }),
+    HOSPITAL_ER_PARENT({
+        Entity(UUID.randomUUID().toString(), "A worried parent")
+            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(DisplayComponent(character = 'P', foregroundRGB = RGB(0, 102, 0)))
     }),
 }
 
@@ -109,8 +139,73 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_MIDDLE_TOILET,
             EntityBlueprint.CURTIS_STREET_MIDDLE_SHOWER,
             EntityBlueprint.CURTIS_STREET_MIDDLE_SINK,
-            EntityBlueprint.CURTIS_STREET_SMALL_PLASITC_TRASH_BIN
+            EntityBlueprint.CURTIS_STREET_SMALL_PLASITC_TRASH_BIN,
+            EntityBlueprint.CURTIS_STREET_MIDDLE_MIRROR
         ))),
+    ASTHMA_HOSPITAL_EMERGENCY_ROOM(DreamRoomBlueprintData(
+        "Emergency Room",
+        "Your wheezing is terrifying in your young ears. Every breath results in a huge, hacking cough. " +
+            "Your mom is frantic. You can't breathe. You're dying.",
+        minWidth = 25, maxWidth = 30,
+        minHeight = 45, maxHeight = 50,
+        wallColor = TileColor.create(15, 15, 15),
+        floorColor = TileColor.create(0, 0, 0), // hopefully wood veneer-ish
+        entities = listOf(
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_CHAIR,
+            EntityBlueprint.HOSPITAL_ER_RECEPTIONIST,
+            EntityBlueprint.HOSPITAL_ER_ELDERLY_COUGHER,
+            EntityBlueprint.HOSPITAL_ER_ELDERLY_COUGHER,
+            EntityBlueprint.HOSPITAL_ER_ELDERLY_COUGHER,
+            EntityBlueprint.HOSPITAL_ER_ELDERLY_COUGHER,
+            EntityBlueprint.HOSPITAL_ER_BABY,
+            EntityBlueprint.HOSPITAL_ER_BABY,
+            EntityBlueprint.HOSPITAL_ER_PARENT,
+            EntityBlueprint.HOSPITAL_ER_PARENT
+        ))),
+    /*ASTHMA_HOSPITAL_WARD(DreamRoomBlueprintData(
+        "Pediatric Ward",
+        "They've hooked some tubing up your nose and given you an oxygen tank to wheel around. The tank " +
+            "is no trouble, and you like the hospital food. And you don't need to go to school. You decide you like " +
+            "being hospitalized, after all.",
+        minWidth = 8, maxWidth = 8,
+        minHeight = 20, maxHeight = 24,
+        wallColor = TileColor.create(15, 15, 15),
+        floorColor = TileColor.create(0, 0, 0), // hopefully wood veneer-ish
+        entities = listOf(
+            EntityBlueprint.HOSPITAL_CURTAINS,
+            EntityBlueprint.HOSPITAL_MACHINERY,
+            EntityBlueprint.HOSPITAL_BED,
+            EntityBlueprint.HOSPITAL_FOOD
+        ))),*/
 }
 class CurtisStreetDadsRoom() {
     // Has a huge bed

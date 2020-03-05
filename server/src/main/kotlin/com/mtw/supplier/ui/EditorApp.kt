@@ -3,7 +3,6 @@ package com.mtw.supplier.ui
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.*
 import com.mtw.supplier.ecs.components.ai.AIComponent
-import com.mtw.supplier.ecs.components.ai.EnemyScoutAIComponent
 import com.mtw.supplier.ecs.components.ai.PathAIComponent
 import com.mtw.supplier.encounter.EncounterRunner
 import com.mtw.supplier.encounter.rulebook.actions.MoveAction
@@ -65,7 +64,7 @@ class CommentaryFragment(val width: Int, val height: Int, positionX: Int, positi
         lines = mutableListOf()
     }
 
-    fun wordWrap(text: String, width: Int, maxLines: Int): List<String> {
+    private fun wordWrap(text: String, width: Int, maxLines: Int): List<String> {
         val lines = mutableListOf<String>()
         val words = text.split(' ').toMutableList()
         while (words.isNotEmpty() && lines.size < maxLines) {
@@ -315,16 +314,6 @@ class GameState {
     private final fun generateNewGameState(): EncounterState {
         val state = EncounterState(40, 40)
 
-        val activatedAi = EnemyScoutAIComponent()
-        activatedAi.isActive = true
-        val scout = Entity(UUID.randomUUID().toString(), "Scout")
-            .addComponent(activatedAi)
-            .addComponent(HpComponent(10, 10))
-            .addComponent(FighterComponent(0, 0, 0))
-            .addComponent(FactionComponent(0))
-            .addComponent(CollisionComponent.defaultFighter())
-            .addComponent(ActionTimeComponent(75))
-            .addComponent(SpeedComponent(75))
         val player = Entity(UUID.randomUUID().toString(), "player")
             .addComponent(PlayerComponent())
             .addComponent(HpComponent(50, 50))
@@ -334,8 +323,7 @@ class GameState {
             .addComponent(ActionTimeComponent(100))
             .addComponent(SpeedComponent(100))
 
-        state.placeEntity(scout, state.randomUnblockedPosition())
-            .placeEntity(player, state.randomUnblockedPosition())
+        state.placeEntity(player, state.randomUnblockedPosition())
         EncounterRunner.runUntilPlayerReady(state)
         return state
     }
