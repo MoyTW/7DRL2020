@@ -97,7 +97,7 @@ object Rulebook {
                 .filter { it.key != doorDoor.direction && !it.value.getComponent(DoorComponent::class).closed }
                 .map {
                     it.value.getComponent(DoorComponent::class).toggleOpen(it.value)
-                    encounterState.messageLog.logEvent("DOOR CLOSED", "The door to the ${doorDoor.direction} slams shut!")
+                    encounterState.messageLog.logEvent("DOOR CLOSED", "The door to the ${it.key} slams shut!")
                 }
         }
     }

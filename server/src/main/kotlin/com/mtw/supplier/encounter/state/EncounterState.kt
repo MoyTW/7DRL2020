@@ -66,7 +66,7 @@ class EncounterState(
             5
         ) // TOOD: Vision radius
         for (pos in this.fovCache!!.visiblePositions) {
-            dreamMap.markExplored(pos)
+            dreamMap.markSeen(pos, this.currentTime)
         }
     }
 

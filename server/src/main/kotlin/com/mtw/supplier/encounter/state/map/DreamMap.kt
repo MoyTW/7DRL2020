@@ -6,6 +6,7 @@ import com.mtw.supplier.ecs.components.RoomPositionComponent
 import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 import org.slf4j.LoggerFactory
+import java.util.*
 
 interface DreamMapI {
     fun getDreamTileI(pos: AbsolutePosition): DreamTileI?
@@ -14,7 +15,7 @@ interface DreamMapI {
     val entities: List<Entity>
 }
 
-class DreamMapBuilder(val numRooms: Int = 5) {
+class DreamMapBuilder(val numRooms: Int = 10) {
     fun build(): DreamMap {
         val roomBlueprints = DreamRoomBlueprint.values().toMutableList()
 
@@ -40,7 +41,13 @@ class DreamMapBuilder(val numRooms: Int = 5) {
 class RoomGraph {
     // This is a two-sided map - when operating, you have to remember to link/unlink both sides.
     private val currentGraph: MutableMap<String, MutableMap<ExitDirection, String>> = mutableMapOf()
-    private val roomVisitLog: MutableList<String> = mutableListOf()
+
+    fun initializeWith(firstRoom: String) {
+        if (this.currentGraph.isNotEmpty()) {
+            throw RuntimeException("Can't re-initialize")
+        }
+        currentGraph[firstRoom] = mutableMapOf()
+    }
 
     /**
      * When you draw a new room:
@@ -53,6 +60,10 @@ class RoomGraph {
      * + you must be able to know the last visited room
      * + you have to be able to know whether or not you should draw the room as a label or in full
      */
+
+    fun allRooms(): Set<String> {
+        return currentGraph.keys
+    }
 
     fun contains(uuid: String): Boolean {
         return this.currentGraph.containsKey(uuid) && this.currentGraph[uuid]!!.isNotEmpty()
@@ -89,6 +100,39 @@ class RoomGraph {
         currentGraph[firstRoom]!!.remove(exitDirection)
         currentGraph[adjacent]!!.remove(exitDirection.opposite())
     }
+
+    /**
+     * Cuts a room out of the graph. Assumes that the excision will not create a disjoint graph.
+     */
+    fun disconnect(room: DreamRoom) {
+        // For every exit which it has a connection, unlink that connection
+        room.doors.map {
+            if (this.getConnected(room.uuid, it.key) != null) {
+                unlink(room.uuid, it.key)
+            }
+        }
+        this.currentGraph.remove(room.uuid)
+    }
+}
+
+@Serializable
+private class SeenHistory(
+    val memorySize: Int = 3
+) {
+    private val history: SortedMap<Int, MutableSet<String>> = sortedMapOf()
+    private val historyByRoom: MutableMap<String, MutableSet<Int>> = mutableMapOf()
+
+    fun lastSeenAt(roomUuid: String): Int? {
+        return historyByRoom[roomUuid]?.max()
+    }
+
+    fun markSeen(roomUuid: String, time: Int) {
+        if (!history.containsKey(time)) { history[time] = mutableSetOf() }
+        history[time]!!.add(roomUuid)
+
+        if (!historyByRoom.containsKey(roomUuid)) { historyByRoom[roomUuid] = mutableSetOf<Int>() }
+        historyByRoom[roomUuid]!!.add(time)
+    }
 }
 
 @Serializable
@@ -98,6 +142,7 @@ class DreamMap: DreamMapI {
     private val roomsById: MutableMap<String, DreamRoom> = mutableMapOf()
     private val mappedRoomsToAbsolutePositions: MutableMap<String, AbsolutePosition> = mutableMapOf()
     private val roomGraph: RoomGraph = RoomGraph()
+    private val seenHistory: SeenHistory = SeenHistory()
 
     /******************************************************************************************************************
      * Rooms
@@ -116,6 +161,7 @@ class DreamMap: DreamMapI {
     fun initializeWith(room: DreamRoom) {
         addRoom(room)
         mappedRoomsToAbsolutePositions[room.uuid] = AbsolutePosition(0, 0)
+        roomGraph.initializeWith(room.uuid)
     }
 
     fun addRoom(room: DreamRoom) {
@@ -144,7 +190,9 @@ class DreamMap: DreamMapI {
             }
         }
 
+        // Actually link the rooms
         val existingRoom = this.roomsById[existingRoomUuid]!!
+        // If it's a pre-existing connection, re-use that
         if (this.roomGraph.getConnected(existingRoomUuid, exitDirection) != null) {
             val graphed = this.roomsById[this.roomGraph.getConnected(existingRoomUuid, exitDirection)!!]!!
             mapGraphedRoom(existingRoom, exitDirection, graphed)
@@ -155,10 +203,33 @@ class DreamMap: DreamMapI {
             }
             this.roomGraph.connect(existingRoom.uuid, exitDirection, newRoom.uuid)
             mapGraphedRoom(existingRoom, exitDirection, newRoom)
+
+            // If you are past the seen limit, forget the last room
+            val graphedRooms = this.roomGraph.allRooms()
+            if (graphedRooms.size > seenHistory.memorySize) {
+                val last = graphedRooms.filter { it != newRoom.uuid }
+                    .minBy { seenHistory.lastSeenAt(it) ?: Integer.MAX_VALUE }
+                if (last != null) {
+                    roomGraph.disconnect(this.roomsById[last]!!)
+                    println("DISCONNECTING: " + this.roomsById[last]!!.name)
+
+                    // Remove the room from the map
+                    this.mappedRoomsToAbsolutePositions.remove(last)
+
+                    // Close the room's doors
+                    val lastRoom = this.roomsById[last]!!
+                    lastRoom.doors.map { door ->
+                        door.value.getComponent(DoorComponent::class).close(door.value)
+                    }
+                }
+            }
         }
     }
 
     private fun mapGraphedRoom(existingRoom: DreamRoom, exitDirection: ExitDirection, newRoom: DreamRoom) {
+        if (existingRoom == newRoom) {
+            throw RuntimeException("YO YOU'RE PULLING THE SAME ROOM")
+        }
         val existingDoor = existingRoom.getDoor(exitDirection)!!
         val existingDoorAbsolutePosition = roomToAbsolutePosition(existingDoor.getComponent(RoomPositionComponent::class).roomPosition)!!
 
@@ -192,10 +263,11 @@ class DreamMap: DreamMapI {
      * Tiles
      ******************************************************************************************************************/
 
-    fun markExplored(pos: AbsolutePosition) {
+    fun markSeen(pos: AbsolutePosition, time: Int) {
         val roomPosition = absoluteToRoomPosition(pos)
         if (roomPosition != null) {
-            this.roomsById[roomPosition.roomUuid]?.getTile(roomPosition)?.markExplored()
+            this.seenHistory.markSeen(roomPosition.roomUuid, time)
+            this.roomsById[roomPosition.roomUuid]!!.getTile(roomPosition)!!.markExplored()
         }
     }
 
