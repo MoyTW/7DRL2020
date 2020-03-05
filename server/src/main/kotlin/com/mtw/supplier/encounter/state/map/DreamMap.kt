@@ -30,7 +30,7 @@ class DreamMapBuilder(val numRooms: Int = 5) {
             }
 
         }
-        map.initializeWith(map.inactiveRooms.random())
+        map.initializeWith(map.inDeckRooms.random())
 
         return map
     }
@@ -62,6 +62,10 @@ class RoomGraph(
 
     fun lastVisited(n: Int = 1): List<String> {
         return this.roomVisitLog.takeLast(n)
+    }
+
+    fun contains(uuid: String): Boolean {
+        return this.currentGraph.containsKey(uuid) && this.currentGraph[uuid]!!.isNotEmpty()
     }
 
     fun connectedRooms(roomUuid: String): Map<ExitDirection, String>? {
@@ -102,7 +106,7 @@ class DreamMap: DreamMapI {
     private val logger = LoggerFactory.getLogger(DreamMap::class.java)
 
     private val roomsById: MutableMap<String, DreamRoom> = mutableMapOf()
-    private val activeRoomsToAbsolutePositions: MutableMap<String, AbsolutePosition> = mutableMapOf()
+    private val visibleRoomsToActivePositions: MutableMap<String, AbsolutePosition> = mutableMapOf()
     // You'll have to remember to link/unlink both ways!
     private val roomGraph: RoomGraph = RoomGraph()
 
@@ -110,15 +114,19 @@ class DreamMap: DreamMapI {
      * Rooms
      ******************************************************************************************************************/
 
-    val activeRooms: List<DreamRoom>
-        get() = roomsById.filter { activeRoomsToAbsolutePositions.containsKey(it.key) }.values.toList()
+    /**
+     * Terms:
+     * VISIBLE = The rooms of the graph which are currently being drawn fully to the screen
+     * IN_GRAPH = Exists in the node graph but is *not* being drawn to the screen
+     * IN_DECK = Free-floating rooms which are not in the current graph
+     */
 
-    val inactiveRooms: List<DreamRoom>
-        get() = roomsById.filter { !activeRoomsToAbsolutePositions.containsKey(it.key) }.values.toList()
+    val inDeckRooms: List<DreamRoom>
+        get() = roomsById.filter { !roomGraph.contains(it.key) }.values.toList()
 
     fun initializeWith(room: DreamRoom) {
         addRoom(room)
-        activeRoomsToAbsolutePositions[room.uuid] = AbsolutePosition(0, 0)
+        visibleRoomsToActivePositions[room.uuid] = AbsolutePosition(0, 0)
     }
 
     fun addRoom(room: DreamRoom) {
@@ -128,8 +136,8 @@ class DreamMap: DreamMapI {
         this.roomsById[room.uuid] = room
     }
 
-    private fun drawInactiveRoom(): DreamRoom {
-        return inactiveRooms.random()
+    private fun pullInDeckRoom(): DreamRoom {
+        return inDeckRooms.random()
     }
 
     fun drawAndConnectRoom(existingRoomUuid: String, exitDirection: ExitDirection) {
@@ -141,7 +149,7 @@ class DreamMap: DreamMapI {
             toUnlink.add(Pair(existingRoomUuid, it.key))
 
             // Remove the room from the map
-            this.activeRoomsToAbsolutePositions.remove(adjacentUuid)
+            this.visibleRoomsToActivePositions.remove(adjacentUuid)
 
             // Close the room's doors
             val adjacent = this.roomsById[adjacentUuid]!!
@@ -151,7 +159,7 @@ class DreamMap: DreamMapI {
         }
         toUnlink.map { this.roomGraph.unlink(it.first, it.second) }
 
-        connectRooms(this.roomsById[existingRoomUuid]!!, exitDirection, drawInactiveRoom())
+        connectRooms(this.roomsById[existingRoomUuid]!!, exitDirection, pullInDeckRoom())
     }
 
     private fun connectRooms(existingRoom: DreamRoom, exitDirection: ExitDirection, newRoom: DreamRoom) {
@@ -174,19 +182,19 @@ class DreamMap: DreamMapI {
         if (exitDirection == ExitDirection.NORTH) {
             val newRoomX = existingDoorAbsolutePosition.x - newRoomDoorPosition.x
             val newRoomY = existingDoorAbsolutePosition.y + 1
-            activeRoomsToAbsolutePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
+            visibleRoomsToActivePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
         } else if (exitDirection == ExitDirection.EAST) {
             val newRoomX = existingDoorAbsolutePosition.x + 1
             val newRoomY = existingDoorAbsolutePosition.y - newRoomDoorPosition.y
-            activeRoomsToAbsolutePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
+            visibleRoomsToActivePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
         } else if (exitDirection == ExitDirection.SOUTH) {
             val newRoomX = existingDoorAbsolutePosition.x - newRoomDoorPosition.x
             val newRoomY = existingDoorAbsolutePosition.y - newRoom.height
-            activeRoomsToAbsolutePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
+            visibleRoomsToActivePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
         } else if (exitDirection == ExitDirection.WEST) {
             val newRoomX = existingDoorAbsolutePosition.x - newRoom.width
             val newRoomY = existingDoorAbsolutePosition.y - newRoomDoorPosition.y
-            activeRoomsToAbsolutePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
+            visibleRoomsToActivePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
         }
     }
 
@@ -209,9 +217,7 @@ class DreamMap: DreamMapI {
     override fun getAllDreamTileIs(): Map<AbsolutePosition, DreamTileI> {
         val acc: MutableMap<AbsolutePosition, DreamTileI> = mutableMapOf()
 
-        logger.info("Num active rooms: " + this.activeRooms.size)
-
-        this.activeRoomsToAbsolutePositions.map { uuidToPosition ->
+        this.visibleRoomsToActivePositions.map { uuidToPosition ->
             val room = this.roomsById[uuidToPosition.key]!!
             room.allTiles().map {
                 acc[roomToAbsolutePosition(it.key)!!] = it.value
@@ -237,9 +243,9 @@ class DreamMap: DreamMapI {
     }
 
     internal fun absoluteToRoomPosition(absolute: AbsolutePosition): RoomPosition? {
-        this.activeRoomsToAbsolutePositions.map {
+        this.visibleRoomsToActivePositions.map {
             val room = this.roomsById[it.key]!!
-            val roomPosition = this.activeRoomsToAbsolutePositions[it.key]!!
+            val roomPosition = this.visibleRoomsToActivePositions[it.key]!!
             /**
              * You're in the room if:
              * roomX <= absoluteX <= roomX + width && roomY <= absoluteY <= roomY + height
@@ -254,11 +260,11 @@ class DreamMap: DreamMapI {
     }
 
     internal fun randomUnblockedPosition(): AbsolutePosition {
-        return roomToAbsolutePosition(this.roomsById[this.activeRoomsToAbsolutePositions.keys.first()]!!.randomPlacementPosition())!!
+        return roomToAbsolutePosition(this.roomsById[this.visibleRoomsToActivePositions.keys.first()]!!.randomPlacementPosition())!!
     }
 
     internal fun roomToAbsolutePosition(roomPosition: RoomPosition): AbsolutePosition? {
-        val roomAbsolutePosition = this.activeRoomsToAbsolutePositions[roomPosition.roomUuid] ?: return null
+        val roomAbsolutePosition = this.visibleRoomsToActivePositions[roomPosition.roomUuid] ?: return null
         return AbsolutePosition(roomAbsolutePosition.x + roomPosition.x, roomAbsolutePosition.y + roomPosition.y)
     }
 
