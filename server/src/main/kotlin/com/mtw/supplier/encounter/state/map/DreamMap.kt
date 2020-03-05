@@ -7,14 +7,6 @@ import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 import org.slf4j.LoggerFactory
 
-/** You can only have MAX 5 visible rooms
- *        ROOM
- *         |
- * ROOM - ROOM - ROOM
- *         |
- *        ROOM
- */
-
 interface DreamMapI {
     fun getDreamTileI(pos: AbsolutePosition): DreamTileI?
     fun getAllDreamTileIs(): Map<AbsolutePosition, DreamTileI>
@@ -45,13 +37,74 @@ class DreamMapBuilder(val numRooms: Int = 5) {
 }
 
 @Serializable
+class RoomGraph(
+    var roomMemoryLimit: Int = 5
+) {
+    // This is a two-sided map - when operating, you have to remember to link/unlink both sides.
+    private val currentGraph: MutableMap<String, MutableMap<ExitDirection, String>> = mutableMapOf()
+    private val roomVisitLog: MutableList<String> = mutableListOf()
+
+    /**
+     * When you draw a new room:
+     * + If there are already n rooms in the graph, drop the last *visited* room in the graph
+     * + Close all other doors to the current room other than the new room's direction
+     *   - Draw the rooms as names only
+     * + Add the new room to the graph
+     *
+     * To do this:
+     * + you must be able to know the last visited room
+     * + you have to be able to know whether or not you should draw the room as a label or in full
+     */
+
+    fun notifyVisited(roomUuid: String) {
+        this.roomVisitLog.add(roomUuid)
+    }
+
+    fun lastVisited(n: Int = 1): List<String> {
+        return this.roomVisitLog.takeLast(n)
+    }
+
+    fun connectedRooms(roomUuid: String): Map<ExitDirection, String>? {
+        return this.currentGraph[roomUuid]
+    }
+
+    private fun getConnected(roomUuid: String, exitDirection: ExitDirection): String? {
+        return this.currentGraph[roomUuid]?.get(exitDirection)
+    }
+
+    private fun connectSingle(firstRoom: String, exitDirection: ExitDirection, secondRoom: String) {
+        if (currentGraph[firstRoom] == null) { currentGraph[firstRoom] = mutableMapOf() }
+        currentGraph[firstRoom]!![exitDirection] = secondRoom
+    }
+
+    fun connect(firstRoom: String, exitDirection: ExitDirection, secondRoom: String) {
+        if (this.getConnected(firstRoom, exitDirection) != null) {
+            throw RuntimeException("COULD NOT LINK: $firstRoom already had an exit link in $exitDirection")
+        }
+        if (this.getConnected(secondRoom, exitDirection.opposite()) != null) {
+            throw RuntimeException("COULD NOT LINK: $secondRoom already had an exit link in ${exitDirection.opposite()}")
+        }
+
+        connectSingle(firstRoom, exitDirection, secondRoom)
+        connectSingle(secondRoom, exitDirection.opposite(), firstRoom)
+    }
+
+    fun unlink(firstRoom: String, exitDirection: ExitDirection) {
+        val adjacent = this.getConnected(firstRoom, exitDirection)
+            ?: throw RuntimeException("COULD NOT UNLINK: $firstRoom had no linked room in direction ${exitDirection}")
+        currentGraph[firstRoom]!!.remove(exitDirection)
+        currentGraph[adjacent]!!.remove(exitDirection.opposite())
+    }
+}
+
+@Serializable
 class DreamMap: DreamMapI {
     private val logger = LoggerFactory.getLogger(DreamMap::class.java)
 
     private val roomsById: MutableMap<String, DreamRoom> = mutableMapOf()
     private val activeRoomsToAbsolutePositions: MutableMap<String, AbsolutePosition> = mutableMapOf()
     // You'll have to remember to link/unlink both ways!
-    private val roomGraph: MutableMap<String, MutableMap<ExitDirection, String>> = mutableMapOf()
+    private val roomGraph: RoomGraph = RoomGraph()
 
     /******************************************************************************************************************
      * Rooms
@@ -80,16 +133,12 @@ class DreamMap: DreamMapI {
     }
 
     fun drawAndConnectRoom(existingRoomUuid: String, exitDirection: ExitDirection) {
-        logger.info("Roomgraph size: " + this.roomGraph.size)
         // Get all exits from this room that already exist
         val toUnlink: MutableList<Pair<String, ExitDirection>> = mutableListOf()
-        this.roomGraph[existingRoomUuid]?.map {
-            // Unlink this side of the exit
+        this.roomGraph.connectedRooms(existingRoomUuid)?.map {
             val adjacentUuid = it.value
 
-            // Unlink from both
             toUnlink.add(Pair(existingRoomUuid, it.key))
-            toUnlink.add(Pair(adjacentUuid, it.key.opposite()))
 
             // Remove the room from the map
             this.activeRoomsToAbsolutePositions.remove(adjacentUuid)
@@ -100,7 +149,7 @@ class DreamMap: DreamMapI {
                 door.value.getComponent(DoorComponent::class).close(door.value)
             }
         }
-        toUnlink.map { this.roomGraph[it.first]!!.remove(it.second) }
+        toUnlink.map { this.roomGraph.unlink(it.first, it.second) }
 
         connectRooms(this.roomsById[existingRoomUuid]!!, exitDirection, drawInactiveRoom())
     }
@@ -110,22 +159,7 @@ class DreamMap: DreamMapI {
             this.roomsById[newRoom.uuid] = newRoom
         }
 
-        if (roomGraph[existingRoom.uuid]?.get(exitDirection) != null) {
-            throw RuntimeException("COULD NOT LINK: $existingRoom already had an exit link in $exitDirection")
-        }
-        if (roomGraph.containsKey(newRoom.uuid) &&
-            roomGraph[newRoom.uuid]!![exitDirection.opposite()] != null) {
-            throw RuntimeException("COULD NOT LINK: $newRoom already had an exit link in ${exitDirection.opposite()}")
-        }
-
-        if (!roomGraph.containsKey(existingRoom.uuid)) {
-            roomGraph[existingRoom.uuid] = mutableMapOf()
-        }
-        if (!roomGraph.containsKey(newRoom.uuid)) {
-            roomGraph[newRoom.uuid] = mutableMapOf()
-        }
-        roomGraph[existingRoom.uuid]?.set(exitDirection, newRoom.uuid)
-        roomGraph[newRoom.uuid]?.set(exitDirection.opposite(), existingRoom.uuid)
+        this.roomGraph.connect(existingRoom.uuid, exitDirection, newRoom.uuid)
 
         val existingDoor = existingRoom.getDoor(exitDirection)!!
         val existingDoorAbsolutePosition = roomToAbsolutePosition(existingDoor.getComponent(RoomPositionComponent::class).roomPosition)!!
@@ -154,11 +188,6 @@ class DreamMap: DreamMapI {
             val newRoomY = existingDoorAbsolutePosition.y - newRoomDoorPosition.y
             activeRoomsToAbsolutePositions[newRoom.uuid] = AbsolutePosition(newRoomX, newRoomY)
         }
-    }
-
-    private fun getConnectedRoomByDirection(room: DreamRoom, direction: ExitDirection): DreamRoom? {
-        val uuid = roomGraph[room.uuid]!![direction]
-        return roomsById[uuid]
     }
 
     /******************************************************************************************************************
