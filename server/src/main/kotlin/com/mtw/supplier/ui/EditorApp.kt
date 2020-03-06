@@ -360,6 +360,7 @@ object EditorApp {
             KeyCode.NUMPAD_9 -> { gameState.postMoveAction(Direction.NE); true }
             KeyCode.KEY_U -> { gameState.postMoveAction(Direction.NE); true }
 
+            KeyCode.DIVIDE -> { gameState.targetPrevious(); true}
             KeyCode.MULTIPLY -> { gameState.targetNext(); true}
 
             else -> { false }
@@ -370,24 +371,40 @@ object EditorApp {
 class GameState {
     var encounterState: EncounterState = generateNewGameState()
 
-    internal fun targetNext() {
+    /**
+     * direction should be 1, -1
+     */
+    private fun target(direction: Int) {
         val player = encounterState.playerEntity()
         val visible = encounterState.fovCache!!.visiblePositions
         val visibleEntities = visible.mapNotNull { encounterState.getVisibleEntityAtPosition(it) }
             .filterNot { it.id == player.id }
+            // dumbest filtering ever
+            .filterNot { it.name.toUpperCase() == "DOOR" }
+            .filterNot { it.name.toUpperCase() == "WALL" }
             .sortedBy { it.name }
         if (visibleEntities.isNotEmpty()) {
             val currentTarget = player.getComponent(PlayerComponent::class).targeted
             if (currentTarget == null) {
                 player.getComponent(PlayerComponent::class).targeted = visibleEntities[0]
             } else {
-                var nextTarget = visibleEntities.indexOf(currentTarget) + 1
+                var nextTarget = visibleEntities.indexOf(currentTarget) + direction
                 if (nextTarget == visibleEntities.size) {
                     nextTarget = 0
+                } else if (nextTarget < 0) {
+                    nextTarget = visibleEntities.size - 1
                 }
                 player.getComponent(PlayerComponent::class).targeted = visibleEntities[nextTarget]
             }
         }
+    }
+
+    internal fun targetPrevious() {
+        target(-1)
+    }
+
+    internal fun targetNext() {
+        target(1)
     }
         
     internal fun postWaitAction() {
