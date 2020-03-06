@@ -153,20 +153,20 @@ object Rulebook {
         val defender = action.target
         val defenderTerror = defender.getComponentOrNull(TerrorComponent::class)
         if (defenderTerror != null) {
-            if (action.dTerror < 0) {
-                val newTerror = max(defenderTerror.currentTerror + action.dTerror, action.changesDownToMin)
+            if (action.terrorChangeStats.dTerror < 0) {
+                val newTerror = max(defenderTerror.currentTerror + action.terrorChangeStats.dTerror, action.terrorChangeStats.changesDownToMin)
                 // Don't set it to higher than it current is
                 if (newTerror < defenderTerror.currentTerror) {
                     defenderTerror.setTerror(newTerror)
                 }
             } else { // If you're adding terror
-                val newTerror = min(defenderTerror.currentTerror + action.dTerror, action.changesUpToMax)
+                val newTerror = min(defenderTerror.currentTerror + action.terrorChangeStats.dTerror, action.terrorChangeStats.changesUpToMax)
                 // Don't set it to lower than it currently is
                 if (newTerror > defenderTerror.currentTerror) {
                     defenderTerror.setTerror(newTerror)
                 }
             }
-            encounterState.messageLog.logEvent("TERROR", action.description)
+            encounterState.messageLog.logEvent("TERROR", action.terrorChangeStats.description)
         }
     }
 

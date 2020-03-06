@@ -3,15 +3,8 @@ package com.mtw.supplier.ecs.components
 import com.mtw.supplier.ecs.Component
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.encounter.rulebook.actions.TerrifyAction
+import com.mtw.supplier.encounter.rulebook.actions.TerrorChangeStats
 import kotlinx.serialization.Serializable
-
-@Serializable
-data class TerrorChangeStats(
-    val dTerror: Int,
-    val changesDownToMin: Int = 0,
-    val changesUpToMax: Int = 100,
-    val description: String
-)
 
 @Serializable
 class InspectEvent(
@@ -22,11 +15,7 @@ class InspectEvent(
 ) {
     fun toTerrifyAction(actor: Entity, target: Entity): TerrifyAction? {
         return if (terrorChangeStats != null) {
-            TerrifyAction(actor, target,
-                dTerror = terrorChangeStats.dTerror,
-                changesDownToMin = terrorChangeStats.changesDownToMin,
-                changesUpToMax = terrorChangeStats.changesUpToMax,
-                description = terrorChangeStats.description)
+            TerrifyAction(actor, target, terrorChangeStats)
         } else {
             null
         }
