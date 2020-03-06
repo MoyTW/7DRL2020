@@ -65,6 +65,21 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(character = 'T', foregroundRGB = RGB(0, 0, 0)))
     }),
+    CURTIS_STREET_PLAYSTATION({
+        Entity(UUID.randomUUID().toString(), "The playstation 2")
+            .addComponent(CollisionComponent.passable())
+            .addComponent(DisplayComponent(character = 'p', foregroundRGB = RGB(0, 0, 0)))
+    }),
+    CURTIS_STREET_GAMECUBE({
+        Entity(UUID.randomUUID().toString(), "The gamecube")
+            .addComponent(CollisionComponent.passable())
+            .addComponent(DisplayComponent(character = 'g', foregroundRGB = RGB(0, 0, 0)))
+    }),
+    CURTIS_STREET_ANIME_SHELF({
+        Entity(UUID.randomUUID().toString(), "Your anime shelf")
+            .addComponent(CollisionComponent.passable())
+            .addComponent(DisplayComponent(character = 'A', foregroundRGB = RGB(153, 51, 0)))
+    }),
     CURTIS_STREET_DDS_COUCH({
         Entity(UUID.randomUUID().toString(), "A Segment Of The TV Couch")
             .addComponent(CollisionComponent.blocker())
@@ -140,6 +155,26 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
             .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(character = 'f', foregroundRGB = RGB(51, 153, 255)))
     }),
+    AN_UNFAMILIAR_STREET_LIGHT({
+        Entity(UUID.randomUUID().toString(), "A harsh light")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(character = 'L', foregroundRGB = RGB(0, 0, 0)))
+    }),
+    AN_UNFAMILIAR_CAR({
+        Entity(UUID.randomUUID().toString(), "A car, strangely twisted")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(character = 'C', foregroundRGB = RGB(0, 0, 0)))
+    }),
+    A_FAMILIAR_FIGURE({
+        Entity(UUID.randomUUID().toString(), "A strange figure")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(character = 'P', foregroundRGB = RGB(0, 0, 0)))
+    }),
+    ALEXANDER({
+        Entity(UUID.randomUUID().toString(), "Alexander")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(character = 'A', foregroundRGB = RGB(0, 51, 0)))
+    })
 }
 
 data class DreamRoomBlueprintData(
@@ -186,9 +221,10 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.BETTYS_BACKYARD_FRUITS
         ))),
     CURTIS_STREET_BEDROOM(DreamRoomBlueprintData(
-        "Your childhood and teenage bedroom",
-        "You shared it with your brother until you left for college, aside from those years you stole " +
-            "the TV room for yourself.",
+        "Your old bedroom",
+        "You shared it with Alex until you left for college, aside from those years you stole the TV " +
+            "room for yourself. You always found it kind of weird that your parents didn't mind making a brother and " +
+            "sister share rooms.",
         minWidth = 8, maxWidth = 8,
         minHeight = 5, maxHeight = 5,
         wallColor = TileColor.create(225, 198, 153), // Beige-ish
@@ -199,21 +235,25 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_ALEXS_BED
         ))),
     CURTIS_STREET_DOWN_DOWNSTAIRS(DreamRoomBlueprintData(
-        "Down-downstairs at your parents' house",
-        "When you were fighting with your parents, your abandoned your room. You slept on this couch, " +
-            "which you liked better than your bed. You don't remember why, but it feels nostalgic.",
+        "The down-downstairs TV room",
+        "When you were fighting with your parents, you abandoned your room. You slept on this couch, " +
+            "which you liked better than your bed. You used to try and play video games on the TV, deep in the night " +
+            "when you parents were asleep.",
         minWidth = 7, maxWidth = 9,
         minHeight = 14, maxHeight = 16,
         wallColor = TileColor.create(255, 153, 204), // light-pink-ish
         floorColor = TileColor.create(255, 153, 204), // hopefully hardwood-ish
         entities = listOf(
             EntityBlueprint.CURTIS_STREET_BIG_TV,
+            EntityBlueprint.CURTIS_STREET_GAMECUBE,
+            EntityBlueprint.CURTIS_STREET_PLAYSTATION,
+            EntityBlueprint.CURTIS_STREET_ANIME_SHELF,
             EntityBlueprint.CURTIS_STREET_DDS_COUCH,
             EntityBlueprint.CURTIS_STREET_DDS_COUCH,
             EntityBlueprint.CURTIS_STREET_DDS_COUCH
         ))),
     CURTIS_STREET_MIDDLE_BATHROOM(DreamRoomBlueprintData(
-        "The middle bathroom at your parents' house",
+        "The middle bathroom",
         "This was your favorite bathroom. The shower was nice and hot, there was plenty of space near " +
             "the sink, and the mirror was huge and always clear. You feel comfortable here.",
         minWidth = 5, maxWidth = 5,
@@ -290,6 +330,54 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.HOSPITAL_MACHINERY,
             EntityBlueprint.HOSPITAL_BED,
             EntityBlueprint.HOSPITAL_FOOD
+        ))),
+    AN_UNFAMILIAR_STREET(DreamRoomBlueprintData(
+        "An unfamiliar street",
+        "You don't feel safe here.",
+        minWidth = 28, maxWidth = 36,
+        minHeight = 5, maxHeight = 5,
+        wallColor = TileColor.create(0, 0, 0),
+        floorColor = TileColor.create(105, 105, 105),
+        entities = listOf(
+            EntityBlueprint.AN_UNFAMILIAR_CAR,
+            EntityBlueprint.AN_UNFAMILIAR_CAR,
+            EntityBlueprint.AN_UNFAMILIAR_CAR,
+            EntityBlueprint.AN_UNFAMILIAR_CAR,
+            EntityBlueprint.AN_UNFAMILIAR_CAR,
+            EntityBlueprint.AN_UNFAMILIAR_CAR,
+            EntityBlueprint.AN_UNFAMILIAR_CAR,
+            EntityBlueprint.AN_UNFAMILIAR_CAR,
+            EntityBlueprint.AN_UNFAMILIAR_CAR,
+            EntityBlueprint.AN_UNFAMILIAR_CAR,
+            EntityBlueprint.AN_UNFAMILIAR_CAR,
+            EntityBlueprint.AN_UNFAMILIAR_CAR,
+            EntityBlueprint.AN_UNFAMILIAR_STREET_LIGHT,
+            EntityBlueprint.AN_UNFAMILIAR_STREET_LIGHT,
+            EntityBlueprint.AN_UNFAMILIAR_STREET_LIGHT,
+            EntityBlueprint.AN_UNFAMILIAR_STREET_LIGHT,
+            EntityBlueprint.A_FAMILIAR_FIGURE
+        ))),
+    AN_UNFAMILIAR_APARTMENT(DreamRoomBlueprintData(
+        "An unfamiliar apartment",
+        "You're trapped. The walls are too close; he is too close. You can't breathe.",
+        minWidth = 6, maxWidth = 6,
+        minHeight = 6, maxHeight = 6,
+        wallColor = TileColor.create(0, 0, 0),
+        floorColor = TileColor.create(255, 255, 255),
+        entities = listOf(
+            EntityBlueprint.A_FAMILIAR_FIGURE
+        ))),
+    AN_FAMILIAR_CAR(DreamRoomBlueprintData(
+        "An familiar car",
+        "You felt safe in here, once, but now - you feel the stress, in your heart, in your rasping " +
+            "breath. Alex is here, he grabs your hand. You'll be safe. You'll be safe as long as you stay with Alex.",
+        minWidth = 4, maxWidth = 4,
+        minHeight = 4, maxHeight = 4,
+        wallColor = TileColor.create(0, 0, 0),
+        floorColor = TileColor.create(255, 255, 255),
+        entities = listOf(
+            EntityBlueprint.A_FAMILIAR_FIGURE,
+            EntityBlueprint.ALEXANDER
         ))),
 }
 class CurtisStreetDadsRoom() {

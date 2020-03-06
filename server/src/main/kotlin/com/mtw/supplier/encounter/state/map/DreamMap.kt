@@ -15,7 +15,7 @@ interface DreamMapI {
     val entities: List<Entity>
 }
 
-class DreamMapBuilder(val numRooms: Int = 10) {
+class DreamMapBuilder(val numRooms: Int = DreamRoomBlueprint.values().size) {
     fun build(): DreamMap {
         val roomBlueprints = DreamRoomBlueprint.values().toMutableList()
 
