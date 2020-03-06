@@ -204,7 +204,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
     BETTYS_LIVING_ROOM(DreamRoomBlueprintData(
         "Juliann's old living room",
         "Well, actually Juliann's mom's living room. You used to come here all the time, when you were" +
-            " kids. You never see her anymore. Strange. Is that resentment you feel?",
+            " kids. You never see her anymore. She always has something scheduled. She's very popular socially.",
         minWidth = 10, maxWidth = 10,
         minHeight = 14, maxHeight = 14,
         wallColor = TileColor.create(128, 128, 255),
