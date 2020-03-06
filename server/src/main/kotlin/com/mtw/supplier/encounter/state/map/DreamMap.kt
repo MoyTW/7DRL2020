@@ -117,7 +117,7 @@ class RoomGraph {
 
 @Serializable
 private class SeenHistory(
-    val memorySize: Int = 3
+    val memorySize: Int = 5
 ) {
     private val history: SortedMap<Int, MutableList<String>> = sortedMapOf()
     private val historyByRoom: MutableMap<String, MutableSet<Int>> = mutableMapOf()

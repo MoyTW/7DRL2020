@@ -10,80 +10,135 @@ import org.hexworks.zircon.api.color.TileColor
 
 
 enum class EntityBlueprint(val createFn: () -> Entity) {
+    BETTYS_LIVING_ROOM_TV({
+        Entity(UUID.randomUUID().toString(), "Betty's big TV")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(character = 'T', foregroundRGB = RGB(0, 0, 0)))
+    }),
+    BETTYS_LIVING_ROOM_COUCH({
+        Entity(UUID.randomUUID().toString(), "Betty's living room couches")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(character = 'C', foregroundRGB = RGB(10, 10, 41)))
+    }),
+    BETTYS_LIVING_ROOM_BOOKSHELVES({
+        Entity(UUID.randomUUID().toString(), "Betty's living room bookshelves")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(character = 'S', foregroundRGB = RGB(153, 51, 0)))
+    }),
+    BETTYS_BACKYARD_LAUNDRY({
+        Entity(UUID.randomUUID().toString(), "Laundry drying in the sun")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(character = 'L', foregroundRGB = RGB(220, 220, 220)))
+    }),
+    BETTYS_BACKYARD_TOMATOES({
+        Entity(UUID.randomUUID().toString(), "Betty's tomato plants")
+            .addComponent(CollisionComponent.passable())
+            .addComponent(DisplayComponent(character = 't', foregroundRGB = RGB(153, 0, 0)))
+    }),
+    BETTYS_BACKYARD_HERBS({
+        Entity(UUID.randomUUID().toString(), "Betty's homegrown greens")
+            .addComponent(CollisionComponent.passable())
+            .addComponent(DisplayComponent(character = 'h', foregroundRGB = RGB(0, 153, 51)))
+    }),
+    BETTYS_BACKYARD_FRUITS({
+        Entity(UUID.randomUUID().toString(), "Betty's fruit tree")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(character = 'F', foregroundRGB = RGB(0, 150, 51)))
+    }),
     CURTIS_STREET_MY_BED({
         Entity(UUID.randomUUID().toString(), "Your Teenage Bed")
-            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(character = 'B', foregroundRGB = RGB(0, 173, 238)))
-        }),
+    }),
     CURTIS_STREET_MY_DRESSER({
         Entity(UUID.randomUUID().toString(), "Your Teenage Dresser")
-            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(character = 'D', foregroundRGB = RGB(0, 173, 238)))
-        }),
+    }),
     CURTIS_STREET_ALEXS_BED({
         Entity(UUID.randomUUID().toString(), "Alex's Childhood Bed")
-            .addComponent(CollisionComponent.defaultBlocker())
+            .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(character = 'B', foregroundRGB = RGB(0, 139, 0)))
     }),
     CURTIS_STREET_BIG_TV({
         Entity(UUID.randomUUID().toString(), "The Big Television")
-            .addComponent(CollisionComponent.defaultBlocker())
+            .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(character = 'T', foregroundRGB = RGB(0, 0, 0)))
     }),
     CURTIS_STREET_DDS_COUCH({
         Entity(UUID.randomUUID().toString(), "A Segment Of The TV Couch")
-            .addComponent(CollisionComponent.defaultBlocker())
+            .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(character = 'C', foregroundRGB = RGB(26, 26, 255)))
     }),
     CURTIS_STREET_MIDDLE_TOILET({
         Entity(UUID.randomUUID().toString(), "The Middle Toilet")
-            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(character = 'O', foregroundRGB = RGB(0, 51, 51)))
     }),
     CURTIS_STREET_MIDDLE_SHOWER({
         Entity(UUID.randomUUID().toString(), "The Middle Shower")
-            .addComponent(CollisionComponent.defaultBlocker())
+            .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(character = 'S', foregroundRGB = RGB(204, 255, 255)))
     }),
     CURTIS_STREET_MIDDLE_SINK({
         Entity(UUID.randomUUID().toString(), "The Middle Sink")
-            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(character = 'I', foregroundRGB = RGB(0, 102, 0)))
     }),
     CURTIS_STREET_SMALL_PLASITC_TRASH_BIN({
         Entity(UUID.randomUUID().toString(), "One Of The Tiny Trash Bins")
-            .addComponent(CollisionComponent.defaultPassable())
+            .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(character = 'b', foregroundRGB = RGB(0, 10, 26)))
     }),
     CURTIS_STREET_MIDDLE_MIRROR({
         Entity(UUID.randomUUID().toString(), "Your Favourite Mirror")
-            .addComponent(CollisionComponent.defaultPassable())
+            .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(character = 'm', foregroundRGB = RGB(255, 255, 255)))
     }),
     HOSPITAL_ER_CHAIR({
         Entity(UUID.randomUUID().toString(), "An ER chair")
-            .addComponent(CollisionComponent.defaultPassable())
+            .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(character = 'c', foregroundRGB = RGB(51, 119, 255)))
     }),
     HOSPITAL_ER_RECEPTIONIST({
         Entity(UUID.randomUUID().toString(), "The ER receptionist")
-            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(character = 'R', foregroundRGB = RGB(153, 187, 255)))
     }),
     HOSPITAL_ER_ELDERLY_COUGHER({
         Entity(UUID.randomUUID().toString(), "An elderly cougher")
-            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(character = 'G', foregroundRGB = RGB(255, 0, 0)))
     }),
     HOSPITAL_ER_BABY({
         Entity(UUID.randomUUID().toString(), "A baby, in a pram")
-            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(character = 'B', foregroundRGB = RGB(255, 0, 0)))
     }),
     HOSPITAL_ER_PARENT({
         Entity(UUID.randomUUID().toString(), "A worried parent")
-            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(character = 'P', foregroundRGB = RGB(0, 102, 0)))
+    }),
+    HOSPITAL_CURTAINS({
+        Entity(UUID.randomUUID().toString(), "Hospital curtains")
+            .addComponent(CollisionComponent.fog())
+            .addComponent(DisplayComponent(character = 'c', foregroundRGB = RGB(51, 153, 255)))
+    }),
+    HOSPITAL_MACHINERY({
+        Entity(UUID.randomUUID().toString(), "A bedside machine")
+            .addComponent(CollisionComponent.mover())
+            .addComponent(DisplayComponent(character = 'M', foregroundRGB = RGB(51, 153, 255)))
+    }),
+    HOSPITAL_BED({
+        Entity(UUID.randomUUID().toString(), "A hospital bed")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(character = 'B', foregroundRGB = RGB(51, 153, 255)))
+    }),
+    HOSPITAL_FOOD({
+        Entity(UUID.randomUUID().toString(), "Lunch!")
+            .addComponent(CollisionComponent.passable())
+            .addComponent(DisplayComponent(character = 'f', foregroundRGB = RGB(51, 153, 255)))
     }),
 }
 
@@ -100,6 +155,36 @@ data class DreamRoomBlueprintData(
 )
 
 enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
+    BETTYS_LIVING_ROOM(DreamRoomBlueprintData(
+        "Juliann's old house",
+        "Well, actually Juliann's mom's house. You used to come here all the time, when you were kids. " +
+            "You never see her anymore. Strange. Is that resentment you feel?",
+        minWidth = 10, maxWidth = 10,
+        minHeight = 14, maxHeight = 14,
+        wallColor = TileColor.create(128, 128, 255),
+        floorColor = TileColor.create(133, 94, 66),
+        entities = listOf(
+            EntityBlueprint.BETTYS_LIVING_ROOM_TV, 
+            EntityBlueprint.BETTYS_LIVING_ROOM_COUCH,
+            EntityBlueprint.BETTYS_LIVING_ROOM_COUCH,
+            EntityBlueprint.BETTYS_LIVING_ROOM_BOOKSHELVES,
+            EntityBlueprint.BETTYS_LIVING_ROOM_BOOKSHELVES
+        ))),
+    BETTYS_BACKYARD(DreamRoomBlueprintData(
+        "Juliann's old backyard",
+        "Betty and Lawrence never liked answering the front door, so when you were going over to " +
+            "Juliann's house you always went through the backyard.",
+        minWidth = 10, maxWidth = 10,
+        minHeight = 14, maxHeight = 14,
+        wallColor = TileColor.create(128, 128, 255),
+        floorColor = TileColor.create(133, 94, 66),
+        entities = listOf(
+            EntityBlueprint.BETTYS_BACKYARD_LAUNDRY,
+            EntityBlueprint.BETTYS_BACKYARD_LAUNDRY,
+            EntityBlueprint.BETTYS_BACKYARD_TOMATOES,
+            EntityBlueprint.BETTYS_BACKYARD_HERBS,
+            EntityBlueprint.BETTYS_BACKYARD_FRUITS
+        ))),
     CURTIS_STREET_BEDROOM(DreamRoomBlueprintData(
         "Your childhood and teenage bedroom",
         "You shared it with your brother until you left for college, aside from those years you stole " +
@@ -191,21 +276,21 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.HOSPITAL_ER_PARENT,
             EntityBlueprint.HOSPITAL_ER_PARENT
         ))),
-    /*ASTHMA_HOSPITAL_WARD(DreamRoomBlueprintData(
+    ASTHMA_HOSPITAL_WARD(DreamRoomBlueprintData(
         "Pediatric Ward",
         "They've hooked some tubing up your nose and given you an oxygen tank to wheel around. The tank " +
             "is no trouble, and you like the hospital food. And you don't need to go to school. You decide you like " +
             "being hospitalized, after all.",
-        minWidth = 8, maxWidth = 8,
-        minHeight = 20, maxHeight = 24,
-        wallColor = TileColor.create(15, 15, 15),
-        floorColor = TileColor.create(0, 0, 0), // hopefully wood veneer-ish
+        minWidth = 5, maxWidth = 5,
+        minHeight = 9, maxHeight = 9,
+        wallColor = TileColor.create(210, 210, 210),
+        floorColor = TileColor.create(255, 255, 255),
         entities = listOf(
             EntityBlueprint.HOSPITAL_CURTAINS,
             EntityBlueprint.HOSPITAL_MACHINERY,
             EntityBlueprint.HOSPITAL_BED,
             EntityBlueprint.HOSPITAL_FOOD
-        ))),*/
+        ))),
 }
 class CurtisStreetDadsRoom() {
     // Has a huge bed
@@ -258,13 +343,13 @@ class DreamRoomBuilder(
     private fun doorOrWall(isDoor: Boolean, direction: ExitDirection): Entity {
         return if (isDoor) {
             val door = Entity(UUID.randomUUID().toString(), "Door")
-                .addComponent(CollisionComponent.defaultBlocker())
+                .addComponent(CollisionComponent.blocker())
                 .addComponent(DoorComponent(direction))
             doors[direction] = door
             door
         } else {
             Entity(UUID.randomUUID().toString(), "Wall")
-                .addComponent(CollisionComponent.defaultBlocker())
+                .addComponent(CollisionComponent.blocker())
                 .addComponent(DisplayComponent(backgroundRGB = RGB.fromTileColor(this.wallColor)))
         }
     }

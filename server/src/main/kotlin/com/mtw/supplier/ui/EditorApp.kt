@@ -12,7 +12,6 @@ import com.mtw.supplier.utils.AbsolutePosition
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.*
 import org.hexworks.zircon.api.application.AppConfig
-import org.hexworks.zircon.api.builder.component.ColorThemeBuilder
 import org.hexworks.zircon.api.builder.component.HBoxBuilder
 import org.hexworks.zircon.api.builder.component.LabelBuilder
 import org.hexworks.zircon.api.builder.component.VBoxBuilder
@@ -20,7 +19,6 @@ import org.hexworks.zircon.api.builder.graphics.LayerBuilder
 import org.hexworks.zircon.api.color.ANSITileColor
 import org.hexworks.zircon.api.color.TileColor
 import org.hexworks.zircon.api.component.*
-import org.hexworks.zircon.api.component.renderer.ComponentRenderContext
 import org.hexworks.zircon.api.data.Position
 import org.hexworks.zircon.api.data.Size
 import org.hexworks.zircon.api.data.Tile
@@ -393,7 +391,7 @@ class GameState {
             .addComponent(HpComponent(50, 50))
             .addComponent(FighterComponent(5, 100, 100))
             .addComponent(FactionComponent(2))
-            .addComponent(CollisionComponent.defaultFighter())
+            .addComponent(CollisionComponent.mover())
             .addComponent(ActionTimeComponent(100))
             .addComponent(SpeedComponent(100))
 

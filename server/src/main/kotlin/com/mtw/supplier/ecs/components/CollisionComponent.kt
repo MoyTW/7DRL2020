@@ -12,27 +12,27 @@ class CollisionComponent(
     override var _parentId: String? = null
 ): Component() {
     companion object {
-        fun defaultProjectile(): CollisionComponent = CollisionComponent(
-            blocksMovement = false,
-            blocksVision = false,
-            attackOnHit = true,
-            selfDestructOnHit = true
-        )
-        fun defaultFighter(): CollisionComponent = CollisionComponent(
+        fun mover(): CollisionComponent = CollisionComponent(
             blocksMovement = true,
             blocksVision = false,
             attackOnHit = false,
             selfDestructOnHit = false
         )
-        fun defaultBlocker(): CollisionComponent = CollisionComponent(
+        fun blocker(): CollisionComponent = CollisionComponent(
             blocksMovement = true,
             blocksVision = true,
             attackOnHit = false,
             selfDestructOnHit = false
         )
-        fun defaultPassable(): CollisionComponent = CollisionComponent(
+        fun passable(): CollisionComponent = CollisionComponent(
             blocksMovement = false,
             blocksVision = false,
+            attackOnHit = false,
+            selfDestructOnHit = false
+        )
+        fun fog(): CollisionComponent = CollisionComponent(
+            blocksMovement = false,
+            blocksVision = true,
             attackOnHit = false,
             selfDestructOnHit = false
         )
