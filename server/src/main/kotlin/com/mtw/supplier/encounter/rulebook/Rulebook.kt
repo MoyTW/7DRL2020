@@ -171,12 +171,25 @@ object Rulebook {
     }
 
     private fun resolveInspectAction(action: InspectAction, encounterState: EncounterState) {
-        val inspectComponent = action.target.getComponent(InspectableComponent::class)
-        if (inspectComponent.inspectEvents.isNotEmpty()) {
-            val event = inspectComponent.inspectEvents.random()
-            println(event.eventHeader)
-            println(event.eventText)
+        val inspectComponent = action.target.getComponentOrNull(InspectableComponent::class)
+        if (inspectComponent == null) {
+            println("You can't inspect that")
+        } else {
+            if (inspectComponent.inspectEvents.isNotEmpty()) {
+                val event = inspectComponent.inspectEvents.random()
 
+                // Handle popup
+                println(event.eventHeader)
+                println(event.eventText)
+
+                // Handle terrify
+                val terrifyAction = event.toTerrifyAction(action.target, action.actor)
+                if (terrifyAction != null) {
+                    this.resolveAction(terrifyAction, encounterState)
+                }
+
+                inspectComponent.completeEvent(event)
+            }
         }
     }
 }
