@@ -12,12 +12,15 @@ import com.mtw.supplier.utils.AbsolutePosition
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.*
 import org.hexworks.zircon.api.application.AppConfig
+import org.hexworks.zircon.api.builder.component.ColorThemeBuilder
+import org.hexworks.zircon.api.builder.component.HBoxBuilder
 import org.hexworks.zircon.api.builder.component.LabelBuilder
 import org.hexworks.zircon.api.builder.component.VBoxBuilder
 import org.hexworks.zircon.api.builder.graphics.LayerBuilder
 import org.hexworks.zircon.api.color.ANSITileColor
 import org.hexworks.zircon.api.color.TileColor
 import org.hexworks.zircon.api.component.*
+import org.hexworks.zircon.api.component.renderer.ComponentRenderContext
 import org.hexworks.zircon.api.data.Position
 import org.hexworks.zircon.api.data.Size
 import org.hexworks.zircon.api.data.Tile
@@ -45,6 +48,7 @@ data class TileWindows(
     val mapFoWTileGraphics: TileGraphics,
     val mapEntityTileGraphics: TileGraphics,
     val commentaryFragment: CommentaryFragment,
+    val statsFragment: StatsFragment,
     val logVBox: VBox
 )
 
@@ -100,6 +104,68 @@ class CommentaryFragment(val width: Int, val height: Int, positionX: Int, positi
     }
 }
 
+class StatsFragment(val width: Int, val height: Int, positionX: Int, positionY: Int): Fragment {
+    private val nightmareBar: ProgressBar
+    override val root = VBoxBuilder.newBuilder().withSize(width, height).withPosition(positionX, positionY).build()
+    private val lines: MutableList<Label>
+
+    private val maxTextLen: Int
+        get() = this.width - 2
+    private val maxHistoryLines: Int
+        get() = this.height - 6
+
+    init {
+        nightmareBar = Components.progressBar()
+            .withRange(100)
+            .withNumberOfSteps(width - 2)
+            .withDecorations(ComponentDecorations.box())
+            .build()
+        nightmareBar.progress = 50.0
+        root.addComponent(nightmareBar)
+
+        val barLabels = HBoxBuilder.newBuilder().withSize(width, 2).build()
+        val leftLabel = Components.label()
+            .withText("Nightmare")
+            .withPosition(1, 0)
+            /* This doesn't seem to work; unsure why. We'll live with it I guess.
+            .withColorTheme(ColorThemeBuilder.newBuilder()
+                .withAccentColor(ANSITileColor.BRIGHT_YELLOW)
+                .withPrimaryForegroundColor(ANSITileColor.RED)
+                .withPrimaryBackgroundColor(ANSITileColor.GREEN)
+                .withSecondaryForegroundColor(ANSITileColor.BLUE)
+                .withSecondaryBackgroundColor(ANSITileColor.CYAN)
+                .build())
+                */
+            .build()
+        val rightLabel = Components.label().withText("Dream")
+            .withPosition(width - "Nightmare".length - "Dream".length - 2, 0)
+            .withColorTheme(ColorThemes.monokaiBlue())
+            .build()
+        barLabels.addComponent(leftLabel)
+        barLabels.addComponent(rightLabel)
+        root.addComponent(barLabels)
+
+        val historyHeader = Components.header().withText("I remember...").build()
+        root.addComponent(historyHeader)
+
+        lines = mutableListOf()
+        for (i in 0 until maxHistoryLines) {
+            val historyLabel = Components.label()
+                .withSize(maxTextLen, 1)
+                .withDecorations(ComponentDecorations.side(' ', ' '))
+                .build()
+            root.addComponent(historyLabel)
+            lines.add(historyLabel)
+        }
+    }
+
+    fun setStats(history: List<String>) {
+        for (i in 0 until maxHistoryLines) {
+            lines[i].text = history[i]
+        }
+    }
+}
+
 object EditorApp {
     val gameState = GameState()
     val GAME_WIDTH: Int = 60
@@ -107,6 +173,8 @@ object EditorApp {
     val MAP_WIDTH: Int = 30
     val MAP_HEIGHT: Int = 30
     val MAP_CENTER = AbsolutePosition(MAP_WIDTH / 2, MAP_HEIGHT / 2)
+    val COMMENTARY_HEIGHT: Int = 15
+    val STATS_HEIGHT = 15
     val LOG_WIDTH: Int = GAME_WIDTH
     val LOG_HEIGHT: Int = GAME_HEIGHT - MAP_HEIGHT
     private var cameraX: Int = 0
@@ -135,14 +203,16 @@ object EditorApp {
         for (y in 0 until LOG_HEIGHT) {
             logVBox.addComponent(Components.label().withSize(LOG_WIDTH, 1).build())
         }
-        val commentaryFragment = CommentaryFragment(GAME_WIDTH - MAP_WIDTH, GAME_HEIGHT - LOG_HEIGHT, MAP_WIDTH, 0)
+        val commentaryFragment = CommentaryFragment(GAME_WIDTH - MAP_WIDTH, COMMENTARY_HEIGHT, MAP_WIDTH, 0)
+        val statsFragment = StatsFragment(GAME_WIDTH - MAP_WIDTH, STATS_HEIGHT, MAP_WIDTH, 0 + COMMENTARY_HEIGHT)
 
-        val windows = TileWindows(screen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, logVBox)
+        val windows = TileWindows(screen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, statsFragment, logVBox)
 
         screen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapFoWTileGraphics).build())
         screen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapEntityTileGraphics).build())
-        screen.addComponent(logVBox)
         screen.addFragment(commentaryFragment)
+        screen.addFragment(statsFragment)
+        screen.addComponent(logVBox)
 
         tileGrid.processKeyboardEvents(KeyboardEventType.KEY_PRESSED) { keyboardEvent: KeyboardEvent, uiEventPhase: UIEventPhase ->
             handleKeyPress(keyboardEvent)
@@ -254,7 +324,8 @@ object EditorApp {
         // Draw the map
         windows.mapFoWTileGraphics.clear()
         windows.mapEntityTileGraphics.clear()
-        val playerPos = encounterState.playerEntity().getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)!!
+        val playerPos = encounterState.playerEntity().getComponent(RoomPositionComponent::class)
+            .asAbsolutePosition(encounterState)!!
         cameraX = playerPos.x
         cameraY = playerPos.y
 
