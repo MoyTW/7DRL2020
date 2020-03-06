@@ -406,6 +406,10 @@ class GameState {
     internal fun targetNext() {
         target(1)
     }
+
+    internal fun clearTarget() {
+        encounterState.playerEntity().getComponent(PlayerComponent::class).targeted = null
+    }
         
     internal fun postWaitAction() {
         val action = WaitAction(encounterState.playerEntity(), null)
@@ -421,6 +425,9 @@ class GameState {
         val action = MoveAction(encounterState.playerEntity(), encounterState.roomToAbsolutePosition(newPlayerPos)!!)
         EncounterRunner.runPlayerTurn(encounterState, action)
         EncounterRunner.runUntilPlayerReady(encounterState)
+
+        // Clear target after move
+        clearTarget()
     }
 
     private fun generateNewGameState(): EncounterState {
