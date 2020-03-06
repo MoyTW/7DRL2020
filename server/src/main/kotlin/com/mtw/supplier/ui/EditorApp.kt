@@ -344,14 +344,23 @@ object EditorApp {
     private fun handleKeyPress(event: KeyboardEvent): Boolean {
         return when (event.code) {
             KeyCode.NUMPAD_1 -> { gameState.postMoveAction(Direction.SW); true }
+            KeyCode.KEY_B -> { gameState.postMoveAction(Direction.SW); true }
             KeyCode.NUMPAD_2 -> { gameState.postMoveAction(Direction.S); true }
+            KeyCode.KEY_J -> { gameState.postMoveAction(Direction.S); true }
             KeyCode.NUMPAD_3 -> { gameState.postMoveAction(Direction.SE); true }
+            KeyCode.KEY_N -> { gameState.postMoveAction(Direction.SE); true }
             KeyCode.NUMPAD_4 -> { gameState.postMoveAction(Direction.W); true }
+            KeyCode.KEY_H -> { gameState.postMoveAction(Direction.W); true }
             KeyCode.NUMPAD_5 -> { gameState.postWaitAction(); true }
+            KeyCode.PERIOD -> { gameState.postWaitAction(); true }
             KeyCode.NUMPAD_6 -> { gameState.postMoveAction(Direction.E); true }
+            KeyCode.KEY_L -> { gameState.postMoveAction(Direction.E); true }
             KeyCode.NUMPAD_7 -> { gameState.postMoveAction(Direction.NW); true }
+            KeyCode.KEY_Y -> { gameState.postMoveAction(Direction.NW); true }
             KeyCode.NUMPAD_8 -> { gameState.postMoveAction(Direction.N); true }
+            KeyCode.KEY_K -> { gameState.postMoveAction(Direction.N); true }
             KeyCode.NUMPAD_9 -> { gameState.postMoveAction(Direction.NE); true }
+            KeyCode.KEY_U -> { gameState.postMoveAction(Direction.NE); true }
             else -> { false }
         }
     }
