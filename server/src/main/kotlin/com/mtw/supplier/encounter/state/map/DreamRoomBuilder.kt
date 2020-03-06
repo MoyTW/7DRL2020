@@ -367,8 +367,8 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         entities = listOf(
             EntityBlueprint.A_FAMILIAR_FIGURE
         ))),
-    AN_FAMILIAR_CAR(DreamRoomBlueprintData(
-        "An familiar car",
+    A_FAMILIAR_CAR(DreamRoomBlueprintData(
+        "A familiar car",
         "You felt safe in here, once, but now - you feel the stress, in your heart, in your rasping " +
             "breath. Alex is here, he grabs your hand. You'll be safe. You'll be safe as long as you stay with Alex.",
         minWidth = 4, maxWidth = 4,
