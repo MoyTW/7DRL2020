@@ -2,8 +2,6 @@ package com.mtw.supplier.ui
 
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.*
-import com.mtw.supplier.ecs.components.ai.AIComponent
-import com.mtw.supplier.ecs.components.ai.PathAIComponent
 import com.mtw.supplier.encounter.EncounterRunner
 import com.mtw.supplier.encounter.rulebook.actions.MoveAction
 import com.mtw.supplier.encounter.rulebook.actions.WaitAction
@@ -42,7 +40,7 @@ enum class Direction(val dx: Int, val dy: Int) {
 }
 
 data class TileWindows(
-    val screen: Screen,
+    val primaryScreen: Screen,
     val mapFoWTileGraphics: TileGraphics,
     val mapEntityTileGraphics: TileGraphics,
     val commentaryFragment: CommentaryFragment,
@@ -200,10 +198,10 @@ object EditorApp {
                 .withDefaultTileset(CP437TilesetResources.rexPaint16x16())
                 .build())
 
-        val screen = tileGrid.toScreen()
+        val primaryScreen = tileGrid.toScreen()
 
-        screen.display()
-        screen.theme = ColorThemes.arc()
+        primaryScreen.display()
+        primaryScreen.theme = ColorThemes.arc()
 
         val mapFoWTileGraphics: TileGraphics = DrawSurfaces.tileGraphicsBuilder()
             .withSize(Size.create(MAP_WIDTH, MAP_HEIGHT))
@@ -218,13 +216,13 @@ object EditorApp {
         val commentaryFragment = CommentaryFragment(GAME_WIDTH - MAP_WIDTH, COMMENTARY_HEIGHT, MAP_WIDTH, 0)
         val statsFragment = StatsFragment(GAME_WIDTH - MAP_WIDTH, STATS_HEIGHT, MAP_WIDTH, 0 + COMMENTARY_HEIGHT)
 
-        val windows = TileWindows(screen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, statsFragment, logVBox)
+        val windows = TileWindows(primaryScreen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, statsFragment, logVBox)
 
-        screen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapFoWTileGraphics).build())
-        screen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapEntityTileGraphics).build())
-        screen.addFragment(commentaryFragment)
-        screen.addFragment(statsFragment)
-        screen.addComponent(logVBox)
+        primaryScreen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapFoWTileGraphics).build())
+        primaryScreen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapEntityTileGraphics).build())
+        primaryScreen.addFragment(commentaryFragment)
+        primaryScreen.addFragment(statsFragment)
+        primaryScreen.addComponent(logVBox)
 
         tileGrid.processKeyboardEvents(KeyboardEventType.KEY_PRESSED) { keyboardEvent: KeyboardEvent, uiEventPhase: UIEventPhase ->
             handleKeyPress(keyboardEvent)
@@ -329,7 +327,7 @@ object EditorApp {
         renderPlayer(windows.mapEntityTileGraphics, encounterState)
 
         // Set the commentary
-        windows.commentaryFragment.setText(encounterState.currentRoomName(), encounterState.currentRoomCommentary())
+        windows.commentaryFragment.setText(encounterState.currentCommentaryHeader(), encounterState.currentCommentaryText())
         // Set the stats
         windows.statsFragment.setStats(encounterState.playerTerrorPercentage(), encounterState.lastSeenRoomNames())
 
@@ -361,6 +359,9 @@ object EditorApp {
             KeyCode.KEY_K -> { gameState.postMoveAction(Direction.N); true }
             KeyCode.NUMPAD_9 -> { gameState.postMoveAction(Direction.NE); true }
             KeyCode.KEY_U -> { gameState.postMoveAction(Direction.NE); true }
+
+            KeyCode.MULTIPLY -> { gameState.targetNext(); true}
+
             else -> { false }
         }
     }
@@ -368,6 +369,26 @@ object EditorApp {
 
 class GameState {
     var encounterState: EncounterState = generateNewGameState()
+
+    internal fun targetNext() {
+        val player = encounterState.playerEntity()
+        val visible = encounterState.fovCache!!.visiblePositions
+        val visibleEntities = visible.mapNotNull { encounterState.getVisibleEntityAtPosition(it) }
+            .filterNot { it.id == player.id }
+            .sortedBy { it.name }
+        if (visibleEntities.isNotEmpty()) {
+            val currentTarget = player.getComponent(PlayerComponent::class).targeted
+            if (currentTarget == null) {
+                player.getComponent(PlayerComponent::class).targeted = visibleEntities[0]
+            } else {
+                var nextTarget = visibleEntities.indexOf(currentTarget) + 1
+                if (nextTarget >= visible.size) {
+                    nextTarget -= 1
+                }
+                player.getComponent(PlayerComponent::class).targeted = visibleEntities[nextTarget]
+            }
+        }
+    }
         
     internal fun postWaitAction() {
         val action = WaitAction(encounterState.playerEntity(), null)

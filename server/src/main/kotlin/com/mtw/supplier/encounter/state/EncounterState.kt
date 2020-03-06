@@ -123,18 +123,30 @@ class EncounterState(
         return this.entities().first { it.hasComponent(PlayerComponent::class) }
     }
 
-    fun currentRoomName(): String {
-        return this.dreamMap.getDreamRoomName(this.playerEntity().getComponent(RoomPositionComponent::class).roomUuid)
+    fun currentCommentaryHeader(): String {
+        val targeted = this.playerEntity().getComponent(PlayerComponent::class).targeted
+        return targeted?.name
+            ?: this.dreamMap.getDreamRoomName(this.playerEntity().getComponent(RoomPositionComponent::class).roomUuid)
     }
 
-    fun currentRoomCommentary(): String {
-        return this.dreamMap.getDreamRoomCommentary(this.playerEntity().getComponent(RoomPositionComponent::class).roomUuid)
+    fun currentCommentaryText(): String {
+        val targeted = this.playerEntity().getComponent(PlayerComponent::class).targeted
+        return targeted?.name
+            ?: this.dreamMap.getDreamRoomCommentary(this.playerEntity().getComponent(RoomPositionComponent::class).roomUuid)
     }
 
     fun getEntity(entityId: String): Entity {
         return entities().firstOrNull { it.id == entityId } ?: throw EntityIdNotFoundException(entityId)
     }
     class EntityIdNotFoundException(entityId: String): Exception("Entity id $entityId could not be found!")
+
+    fun getVisibleEntityAtPosition(pos: AbsolutePosition): Entity? {
+        val entities = this.dreamMap.getEntitiesAtPosition(pos)
+        if (entities.isEmpty()) { return null }
+        val blockingEntity = entities.firstOrNull { it.getComponentOrNull(CollisionComponent::class)?.blocksMovement ?: false }
+        if (blockingEntity != null) { return blockingEntity }
+        return entities.firstOrNull()
+    }
 
     fun getBlockingEntityAtPosition(pos: AbsolutePosition): Entity? {
         return this.dreamMap.getEntitiesAtPosition(pos).firstOrNull { it.getComponentOrNull(CollisionComponent::class)?.blocksMovement ?: false }

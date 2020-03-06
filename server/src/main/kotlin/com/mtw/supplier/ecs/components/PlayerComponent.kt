@@ -1,6 +1,7 @@
 package com.mtw.supplier.ecs.components
 
 import com.mtw.supplier.ecs.Component
+import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.encounter.state.EncounterState
 import kotlinx.serialization.Serializable
 import kotlin.math.max
@@ -33,6 +34,7 @@ class TerrorChangeMemory(
 
 @Serializable
 class PlayerComponent(
+    var targeted: Entity? = null,
     val memories: MutableList<Memory> = mutableListOf()
 ): Component() {
     override var _parentId: String? = null
