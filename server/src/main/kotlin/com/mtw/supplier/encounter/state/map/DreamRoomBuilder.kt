@@ -244,7 +244,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             "sister share rooms.",
         minWidth = 8, maxWidth = 8,
         minHeight = 5, maxHeight = 5,
-        wallColor = TileColor.create(225, 198, 153), // Beige-ish
+        wallColor = TileColor.create(255, 153, 204),
         floorColor = TileColor.create(133, 94, 66), // hopefully wood veneer-ish
         entities = listOf(
             EntityBlueprint.CURTIS_STREET_MY_BED,

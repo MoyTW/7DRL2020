@@ -92,6 +92,17 @@ class CommentaryFragment(val width: Int, val height: Int, positionX: Int, positi
         }
         lines.clear()
         val wrappedLines = wordWrap(newCommentary, this.maxTextLen, this.maxCommentaryLines)
+        /**
+         * Ok, so, this is the set of lines which is causing the "blank screen on startup" bug. I don't know how to fix
+         * it, and I don't have the time to properly debug it. Essentially, sometimes the for loop stalls out in the
+         * middle and the screen just never finishes rendering.
+         *
+         * If you put a Thread.sleep(n) in here, it always renders the rest of the screen but still sometimes can't
+         * finish pushing the lines in. Then it stalls, and never runs the game logic because the first time this
+         * happens is at the start of the game in the manual render call. And "render" isn't even the right term...well
+         * anyways. It seems to happen on startup and kill the game, but it might happen in other calls and just not be
+         * noticable.
+         */
         for (wrappedLine in wrappedLines) {
             lines.add(root.addComponent(LabelBuilder.newBuilder()
                 .withSize(maxTextLen + 2, 1)
