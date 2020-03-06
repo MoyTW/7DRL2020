@@ -31,8 +31,7 @@ class DreamMapBuilder(val numRooms: Int = DreamRoomBlueprint.values().size) {
             }
 
         }
-        map.initializeWith(map.inDeckRooms.random())
-
+        map.initializeWith(map.inDeckRooms.filter { it.tags.contains(RoomTags.CURTIS_ST) }.random())
         return map
     }
 }

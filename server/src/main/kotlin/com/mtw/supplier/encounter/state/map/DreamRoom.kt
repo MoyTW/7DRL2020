@@ -43,7 +43,8 @@ class DreamRoom internal constructor(
     val width: Int,
     val height: Int,
     val doors: Map<ExitDirection, Entity>,
-    private val nodes: Array<Array<DreamTile>>
+    private val nodes: Array<Array<DreamTile>>,
+    val tags: List<RoomTags>
 ) {
     internal fun isInBounds(x: Int, y: Int): Boolean {
         return x in 0 until width && y in 0 until height
