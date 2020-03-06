@@ -17,4 +17,13 @@ class TerrorComponent(
     fun applyTerror(amount: Int) {
         this._currentTerror += amount
     }
+
+    fun setTerror(terror: Int) {
+        if (terror > maxTerror) {
+            this._currentTerror = maxTerror
+        } else if (terror < minTerror) {
+            this._currentTerror = minTerror
+        }
+        this._currentTerror = terror
+    }
 }
