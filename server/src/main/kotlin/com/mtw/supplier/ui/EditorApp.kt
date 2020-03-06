@@ -375,7 +375,7 @@ class GameState {
             .addComponent(ActionTimeComponent(100))
             .addComponent(SpeedComponent(100))
 
-        state.placeEntity(player, state.randomUnblockedPosition())
+        state.placeEntity(player, state.randomUnblockedPosition()!!)
         EncounterRunner.runUntilPlayerReady(state)
         return state
     }

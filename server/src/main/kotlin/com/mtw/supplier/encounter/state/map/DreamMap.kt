@@ -344,8 +344,13 @@ class DreamMap: DreamMapI {
         return null
     }
 
-    internal fun randomUnblockedPosition(): AbsolutePosition {
-        return roomToAbsolutePosition(this.roomsById[this.mappedRoomsToAbsolutePositions.keys.first()]!!.randomPlacementPosition())!!
+    internal fun randomUnblockedPosition(): AbsolutePosition? {
+        val placementPosition = this.roomsById[this.mappedRoomsToAbsolutePositions.keys.first()]!!.randomPlacementPosition()
+        return if (placementPosition == null) {
+            null
+        } else {
+            roomToAbsolutePosition(placementPosition)!!
+        }
     }
 
     internal fun roomToAbsolutePosition(roomPosition: RoomPosition): AbsolutePosition? {

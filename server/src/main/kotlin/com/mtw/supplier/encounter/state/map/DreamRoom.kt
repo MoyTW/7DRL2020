@@ -78,8 +78,10 @@ class DreamRoom internal constructor(
         return nodes[pos.x][pos.y].blocksMovement
     }
 
-    internal fun randomPlacementPosition(): RoomPosition {
-        return this.allTiles().filter { !it.value.blocksMovement }.map { it.key }.random()
+    internal fun randomPlacementPosition(): RoomPosition? {
+        return this.allTiles().filter { !it.value.blocksMovement && it.value.entities.isEmpty() }
+            .map { it.key }
+            .random()
     }
 
     internal fun adjacentUnblockedPositions(pos: RoomPosition): List<RoomPosition> {

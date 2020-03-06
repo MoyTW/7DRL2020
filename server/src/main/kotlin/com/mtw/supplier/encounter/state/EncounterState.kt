@@ -148,7 +148,7 @@ class EncounterState(
         return this.dreamMap.arePositionsAdjacent(pos1, pos2)
     }
 
-    fun randomUnblockedPosition(): AbsolutePosition {
+    fun randomUnblockedPosition(): AbsolutePosition? {
         return dreamMap.randomUnblockedPosition()
     }
 

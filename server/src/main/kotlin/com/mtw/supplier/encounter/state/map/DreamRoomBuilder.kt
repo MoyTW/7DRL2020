@@ -506,7 +506,7 @@ class DreamRoomBuilder(
         buildWalls(room)
         for (blueprint in this.entityBlueprints) {
             val entity = blueprint.createFn()
-            room.placeEntity(entity, room.randomPlacementPosition(), false)
+            room.placeEntity(entity, room.randomPlacementPosition()!!, false)
         }
 
         return room
