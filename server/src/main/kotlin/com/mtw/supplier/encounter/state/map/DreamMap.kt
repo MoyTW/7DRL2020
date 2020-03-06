@@ -66,7 +66,7 @@ class RoomGraph {
     }
 
     fun contains(uuid: String): Boolean {
-        return this.currentGraph.containsKey(uuid) && this.currentGraph[uuid]!!.isNotEmpty()
+        return this.currentGraph.containsKey(uuid)
     }
 
     fun connectedRooms(roomUuid: String): Map<ExitDirection, String>? {
