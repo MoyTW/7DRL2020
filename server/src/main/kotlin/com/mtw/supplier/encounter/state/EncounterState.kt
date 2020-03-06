@@ -89,13 +89,12 @@ class EncounterState(
 
     fun playerTerrorPercentage(): Double {
         val terrorComponent = this.playerEntity().getComponent(TerrorComponent::class)
-        if (terrorComponent.minTerror <= terrorComponent.currentTerror) {
+        if (terrorComponent.currentTerror <= terrorComponent.minTerror) {
             return 0.0
         }
-
         val num = terrorComponent.currentTerror - terrorComponent.minTerror
         val denom = terrorComponent.maxTerror - terrorComponent.minTerror
-        return num.toDouble() / denom.toDouble()
+        return num.toDouble() / denom.toDouble() * 100
     }
 
     fun lastSeenRoomNames(): List<String> {
