@@ -21,15 +21,9 @@ class TerrorChangeMemory(
     val changesUpToMax: Int = 100
 ) : Memory(name) {
     override fun remember(encounterState: EncounterState) {
-        val terrorComponent = encounterState.playerEntity().getComponent(TerrorComponent::class)
-        if (dTerror < 0) {
-            val newTerror = max(terrorComponent.currentTerror + dTerror, changesUpToMax)
-            terrorComponent.setTerror(newTerror)
-        } else {
-            val newTerror = min(dTerror + terrorComponent.currentTerror, changesUpToMax)
-            terrorComponent.setTerror(newTerror)
-        }
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
 }
 
 @Serializable

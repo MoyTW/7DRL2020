@@ -7,6 +7,8 @@ import com.mtw.supplier.encounter.rulebook.ActionType
 class TerrifyAction(
     actor: Entity,
     val target: Entity,
-    val terrorAmount: Int,
+    val dTerror: Int,
+    val changesDownToMin: Int = 0,
+    val changesUpToMax: Int = 100,
     val description: String
 ) : Action(actor, ActionType.TERRIFY)

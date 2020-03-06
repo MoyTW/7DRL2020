@@ -342,6 +342,7 @@ object EditorApp {
 
             KeyCode.DIVIDE -> { gameState.targetPrevious(); true}
             KeyCode.MULTIPLY -> { gameState.targetNext(); true}
+            KeyCode.KEY_I -> { println("INSPECT!"); true}
 
             else -> { false }
         }

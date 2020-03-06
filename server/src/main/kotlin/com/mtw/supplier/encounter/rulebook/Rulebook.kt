@@ -8,6 +8,8 @@ import com.mtw.supplier.encounter.state.EncounterState
 import com.mtw.supplier.encounter.state.EncounterMessageLog
 import java.util.*
 import kotlin.math.ceil
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.roundToInt
 
 object Rulebook {
@@ -24,6 +26,7 @@ object Rulebook {
             ActionType.WAIT -> resolveWaitAction(action as WaitAction, encounterState.messageLog)
             ActionType.SELF_DESTRUCT -> resolveSelfDestructionAction(action as SelfDestructAction, encounterState)
             ActionType.TERRIFY -> resolveTerrifyAction(action as TerrifyAction, encounterState)
+            ActionType.INSPECT -> resolveInspectAction(action as InspectAction, encounterState)
         }
     }
 
@@ -150,8 +153,24 @@ object Rulebook {
         val defender = action.target
         val defenderTerror = defender.getComponentOrNull(TerrorComponent::class)
         if (defenderTerror != null) {
-            defenderTerror.applyTerror(action.terrorAmount)
+            if (action.dTerror < 0) {
+                val newTerror = min(defenderTerror.currentTerror + action.dTerror, action.changesUpToMax)
+                defenderTerror.setTerror(newTerror)
+            } else {
+                val newTerror = max(defenderTerror.currentTerror + action.dTerror, action.changesDownToMin)
+                defenderTerror.setTerror(newTerror)
+            }
             encounterState.messageLog.logEvent("TERROR", action.description)
+        }
+    }
+
+    private fun resolveInspectAction(action: InspectAction, encounterState: EncounterState) {
+        val inspectComponent = action.target.getComponent(InspectableComponent::class)
+        if (inspectComponent.inspectEvents.isNotEmpty()) {
+            val event = inspectComponent.inspectEvents.random()
+            println(event.eventHeader)
+            println(event.eventText)
+
         }
     }
 }

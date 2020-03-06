@@ -131,8 +131,17 @@ class EncounterState(
 
     fun currentCommentaryText(): String {
         val targeted = this.playerEntity().getComponent(PlayerComponent::class).targeted
-        return targeted?.name
-            ?: this.dreamMap.getDreamRoomCommentary(this.playerEntity().getComponent(RoomPositionComponent::class).roomUuid)
+        return if (targeted != null) {
+            val arePositionsAdjacent = this.arePositionsAdjacent(targeted.getComponent(RoomPositionComponent::class).asAbsolutePosition(this)!!,
+                this.playerEntity().getComponent(RoomPositionComponent::class).asAbsolutePosition(this)!!)
+            if (arePositionsAdjacent) {
+                "You're right next to it, but it's still hazy to you. [To get more details, press \"i\" to inspect it.]"
+            } else {
+                "You can recognize it from here, but only as a vague sense of impressions and feelings. [To get more details, move adjacent to it, retarget it, and press \"i\" to inspect it.]"
+            }
+        } else {
+            this.dreamMap.getDreamRoomCommentary(this.playerEntity().getComponent(RoomPositionComponent::class).roomUuid)
+        }
     }
 
     fun getEntity(entityId: String): Entity {
