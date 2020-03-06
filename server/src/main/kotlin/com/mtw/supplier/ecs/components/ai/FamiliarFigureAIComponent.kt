@@ -72,5 +72,4 @@ class FamiliarFigureAIComponent: AIComponent() {
             return null
         }
     }
-
 }

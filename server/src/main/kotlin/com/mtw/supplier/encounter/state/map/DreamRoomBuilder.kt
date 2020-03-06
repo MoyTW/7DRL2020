@@ -2,7 +2,6 @@ package com.mtw.supplier.encounter.state.map
 
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.*
-import com.mtw.supplier.ecs.components.ai.*
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.color.TileColor
 
@@ -22,6 +21,11 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
         Entity(UUID.randomUUID().toString(), "Betty's living room bookshelves")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(character = 'S', foregroundRGB = RGB(153, 51, 0)))
+    }),
+    BETTYS_LIVING_ROOM_DESK({
+        Entity(UUID.randomUUID().toString(), "Betty's living room desk")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(character = 'D', foregroundRGB = RGB(153, 51, 0)))
     }),
     BETTYS_BACKYARD_LAUNDRY({
         Entity(UUID.randomUUID().toString(), "Laundry drying in the sun")
@@ -51,7 +55,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     CURTIS_STREET_MY_DRESSER({
         Entity(UUID.randomUUID().toString(), "Your Teenage Dresser")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(character = 'D', foregroundRGB = RGB(0, 173, 238)))
+            .addComponent(DisplayComponent(character = 'R', foregroundRGB = RGB(0, 173, 238)))
     }),
     CURTIS_STREET_ALEXS_BED({
         Entity(UUID.randomUUID().toString(), "Alex's Childhood Bed")
@@ -76,7 +80,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     CURTIS_STREET_ANIME_SHELF({
         Entity(UUID.randomUUID().toString(), "Your anime shelf")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(character = 'A', foregroundRGB = RGB(153, 51, 0)))
+            .addComponent(DisplayComponent(character = 'S', foregroundRGB = RGB(153, 51, 0)))
     }),
     CURTIS_STREET_DDS_COUCH({
         Entity(UUID.randomUUID().toString(), "A Segment Of The TV Couch")
@@ -153,16 +157,6 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
             .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(character = 'f', foregroundRGB = RGB(51, 153, 255)))
     }),
-    AN_UNFAMILIAR_STREET_LIGHT({
-        Entity(UUID.randomUUID().toString(), "A harsh light")
-            .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'L', foregroundRGB = RGB(0, 0, 0)))
-    }),
-    AN_UNFAMILIAR_CAR({
-        Entity(UUID.randomUUID().toString(), "A car, strangely twisted")
-            .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'C', foregroundRGB = RGB(0, 0, 0)))
-    }),
     A_FAMILIAR_FIGURE({
         Entity(UUID.randomUUID().toString(), "A familiar figure")
             .addComponent(CollisionComponent.blocker())
@@ -171,7 +165,17 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
             .addComponent(SpeedComponent(150))
             .addComponent(ActionTimeComponent(150))
     }),
-    ALEXANDER({
+    AN_UNFAMILIAR_STREET_LIGHT({
+        Entity(UUID.randomUUID().toString(), "A harsh light")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(character = 'L', foregroundRGB = RGB(0, 0, 0)))
+    }),
+    A_FAMILIAR_CAR({
+        Entity(UUID.randomUUID().toString(), "A car you know well")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(character = 'C', foregroundRGB = RGB(0, 0, 0)))
+    }),
+    A_FAMILIAR_CAR_ALEXANDER({
         Entity(UUID.randomUUID().toString(), "Alexander")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(character = 'A', foregroundRGB = RGB(0, 51, 0)))
@@ -192,9 +196,9 @@ data class DreamRoomBlueprintData(
 
 enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
     BETTYS_LIVING_ROOM(DreamRoomBlueprintData(
-        "Juliann's old house",
-        "Well, actually Juliann's mom's house. You used to come here all the time, when you were kids. " +
-            "You never see her anymore. Strange. Is that resentment you feel?",
+        "Juliann's old living room",
+        "Well, actually Juliann's mom's living room. You used to come here all the time, when you were" +
+            " kids. You never see her anymore. Strange. Is that resentment you feel?",
         minWidth = 10, maxWidth = 10,
         minHeight = 14, maxHeight = 14,
         wallColor = TileColor.create(128, 128, 255),
@@ -203,8 +207,12 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.BETTYS_LIVING_ROOM_TV, 
             EntityBlueprint.BETTYS_LIVING_ROOM_COUCH,
             EntityBlueprint.BETTYS_LIVING_ROOM_COUCH,
+            EntityBlueprint.BETTYS_LIVING_ROOM_COUCH,
+            EntityBlueprint.BETTYS_LIVING_ROOM_COUCH,
             EntityBlueprint.BETTYS_LIVING_ROOM_BOOKSHELVES,
-            EntityBlueprint.BETTYS_LIVING_ROOM_BOOKSHELVES
+            EntityBlueprint.BETTYS_LIVING_ROOM_BOOKSHELVES,
+            EntityBlueprint.BETTYS_LIVING_ROOM_BOOKSHELVES,
+            EntityBlueprint.BETTYS_LIVING_ROOM_DESK
         ))),
     BETTYS_BACKYARD(DreamRoomBlueprintData(
         "Juliann's old backyard",
@@ -340,18 +348,18 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         wallColor = TileColor.create(0, 0, 0),
         floorColor = TileColor.create(105, 105, 105),
         entities = listOf(
-            EntityBlueprint.AN_UNFAMILIAR_CAR,
-            EntityBlueprint.AN_UNFAMILIAR_CAR,
-            EntityBlueprint.AN_UNFAMILIAR_CAR,
-            EntityBlueprint.AN_UNFAMILIAR_CAR,
-            EntityBlueprint.AN_UNFAMILIAR_CAR,
-            EntityBlueprint.AN_UNFAMILIAR_CAR,
-            EntityBlueprint.AN_UNFAMILIAR_CAR,
-            EntityBlueprint.AN_UNFAMILIAR_CAR,
-            EntityBlueprint.AN_UNFAMILIAR_CAR,
-            EntityBlueprint.AN_UNFAMILIAR_CAR,
-            EntityBlueprint.AN_UNFAMILIAR_CAR,
-            EntityBlueprint.AN_UNFAMILIAR_CAR,
+            EntityBlueprint.A_FAMILIAR_CAR,
+            EntityBlueprint.A_FAMILIAR_CAR,
+            EntityBlueprint.A_FAMILIAR_CAR,
+            EntityBlueprint.A_FAMILIAR_CAR,
+            EntityBlueprint.A_FAMILIAR_CAR,
+            EntityBlueprint.A_FAMILIAR_CAR,
+            EntityBlueprint.A_FAMILIAR_CAR,
+            EntityBlueprint.A_FAMILIAR_CAR,
+            EntityBlueprint.A_FAMILIAR_CAR,
+            EntityBlueprint.A_FAMILIAR_CAR,
+            EntityBlueprint.A_FAMILIAR_CAR,
+            EntityBlueprint.A_FAMILIAR_CAR,
             EntityBlueprint.AN_UNFAMILIAR_STREET_LIGHT,
             EntityBlueprint.AN_UNFAMILIAR_STREET_LIGHT,
             EntityBlueprint.AN_UNFAMILIAR_STREET_LIGHT,
@@ -378,7 +386,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         floorColor = TileColor.create(255, 255, 255),
         entities = listOf(
             EntityBlueprint.A_FAMILIAR_FIGURE,
-            EntityBlueprint.ALEXANDER
+            EntityBlueprint.A_FAMILIAR_CAR_ALEXANDER
         ))),
 }
 class CurtisStreetDadsRoom() {
