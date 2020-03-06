@@ -13,6 +13,7 @@ import org.hexworks.zircon.api.application.AppConfig
 import org.hexworks.zircon.api.builder.component.HBoxBuilder
 import org.hexworks.zircon.api.builder.component.LabelBuilder
 import org.hexworks.zircon.api.builder.component.VBoxBuilder
+import org.hexworks.zircon.api.builder.data.TileBuilder
 import org.hexworks.zircon.api.builder.graphics.LayerBuilder
 import org.hexworks.zircon.api.color.ANSITileColor
 import org.hexworks.zircon.api.color.TileColor
@@ -262,12 +263,19 @@ object EditorApp {
     }
 
     private fun renderDisplayEntities(tileGraphics: TileGraphics, encounterState: EncounterState) {
+        val targetedEntity = encounterState.playerEntity().getComponent(PlayerComponent::class).targeted
         encounterState.entities()
             .filter { it.hasComponent(RoomPositionComponent::class) && it.hasComponent(DisplayComponent::class) }
             .map {
                 val entityPos = it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)
                 if (entityPos != null && encounterState.getVisibleEntityAtPosition(entityPos) == it) {
-                    draw(tileGraphics, it.getComponent(DisplayComponent::class).toTile(), entityPos)
+                    if (targetedEntity == it) {
+                        // lol this is pretty slapdash, oh well
+                        val builder = it.getComponent(DisplayComponent::class).tileBuilder().withModifiers(Modifiers.blink())
+                        draw(tileGraphics, builder.build(), entityPos)
+                    } else {
+                        draw(tileGraphics, it.getComponent(DisplayComponent::class).toTile(), entityPos)
+                    }
                 }
             }
     }
@@ -296,7 +304,6 @@ object EditorApp {
         cameraY = playerPos.y
 
         renderFoWTiles(windows.mapFoWTileGraphics, encounterState)
-
         renderDisplayEntities(windows.mapEntityTileGraphics, encounterState)
 
         // Set the commentary

@@ -26,26 +26,30 @@ class DisplayComponent(
     @Transient
     private var tile: Tile? = null
 
+    fun tileBuilder(): TileBuilder {
+        val builder = TileBuilder.newBuilder()
+            .withBackgroundColor(
+                if (backgroundRGB == null) {
+                    TileColor.transparent()
+                } else {
+                    TileColor.create(backgroundRGB.red, backgroundRGB.green, backgroundRGB.blue)
+                }
+            ).withForegroundColor(
+                if (foregroundRGB == null) {
+                    TileColor.transparent()
+                } else {
+                    TileColor.create(foregroundRGB.red, foregroundRGB.green, foregroundRGB.blue)
+                }
+            )
+        if (character != null) {
+            builder.withCharacter(character)
+        }
+        return builder
+    }
+
     fun toTile(): Tile {
         if (tile == null) {
-            val builder = TileBuilder.newBuilder()
-                .withBackgroundColor(
-                    if (backgroundRGB == null) {
-                        TileColor.transparent()
-                    } else {
-                        TileColor.create(backgroundRGB.red, backgroundRGB.green, backgroundRGB.blue)
-                    }
-                ).withForegroundColor(
-                    if (foregroundRGB == null) {
-                        TileColor.transparent()
-                    } else {
-                        TileColor.create(foregroundRGB.red, foregroundRGB.green, foregroundRGB.blue)
-                    }
-                )
-            if (character != null) {
-                builder.withCharacter(character)
-            }
-            this.tile = builder.build()
+            this.tile = tileBuilder().build()
         }
         return tile!!
     }
