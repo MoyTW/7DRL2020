@@ -1,10 +1,8 @@
 package com.mtw.supplier.encounter.state.map
 
 import com.mtw.supplier.ecs.Entity
-import com.mtw.supplier.ecs.components.CollisionComponent
-import com.mtw.supplier.ecs.components.DisplayComponent
-import com.mtw.supplier.ecs.components.DoorComponent
-import com.mtw.supplier.ecs.components.RGB
+import com.mtw.supplier.ecs.components.*
+import com.mtw.supplier.ecs.components.ai.*
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.color.TileColor
 
@@ -166,9 +164,12 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
             .addComponent(DisplayComponent(character = 'C', foregroundRGB = RGB(0, 0, 0)))
     }),
     A_FAMILIAR_FIGURE({
-        Entity(UUID.randomUUID().toString(), "A strange figure")
+        Entity(UUID.randomUUID().toString(), "A familiar figure")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(character = 'P', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(com.mtw.supplier.ecs.components.ai.FamiliarFigureAIComponent())
+            .addComponent(SpeedComponent(150))
+            .addComponent(ActionTimeComponent(150))
     }),
     ALEXANDER({
         Entity(UUID.randomUUID().toString(), "Alexander")

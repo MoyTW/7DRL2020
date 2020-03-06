@@ -23,6 +23,7 @@ object Rulebook {
             ActionType.USE_ITEM -> TODO()
             ActionType.WAIT -> resolveWaitAction(action as WaitAction, encounterState.messageLog)
             ActionType.SELF_DESTRUCT -> resolveSelfDestructionAction(action as SelfDestructAction, encounterState)
+            ActionType.TERRIFY -> resolveTerrifyAction(action as TerrifyAction, encounterState)
         }
     }
 
@@ -35,7 +36,6 @@ object Rulebook {
         val defenderPos = defender.getComponent(RoomPositionComponent::class)
             .asAbsolutePosition(encounterState)!! // TODO: this isn't...always true
 
-        // TODO: Range & visibility & such
         if (!encounterState.arePositionsAdjacent(attackerPos, defenderPos)) {
             encounterState.messageLog.logAction(action, "INVALID", "[${action.actor.name}] cannot reach [${action.target.name}]")
         } else {
@@ -143,5 +143,14 @@ object Rulebook {
     private fun resolveSelfDestructionAction(action: SelfDestructAction, encounterState: EncounterState) {
         encounterState.removeEntity(action.actor)
         encounterState.messageLog.logAction(action, "SUCCESS", "[${action.actor.name}] self-destructed!")
+    }
+
+    private fun resolveTerrifyAction(action: TerrifyAction, encounterState: EncounterState) {
+        val defender = action.target
+        val defenderTerror = defender.getComponentOrNull(TerrorComponent::class)
+        if (defenderTerror != null) {
+            defenderTerror.applyTerror(action.terrorAmount)
+            encounterState.messageLog.logEvent("TERROR", action.description)
+        }
     }
 }

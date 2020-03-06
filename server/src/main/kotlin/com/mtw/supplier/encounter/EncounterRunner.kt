@@ -94,16 +94,6 @@ object EncounterRunner {
         val remainingAIEntities = encounterState.entities().filter {
             it.hasComponent(AIComponent::class) && it.hasComponent(FactionComponent::class)
         }
-        val anyHostileRelationships = remainingAIEntities.any { leftEntity ->
-            val faction = leftEntity.getComponent(FactionComponent::class)
-            remainingAIEntities.any { rightEntity ->
-                faction.isHostileTo(rightEntity.id, encounterState)
-            } || faction.isHostileTo(encounterState.playerEntity().id, encounterState)
-        }
-        if (!anyHostileRelationships) {
-            logger.info("!!!!!!!!!! ENCOUNTER HAS NO REMAINING HOSTILES, SHOULD END! !!!!!!!!!!")
-            encounterState.completeEncounter()
-        }
 
         //logger.info("========== END OF TURN ${encounterState.currentTime} ==========")
         return false

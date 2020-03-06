@@ -157,7 +157,9 @@ class StatsFragment(val width: Int, val height: Int, positionX: Int, positionY: 
         }
     }
 
-    fun setStats(history: List<String>) {
+    fun setStats(playerTerrorPercentage: Double, history: List<String>) {
+        this.nightmareBar.progress = playerTerrorPercentage
+
         lines.map { it.text = "" }
         for (i in 0 until min(maxHistoryLines, history.size)) {
             lines[i].text = history[i]
@@ -261,25 +263,6 @@ object EditorApp {
             }
     }
 
-    private fun renderNonPathAIEntities(tileGraphics: TileGraphics, encounterState: EncounterState) {
-        val enemyTile = Tile.newBuilder()
-            .withCharacter('s')
-            .withForegroundColor(ANSITileColor.BRIGHT_MAGENTA)
-            .withBackgroundColor(TileColor.transparent())
-            .buildCharacterTile()
-
-        val nonPathAiEntities = encounterState.entities()
-            .filter { it.hasComponent(RoomPositionComponent::class) &&
-                it.hasComponent(AIComponent::class) &&
-                !it.hasComponent(PathAIComponent::class) }
-        nonPathAiEntities.map {
-            val entityPos = it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)
-            if (entityPos != null) {
-                draw(tileGraphics, enemyTile, entityPos)
-            }
-        }
-    }
-
     private fun renderDoors(tileGraphics: TileGraphics, encounterState: EncounterState) {
         val doorTile = Tile.newBuilder()
             .withCharacter('%')
@@ -331,14 +314,13 @@ object EditorApp {
         renderFoWTiles(windows.mapFoWTileGraphics, encounterState)
 
         renderDisplayEntities(windows.mapEntityTileGraphics, encounterState)
-        renderNonPathAIEntities(windows.mapEntityTileGraphics, encounterState)
         renderDoors(windows.mapEntityTileGraphics, encounterState)
         renderPlayer(windows.mapEntityTileGraphics, encounterState)
 
         // Set the commentary
         windows.commentaryFragment.setText(encounterState.currentRoomName(), encounterState.currentRoomCommentary())
         // Set the stats
-        windows.statsFragment.setStats(encounterState.lastSeenRoomNames())
+        windows.statsFragment.setStats(encounterState.playerTerrorPercentage(), encounterState.lastSeenRoomNames())
 
         // Draw the log
         renderLog(windows.logVBox, encounterState)
@@ -388,9 +370,7 @@ class GameState {
 
         val player = Entity(UUID.randomUUID().toString(), "player")
             .addComponent(PlayerComponent())
-            .addComponent(HpComponent(50, 50))
-            .addComponent(FighterComponent(5, 100, 100))
-            .addComponent(FactionComponent(2))
+            .addComponent(TerrorComponent())
             .addComponent(CollisionComponent.mover())
             .addComponent(ActionTimeComponent(100))
             .addComponent(SpeedComponent(100))

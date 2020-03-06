@@ -4,6 +4,7 @@ import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.CollisionComponent
 import com.mtw.supplier.ecs.components.RoomPositionComponent
 import com.mtw.supplier.ecs.components.PlayerComponent
+import com.mtw.supplier.ecs.components.TerrorComponent
 import com.mtw.supplier.encounter.rulebook.Action
 import com.mtw.supplier.encounter.rulebook.ActionType
 import com.mtw.supplier.encounter.state.map.*
@@ -84,6 +85,17 @@ class EncounterState(
 
     fun getDreamMapI(): DreamMapI {
         return dreamMap
+    }
+
+    fun playerTerrorPercentage(): Double {
+        val terrorComponent = this.playerEntity().getComponent(TerrorComponent::class)
+        if (terrorComponent.minTerror <= terrorComponent.currentTerror) {
+            return 0.0
+        }
+
+        val num = terrorComponent.currentTerror - terrorComponent.minTerror
+        val denom = terrorComponent.maxTerror - terrorComponent.minTerror
+        return num.toDouble() / denom.toDouble()
     }
 
     fun lastSeenRoomNames(): List<String> {
