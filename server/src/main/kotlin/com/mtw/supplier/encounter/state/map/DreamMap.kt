@@ -371,8 +371,10 @@ class DreamMap: DreamMapI {
     }
 
     // We actually need to write this one at this level...
-    internal fun adjacentUnblockedPositions(pos: AbsolutePosition): List<AbsolutePosition> {
-        TODO()
+    internal fun adjacentUnblockedPositionsInSameRoom(pos: AbsolutePosition): List<AbsolutePosition> {
+        val roomPosition = absoluteToRoomPosition(pos)!!
+        val adjacent = this.roomsById[roomPosition.roomUuid]!!.adjacentUnblockedPositions(roomPosition)
+        return adjacent.map { roomToAbsolutePosition(it)!! }
     }
 
     internal fun placeEntity(entity: Entity, targetPosition: AbsolutePosition, ignoreCollision: Boolean) {

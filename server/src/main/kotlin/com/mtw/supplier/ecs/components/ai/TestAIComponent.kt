@@ -28,13 +28,13 @@ class TestAIComponent : AIComponent() {
                     it.hasComponent(FactionComponent::class) &&
                     this.parentIsHostileTo(parentEntity, it, encounterState)
             }
-            ?: return listOf(WaitAction(parentEntity))
+            ?: return listOf(WaitAction(parentEntity, null))
 
 
         val parentLocation = parentEntity.getComponent(RoomPositionComponent::class).roomPosition
         val firstOtherEntityLocation = firstOtherAliveEnemy.getComponent(RoomPositionComponent::class).roomPosition
 
-        return listOf(WaitAction(parentEntity))
+        return listOf(WaitAction(parentEntity, null))
         /*
         return if (encounterState.arePositionsAdjacent(parentLocation, firstOtherEntityLocation)) {
             listOf(AttackAction(parentEntity, firstOtherAliveEnemy))

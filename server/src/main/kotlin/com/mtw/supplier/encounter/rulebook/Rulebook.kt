@@ -137,7 +137,8 @@ object Rulebook {
     }
 
     private fun resolveWaitAction(action: WaitAction, messageLog: EncounterMessageLog) {
-        messageLog.logAction(action, "SUCCESS", "[${action.actor.name}] is waiting!")
+        if (action.text != null)
+            messageLog.logEvent("WAIT", action.text)
     }
 
     private fun resolveSelfDestructionAction(action: SelfDestructAction, encounterState: EncounterState) {

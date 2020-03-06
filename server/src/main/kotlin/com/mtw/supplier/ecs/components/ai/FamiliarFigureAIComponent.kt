@@ -24,34 +24,34 @@ class FamiliarFigureAIComponent: AIComponent() {
         val playerRoomPos = player.getComponent(RoomPositionComponent::class)
 
         if (parentRoomPos.roomUuid != playerRoomPos.roomUuid) {
-            return mutableListOf(WaitAction(parent))
+            return mutableListOf(WaitAction(parent, null))
         }
 
         val parentAbsPos = parentRoomPos.asAbsolutePosition(encounterState)!!
-        val playerAbsPos = parentRoomPos.asAbsolutePosition(encounterState)!!
+        val playerAbsPos = playerRoomPos.asAbsolutePosition(encounterState)!!
 
         val isAdjacent = encounterState.arePositionsAdjacent(parentAbsPos, playerAbsPos)
 
         if (!isAdjacent) {
             return when ((1..100).random()) {
-                in 1..25 -> listOf(WaitAction(parent))
-                in 26..50 -> listOf(moveToPlayer(parent, parentAbsPos, playerAbsPos, encounterState) ?: WaitAction(parent))
+                in 1..25 -> listOf(WaitAction(parent, "He's not paying you any attention."))
+                in 26..50 -> listOf(moveToPlayer(parent, parentAbsPos, playerAbsPos, encounterState) ?: WaitAction(parent, "He can't find a way to you."))
                 in 51..75 -> listOf(TerrifyAction(parent, player, 2,
-                    "He looks you up and down, then grins. \"Hi, kid. How you doing\"."))
+                    "He looks you up and down, then grins. \"Hi, kid\"."))
                 in 76..90 -> listOf(TerrifyAction(parent, player, 3,
-                    "He calls out, \"Hey there, long time no see!\" You feel a creeping dread."))
+                    "He calls out to you. You feel a creeping dread."))
                 else -> {
                     val move = moveToPlayer(parent, parentAbsPos, playerAbsPos, encounterState)
                     if (move != null) {
                         listOf(move, TerrifyAction(parent, player, 5, "\"Hey!\" he yells, walking towards you."))
                     } else {
-                        listOf(TerrifyAction(parent, player, 0, "\"Hey!\" he yells, walking towards you."))
+                        listOf(TerrifyAction(parent, player, 0, "\"Hey!\" he yells, but he can't get to you."))
                     }
                 }
             }
         } else {
             return when ((1..100).random()) {
-                in 1..25 -> listOf(WaitAction(parent))
+                in 1..25 -> listOf(WaitAction(parent, null))
                 in 26..50 -> listOf(TerrifyAction(parent, player, 3,
                     "He converses, politely. He can act normal, in public."))
                 in 51..75 -> listOf(TerrifyAction(parent, player, 5,

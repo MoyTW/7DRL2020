@@ -153,7 +153,7 @@ class EncounterState(
     }
 
     fun adjacentUnblockedPositions(pos: AbsolutePosition): List<AbsolutePosition> {
-        return this.dreamMap.adjacentUnblockedPositions(pos)
+        return this.dreamMap.adjacentUnblockedPositionsInSameRoom(pos)
     }
 
     /**

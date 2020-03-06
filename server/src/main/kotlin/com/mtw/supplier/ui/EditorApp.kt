@@ -350,7 +350,7 @@ class GameState {
     var encounterState: EncounterState = generateNewGameState()
         
     internal fun postWaitAction() {
-        val action = WaitAction(encounterState.playerEntity())
+        val action = WaitAction(encounterState.playerEntity(), null)
         EncounterRunner.runPlayerTurn(encounterState, action)
         EncounterRunner.runUntilPlayerReady(encounterState)
     }
