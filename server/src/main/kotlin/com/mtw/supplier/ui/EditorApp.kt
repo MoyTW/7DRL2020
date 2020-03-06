@@ -266,35 +266,10 @@ object EditorApp {
             .filter { it.hasComponent(RoomPositionComponent::class) && it.hasComponent(DisplayComponent::class) }
             .map {
                 val entityPos = it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)
-                if (entityPos != null) {
+                if (entityPos != null && encounterState.getVisibleEntityAtPosition(entityPos) == it) {
                     draw(tileGraphics, it.getComponent(DisplayComponent::class).toTile(), entityPos)
                 }
             }
-    }
-
-    private fun renderDoors(tileGraphics: TileGraphics, encounterState: EncounterState) {
-        val doorTile = Tile.newBuilder()
-            .withCharacter('%')
-            .withForegroundColor(ANSITileColor.BRIGHT_BLUE)
-            .buildCharacterTile()
-        val doors = encounterState.entities().filter { it.hasComponent(DoorComponent::class) }
-        doors.map {
-            val position = it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)
-            if (position != null) {
-                draw(tileGraphics, doorTile, position)
-            }
-        }
-    }
-
-    private fun renderPlayer(tileGraphics: TileGraphics, encounterState: EncounterState) {
-        val playerTile = Tile.newBuilder()
-            .withCharacter('@')
-            .withForegroundColor(ANSITileColor.GREEN)
-            .withBackgroundColor(TileColor.transparent())
-            .buildCharacterTile()
-        val playerPos = encounterState.playerEntity().getComponent(RoomPositionComponent::class)
-            .asAbsolutePosition(encounterState)
-        draw(tileGraphics, playerTile, playerPos!!)
     }
 
     private fun toCameraCoordinates(pos: AbsolutePosition): AbsolutePosition {
@@ -323,8 +298,6 @@ object EditorApp {
         renderFoWTiles(windows.mapFoWTileGraphics, encounterState)
 
         renderDisplayEntities(windows.mapEntityTileGraphics, encounterState)
-        renderDoors(windows.mapEntityTileGraphics, encounterState)
-        renderPlayer(windows.mapEntityTileGraphics, encounterState)
 
         // Set the commentary
         windows.commentaryFragment.setText(encounterState.currentCommentaryHeader(), encounterState.currentCommentaryText())
@@ -435,6 +408,7 @@ class GameState {
 
         val player = Entity(UUID.randomUUID().toString(), "player")
             .addComponent(PlayerComponent())
+            .addComponent(DisplayComponent(foregroundRGB = RGB(0, 0, 255), character = '@'))
             .addComponent(TerrorComponent())
             .addComponent(CollisionComponent.mover())
             .addComponent(ActionTimeComponent(100))

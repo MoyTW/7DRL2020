@@ -455,6 +455,8 @@ class DreamRoomBuilder(
             val door = Entity(UUID.randomUUID().toString(), "Door")
                 .addComponent(CollisionComponent.blocker())
                 .addComponent(DoorComponent(direction))
+                .addComponent(DisplayComponent(backgroundRGB = RGB.fromTileColor(this.wallColor),
+                    foregroundRGB = RGB(255, 255, 0), character = '%'))
             doors[direction] = door
             door
         } else {
