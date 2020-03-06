@@ -3,6 +3,7 @@ package com.mtw.supplier.ui
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.*
 import com.mtw.supplier.encounter.EncounterRunner
+import com.mtw.supplier.encounter.rulebook.actions.InspectAction
 import com.mtw.supplier.encounter.rulebook.actions.MoveAction
 import com.mtw.supplier.encounter.rulebook.actions.WaitAction
 import com.mtw.supplier.encounter.state.EncounterState
@@ -13,10 +14,8 @@ import org.hexworks.zircon.api.application.AppConfig
 import org.hexworks.zircon.api.builder.component.HBoxBuilder
 import org.hexworks.zircon.api.builder.component.LabelBuilder
 import org.hexworks.zircon.api.builder.component.VBoxBuilder
-import org.hexworks.zircon.api.builder.data.TileBuilder
 import org.hexworks.zircon.api.builder.graphics.LayerBuilder
 import org.hexworks.zircon.api.color.ANSITileColor
-import org.hexworks.zircon.api.color.TileColor
 import org.hexworks.zircon.api.component.*
 import org.hexworks.zircon.api.data.Position
 import org.hexworks.zircon.api.data.Size
@@ -342,7 +341,7 @@ object EditorApp {
 
             KeyCode.DIVIDE -> { gameState.targetPrevious(); true}
             KeyCode.MULTIPLY -> { gameState.targetNext(); true}
-            KeyCode.KEY_I -> { println("INSPECT!"); true}
+            KeyCode.KEY_I -> { gameState.inspectTarget(); true}
 
             else -> { false }
         }
@@ -390,6 +389,15 @@ class GameState {
 
     internal fun clearTarget() {
         encounterState.playerEntity().getComponent(PlayerComponent::class).targeted = null
+    }
+
+    internal fun inspectTarget() {
+        val target = encounterState.playerEntity().getComponent(PlayerComponent::class).targeted
+        if (target != null) {
+            val action = InspectAction(encounterState.playerEntity(), target)
+            EncounterRunner.runPlayerTurn(encounterState, action)
+            EncounterRunner.runUntilPlayerReady(encounterState)
+        }
     }
         
     internal fun postWaitAction() {

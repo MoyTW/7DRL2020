@@ -171,24 +171,32 @@ object Rulebook {
     }
 
     private fun resolveInspectAction(action: InspectAction, encounterState: EncounterState) {
-        val inspectComponent = action.target.getComponentOrNull(InspectableComponent::class)
-        if (inspectComponent == null) {
-            println("You can't inspect that")
+        val arePositionsAdjacent = encounterState.arePositionsAdjacent(
+            action.actor.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)!!,
+            action.target.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)!!)
+        if (!arePositionsAdjacent) { // TODO: lol
+            println("You're not next to it you can't inspect that!!!")
         } else {
-            if (inspectComponent.inspectEvents.isNotEmpty()) {
-                val event = inspectComponent.inspectEvents.random()
+            // TODO: implement
+            val inspectComponent = action.target.getComponentOrNull(InspectableComponent::class)
+            if (inspectComponent == null) {
+                println("You can't inspect that")
+            } else {
+                if (inspectComponent.inspectEvents.isNotEmpty()) {
+                    val event = inspectComponent.inspectEvents.random()
 
-                // Handle popup
-                println(event.eventHeader)
-                println(event.eventText)
+                    // Handle popup
+                    println(event.eventHeader)
+                    println(event.eventText)
 
-                // Handle terrify
-                val terrifyAction = event.toTerrifyAction(action.target, action.actor)
-                if (terrifyAction != null) {
-                    this.resolveAction(terrifyAction, encounterState)
+                    // Handle terrify
+                    val terrifyAction = event.toTerrifyAction(action.target, action.actor)
+                    if (terrifyAction != null) {
+                        this.resolveAction(terrifyAction, encounterState)
+                    }
+
+                    inspectComponent.completeEvent(event)
                 }
-
-                inspectComponent.completeEvent(event)
             }
         }
     }
