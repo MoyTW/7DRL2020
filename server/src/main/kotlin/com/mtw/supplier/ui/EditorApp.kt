@@ -160,7 +160,8 @@ class StatsFragment(val width: Int, val height: Int, positionX: Int, positionY: 
     }
 
     fun setStats(history: List<String>) {
-        for (i in 0 until maxHistoryLines) {
+        lines.map { it.text = "" }
+        for (i in 0 until min(maxHistoryLines, history.size)) {
             lines[i].text = history[i]
         }
     }
@@ -338,6 +339,8 @@ object EditorApp {
 
         // Set the commentary
         windows.commentaryFragment.setText(encounterState.currentRoomName(), encounterState.currentRoomCommentary())
+        // Set the stats
+        windows.statsFragment.setStats(encounterState.lastSeenRoomNames())
 
         // Draw the log
         renderLog(windows.logVBox, encounterState)

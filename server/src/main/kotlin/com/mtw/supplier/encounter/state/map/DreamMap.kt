@@ -119,19 +119,35 @@ class RoomGraph {
 private class SeenHistory(
     val memorySize: Int = 3
 ) {
-    private val history: SortedMap<Int, MutableSet<String>> = sortedMapOf()
+    private val history: SortedMap<Int, MutableList<String>> = sortedMapOf()
     private val historyByRoom: MutableMap<String, MutableSet<Int>> = mutableMapOf()
+
+    fun lastSeenRooms(roomGraph: RoomGraph): List<String> {
+        return roomGraph.allRooms()
+            .map { Pair(it, historyByRoom[it]!!.sorted().last()) }
+            .sortedBy { it.second }
+            .takeLast(memorySize)
+            .map { it.first }
+            .reversed()
+    }
 
     fun lastSeenAt(roomUuid: String): Int? {
         return historyByRoom[roomUuid]?.max()
     }
 
     fun markSeen(roomUuid: String, time: Int) {
-        if (!history.containsKey(time)) { history[time] = mutableSetOf() }
-        history[time]!!.add(roomUuid)
+        if (!history.containsKey(time)) { history[time] = mutableListOf() }
+        if(!history[time]!!.contains(roomUuid)) {
+            history[time]!!.add(roomUuid)
+        }
 
-        if (!historyByRoom.containsKey(roomUuid)) { historyByRoom[roomUuid] = mutableSetOf<Int>() }
+        if (!historyByRoom.containsKey(roomUuid)) { historyByRoom[roomUuid] = mutableSetOf() }
         historyByRoom[roomUuid]!!.add(time)
+    }
+
+    fun markOccupied(roomUuid: String, time: Int) {
+        history[time]!!.remove(roomUuid)
+        history[time]!!.add(0, roomUuid)
     }
 }
 
@@ -162,6 +178,10 @@ class DreamMap: DreamMapI {
         addRoom(room)
         mappedRoomsToAbsolutePositions[room.uuid] = AbsolutePosition(0, 0)
         roomGraph.initializeWith(room.uuid)
+    }
+
+    fun lastSeenRoomNames(): List<String> {
+        return this.seenHistory.lastSeenRooms(this.roomGraph).map { this.roomsById[it]!!.name }
     }
 
     fun addRoom(room: DreamRoom) {
@@ -269,6 +289,10 @@ class DreamMap: DreamMapI {
             this.seenHistory.markSeen(roomPosition.roomUuid, time)
             this.roomsById[roomPosition.roomUuid]!!.getTile(roomPosition)!!.markExplored()
         }
+    }
+
+    fun markOccupied(roomUuid: String, time: Int) {
+        this.seenHistory.markOccupied(roomUuid, time)
     }
 
     override fun getDreamTileI(pos: AbsolutePosition): DreamTileI? {

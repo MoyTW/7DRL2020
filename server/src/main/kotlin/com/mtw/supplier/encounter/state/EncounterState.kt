@@ -66,6 +66,7 @@ class EncounterState(
         for (pos in this.fovCache!!.visiblePositions) {
             dreamMap.markSeen(pos, this.currentTime)
         }
+        dreamMap.markOccupied(this.playerEntity().getComponent(RoomPositionComponent::class).roomUuid, this.currentTime)
     }
 
     fun getNextEntityId(): Int {
@@ -83,6 +84,10 @@ class EncounterState(
 
     fun getDreamMapI(): DreamMapI {
         return dreamMap
+    }
+
+    fun lastSeenRoomNames(): List<String> {
+        return dreamMap.lastSeenRoomNames()
     }
 
     fun advanceTime(timeDiff: Int) {
