@@ -382,8 +382,8 @@ class GameState {
                 player.getComponent(PlayerComponent::class).targeted = visibleEntities[0]
             } else {
                 var nextTarget = visibleEntities.indexOf(currentTarget) + 1
-                if (nextTarget >= visible.size) {
-                    nextTarget -= 1
+                if (nextTarget == visibleEntities.size) {
+                    nextTarget = 0
                 }
                 player.getComponent(PlayerComponent::class).targeted = visibleEntities[nextTarget]
             }
