@@ -191,8 +191,8 @@ object Rulebook {
                     val event = inspectComponent.inspectEvents.random()
 
                     // Handle popup
-                    println(event.eventHeader)
-                    println(event.eventText)
+                    action.headerText = event.eventHeader
+                    action.bodyText = event.eventText
 
                     // Handle terrify
                     val terrifyAction = event.toTerrifyAction(action.target, action.actor)
@@ -201,9 +201,11 @@ object Rulebook {
                     }
 
                     inspectComponent.completeEvent(event)
+                    action.completed = true
                 } else {
-                    println(inspectComponent.defaultInspectHeader)
-                    println(inspectComponent.defaultInspectText)
+                    action.headerText = inspectComponent.defaultInspectHeader
+                    action.bodyText = inspectComponent.defaultInspectText
+                    action.completed = true
                 }
             }
         }

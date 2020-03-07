@@ -4,4 +4,10 @@ import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.encounter.rulebook.Action
 import com.mtw.supplier.encounter.rulebook.ActionType
 
-class InspectAction(actor: Entity, val target: Entity): Action(actor, ActionType.INSPECT)
+class InspectAction(
+    actor: Entity,
+    val target: Entity,
+    var completed: Boolean = false,
+    var headerText: String? = null,
+    var bodyText: String? = null
+): Action(actor, ActionType.INSPECT)

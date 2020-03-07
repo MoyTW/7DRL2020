@@ -278,7 +278,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.BETTYS_BACKYARD_FRUITS
         ),
         tags = listOf(RoomTags.JULIANN))),
-    CURTIS_STREET_BEDROOM(DreamRoomBlueprintData(
+    /*CURTIS_STREET_BEDROOM(DreamRoomBlueprintData(
         "Your old bedroom",
         "You shared it with Alex until you left for college, aside from those years you stole the TV " +
             "room for yourself. You always found it kind of weird that your parents didn't mind making a brother and " +
@@ -292,7 +292,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_MY_DRESSER,
             EntityBlueprint.CURTIS_STREET_ALEXS_BED
         ),
-        tags = listOf(RoomTags.CURTIS_ST))),
+        tags = listOf(RoomTags.CURTIS_ST))),*/
     CURTIS_STREET_DOWN_DOWNSTAIRS(DreamRoomBlueprintData(
         "The down-downstairs TV room",
         "When you were fighting with your parents, you abandoned your room. You slept on this couch, " +
@@ -312,7 +312,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_DDS_COUCH
         ),
         tags = listOf(RoomTags.CURTIS_ST))),
-    CURTIS_STREET_MIDDLE_BATHROOM(DreamRoomBlueprintData(
+    /*CURTIS_STREET_MIDDLE_BATHROOM(DreamRoomBlueprintData(
         "The middle bathroom",
         "This was your favorite bathroom. The shower was nice and hot, there was plenty of space near " +
             "the sink, and the mirror was huge and always clear. You feel comfortable here.",
@@ -327,7 +327,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_SMALL_PLASITC_TRASH_BIN,
             EntityBlueprint.CURTIS_STREET_MIDDLE_MIRROR
         ),
-        tags = listOf(RoomTags.CURTIS_ST))),
+        tags = listOf(RoomTags.CURTIS_ST))),*/
     ASTHMA_HOSPITAL_EMERGENCY_ROOM(DreamRoomBlueprintData(
         "Emergency Room",
         "Your wheezing is terrifying in your young ears. Every breath results in a huge, hacking cough. " +
