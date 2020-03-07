@@ -10,7 +10,7 @@ import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.screen.Screen
 import org.hexworks.zircon.api.uievent.*
 
-class InspectScreen(tileGrid: TileGrid, private val primaryScreen: Screen) {
+class InspectScreen(tileGrid: TileGrid, private val primaryScreen: PrimaryScreen) {
     private val screen = Screen.create(tileGrid)
     private val exitButton: Button = Components.button()
         .withText("Press Space Or Click On This Button To Continue")

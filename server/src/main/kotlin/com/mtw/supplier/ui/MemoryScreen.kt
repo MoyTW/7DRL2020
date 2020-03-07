@@ -2,9 +2,7 @@ package com.mtw.supplier.ui
 
 import com.mtw.supplier.ecs.components.PlayerComponent
 import com.mtw.supplier.encounter.EncounterRunner
-import com.mtw.supplier.encounter.rulebook.actions.InspectAction
 import com.mtw.supplier.encounter.state.EncounterState
-import com.sun.java.swing.plaf.windows.resources.windows
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.ComponentDecorations
 import org.hexworks.zircon.api.Components
@@ -14,7 +12,7 @@ import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.screen.Screen
 import org.hexworks.zircon.api.uievent.*
 
-class MemoryScreen(tileGrid: TileGrid, private val primaryScreen: Screen, private val encounterState: EncounterState) {
+class MemoryScreen(tileGrid: TileGrid, private val primaryScreen: PrimaryScreen, private val encounterState: EncounterState) {
     private val screen = Screen.create(tileGrid)
     private val exitButton: Button = Components.button()
         .withText("Press Space Or Click On This Button To Continue")
@@ -71,10 +69,10 @@ class MemoryScreen(tileGrid: TileGrid, private val primaryScreen: Screen, privat
         val memory = playerComponent.getMemories().getOrNull(buttonIdx)
 
         return if (memory != null) {
-            primaryScreen.display()
             playerComponent.removeMemory(memory)
             EncounterRunner.runPlayerTurn(encounterState, memory.remember(encounterState))
             EncounterRunner.runUntilPlayerReady(encounterState)
+            primaryScreen.display(true)
             UIEventResponse.processed()
         } else {
             UIEventResponse.pass()

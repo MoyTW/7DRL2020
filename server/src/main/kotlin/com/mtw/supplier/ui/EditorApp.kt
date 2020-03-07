@@ -22,6 +22,7 @@ import org.hexworks.zircon.api.data.Size
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.extensions.toScreen
 import org.hexworks.zircon.api.graphics.BoxType
+import org.hexworks.zircon.api.graphics.Layer
 import org.hexworks.zircon.api.graphics.TileGraphics
 import org.hexworks.zircon.api.screen.Screen
 import org.hexworks.zircon.api.uievent.*
@@ -40,7 +41,7 @@ enum class Direction(val dx: Int, val dy: Int) {
 }
 
 data class TileWindows(
-    val primaryScreen: Screen,
+    val primaryScreen: PrimaryScreen,
     val inspectScreen: InspectScreen,
     val memoryScreen: MemoryScreen,
     val mapFoWTileGraphics: TileGraphics,
@@ -171,64 +172,38 @@ class StatsFragment(val width: Int, val height: Int, positionX: Int, positionY: 
     }
 }
 
-object EditorApp {
-    val gameState = GameState()
-    val GAME_WIDTH: Int = 60
-    val GAME_HEIGHT: Int = 40
+class PrimaryScreen(private val screen: Screen, private val encounterState: EncounterState) {
     val MAP_WIDTH: Int = 30
     val MAP_HEIGHT: Int = 30
     val MAP_CENTER = AbsolutePosition(MAP_WIDTH / 2, MAP_HEIGHT / 2)
-    val COMMENTARY_HEIGHT: Int = 15
-    val STATS_HEIGHT = 15
-    val LOG_WIDTH: Int = GAME_WIDTH
-    val LOG_HEIGHT: Int = GAME_HEIGHT - MAP_HEIGHT
+
     private var cameraX: Int = 0
     private var cameraY: Int = 0
 
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val tileGrid = SwingApplications.startTileGrid(
-            AppConfig.newBuilder()
-                .withSize(GAME_WIDTH, GAME_HEIGHT)
-                .withDefaultTileset(CP437TilesetResources.rexPaint16x16())
-                .build())
+    var windows: TileWindows? = null // bad bad bad
 
-        val primaryScreen = tileGrid.toScreen()
+    init {
+        screen.display()
+        screen.theme = ColorThemes.arc()
+    }
 
-        primaryScreen.display()
-        primaryScreen.theme = ColorThemes.arc()
+    fun addLayer(layer: Layer) {
+        this.screen.addLayer(layer)
+    }
 
-        val inspectScreen = InspectScreen(tileGrid, primaryScreen)
-        val memoryScreen = MemoryScreen(tileGrid, primaryScreen, gameState.encounterState)
+    fun addComponent(component: Component) {
+        this.screen.addComponent(component)
+    }
 
-        val mapFoWTileGraphics: TileGraphics = DrawSurfaces.tileGraphicsBuilder()
-            .withSize(Size.create(MAP_WIDTH, MAP_HEIGHT))
-            .build()
-        val mapEntityTileGraphics: TileGraphics = DrawSurfaces.tileGraphicsBuilder()
-            .withSize(Size.create(MAP_WIDTH, MAP_HEIGHT))
-            .build()
-        val logVBox: VBox = Components.vbox().withSize(LOG_WIDTH, LOG_HEIGHT).withPosition(0, MAP_HEIGHT).build()
-        for (y in 0 until LOG_HEIGHT) {
-            logVBox.addComponent(Components.label().withSize(LOG_WIDTH, 1).build())
+    fun addFragment(fragment: Fragment) {
+        this.screen.addFragment(fragment)
+    }
+
+    fun display(dirty: Boolean = false) {
+        if (dirty) {
+            this.renderGameState(encounterState)
         }
-        val commentaryFragment = CommentaryFragment(GAME_WIDTH - MAP_WIDTH, COMMENTARY_HEIGHT, MAP_WIDTH, 0)
-        val statsFragment = StatsFragment(GAME_WIDTH - MAP_WIDTH, STATS_HEIGHT, MAP_WIDTH, 0 + COMMENTARY_HEIGHT)
-
-        val windows = TileWindows(primaryScreen, inspectScreen, memoryScreen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, statsFragment, logVBox)
-
-        primaryScreen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapFoWTileGraphics).build())
-        primaryScreen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapEntityTileGraphics).build())
-        primaryScreen.addComponent(logVBox)
-        primaryScreen.addFragment(commentaryFragment)
-        primaryScreen.addFragment(statsFragment)
-
-        tileGrid.processKeyboardEvents(KeyboardEventType.KEY_PRESSED) { keyboardEvent: KeyboardEvent, uiEventPhase: UIEventPhase ->
-            handleKeyPress(keyboardEvent, windows)
-            renderGameState(windows, gameState.encounterState)
-            UIEventResponse.pass()
-        }
-
-        renderGameState(windows, gameState.encounterState)
+        this.screen.display()
     }
 
     private fun draw(tileGraphics: TileGraphics, tile: Tile, pos: AbsolutePosition) {
@@ -291,7 +266,11 @@ object EditorApp {
         }
     }
 
-    fun renderGameState(windows: TileWindows, encounterState: EncounterState) {
+    fun renderGameState(encounterState: EncounterState) {
+        renderGameState(this.windows!!, encounterState)
+    }
+
+    private fun renderGameState(windows: TileWindows, encounterState: EncounterState) {
         // Draw the map
         windows.mapFoWTileGraphics.clear()
         windows.mapEntityTileGraphics.clear()
@@ -310,10 +289,64 @@ object EditorApp {
 
         // Draw the log
         renderLog(windows.logVBox, encounterState)
+    }
+}
 
-        // Draw the screen
-        //windows.screen.clear()
-        //windows.screen.draw(windows.mapGraphics, Position.zero())
+object EditorApp {
+    val gameState = GameState()
+    val GAME_WIDTH: Int = 60
+    val GAME_HEIGHT: Int = 40
+    val MAP_WIDTH: Int = 30
+    val MAP_HEIGHT: Int = 30
+    val COMMENTARY_HEIGHT: Int = 15
+    val STATS_HEIGHT = 15
+    val LOG_WIDTH: Int = GAME_WIDTH
+    val LOG_HEIGHT: Int = GAME_HEIGHT - MAP_HEIGHT
+
+
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val tileGrid = SwingApplications.startTileGrid(
+            AppConfig.newBuilder()
+                .withSize(GAME_WIDTH, GAME_HEIGHT)
+                .withDefaultTileset(CP437TilesetResources.rexPaint16x16())
+                .build())
+
+        val primaryScreen = PrimaryScreen(tileGrid.toScreen(), gameState.encounterState)
+
+        val inspectScreen = InspectScreen(tileGrid, primaryScreen)
+        val memoryScreen = MemoryScreen(tileGrid, primaryScreen, gameState.encounterState)
+
+        val mapFoWTileGraphics: TileGraphics = DrawSurfaces.tileGraphicsBuilder()
+            .withSize(Size.create(MAP_WIDTH, MAP_HEIGHT))
+            .build()
+        val mapEntityTileGraphics: TileGraphics = DrawSurfaces.tileGraphicsBuilder()
+            .withSize(Size.create(MAP_WIDTH, MAP_HEIGHT))
+            .build()
+        val logVBox: VBox = Components.vbox().withSize(LOG_WIDTH, LOG_HEIGHT).withPosition(0, MAP_HEIGHT).build()
+        for (y in 0 until LOG_HEIGHT) {
+            logVBox.addComponent(Components.label().withSize(LOG_WIDTH, 1).build())
+        }
+        val commentaryFragment = CommentaryFragment(GAME_WIDTH - MAP_WIDTH, COMMENTARY_HEIGHT, MAP_WIDTH, 0)
+        val statsFragment = StatsFragment(GAME_WIDTH - MAP_WIDTH, STATS_HEIGHT, MAP_WIDTH, 0 + COMMENTARY_HEIGHT)
+
+        val windows = TileWindows(primaryScreen, inspectScreen, memoryScreen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, statsFragment, logVBox)
+        // bad bad bad
+        primaryScreen.windows = windows
+
+        primaryScreen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapFoWTileGraphics).build())
+        primaryScreen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapEntityTileGraphics).build())
+        primaryScreen.addComponent(logVBox)
+        primaryScreen.addFragment(commentaryFragment)
+        primaryScreen.addFragment(statsFragment)
+
+        tileGrid.processKeyboardEvents(KeyboardEventType.KEY_PRESSED) { keyboardEvent: KeyboardEvent, uiEventPhase: UIEventPhase ->
+            handleKeyPress(keyboardEvent, windows)
+            primaryScreen.renderGameState(gameState.encounterState)
+            UIEventResponse.pass()
+        }
+
+        primaryScreen.renderGameState(gameState.encounterState)
     }
     
     private fun handleKeyPress(event: KeyboardEvent, windows: TileWindows): Boolean {
