@@ -246,7 +246,7 @@ class GameState {
 
         val player = Entity(UUID.randomUUID().toString(), "player")
             .addComponent(PlayerComponent())
-            .addComponent(DisplayComponent(foregroundRGB = RGB(0, 0, 255), character = '@'))
+            .addComponent(DisplayComponent(false, foregroundRGB = RGB(0, 0, 255), character = '@'))
             .addComponent(TerrorComponent())
             .addComponent(CollisionComponent.mover())
             .addComponent(ActionTimeComponent(100))

@@ -11,7 +11,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     BETTYS_LIVING_ROOM_TV({
         Entity(UUID.randomUUID().toString(), "Betty's big TV")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'T', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(DisplayComponent(true, character = 'T', foregroundRGB = RGB(0, 0, 0)))
             .addComponent(InspectableComponent(
                 "Betty's big TV",
                 "It's not actually that big, by modern standards. It's probably, what, 20 years old by now?",
@@ -27,62 +27,62 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     BETTYS_LIVING_ROOM_COUCH({
         Entity(UUID.randomUUID().toString(), "Betty's living room couches")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'C', foregroundRGB = RGB(10, 10, 41)))
+            .addComponent(DisplayComponent(true, character = 'C', foregroundRGB = RGB(10, 10, 41)))
     }),
     BETTYS_LIVING_ROOM_BOOKSHELVES({
         Entity(UUID.randomUUID().toString(), "Betty's living room bookshelves")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'S', foregroundRGB = RGB(153, 51, 0)))
+            .addComponent(DisplayComponent(true, character = 'S', foregroundRGB = RGB(153, 51, 0)))
     }),
     BETTYS_LIVING_ROOM_DESK({
         Entity(UUID.randomUUID().toString(), "Betty's living room desk")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'D', foregroundRGB = RGB(153, 51, 0)))
+            .addComponent(DisplayComponent(true, character = 'D', foregroundRGB = RGB(153, 51, 0)))
     }),
     BETTYS_BACKYARD_LAUNDRY({
         Entity(UUID.randomUUID().toString(), "Laundry drying in the sun")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'L', foregroundRGB = RGB(220, 220, 220)))
+            .addComponent(DisplayComponent(true, character = 'L', foregroundRGB = RGB(220, 220, 220)))
     }),
     BETTYS_BACKYARD_TOMATOES({
         Entity(UUID.randomUUID().toString(), "Betty's tomato plants")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(character = 't', foregroundRGB = RGB(153, 0, 0)))
+            .addComponent(DisplayComponent(true, character = 't', foregroundRGB = RGB(153, 0, 0)))
     }),
     BETTYS_BACKYARD_HERBS({
         Entity(UUID.randomUUID().toString(), "Betty's homegrown greens")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(character = 'h', foregroundRGB = RGB(0, 153, 51)))
+            .addComponent(DisplayComponent(true, character = 'h', foregroundRGB = RGB(0, 153, 51)))
     }),
     BETTYS_BACKYARD_FRUITS({
         Entity(UUID.randomUUID().toString(), "Betty's fruit tree")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'F', foregroundRGB = RGB(0, 150, 51)))
+            .addComponent(DisplayComponent(true, character = 'F', foregroundRGB = RGB(0, 150, 51)))
     }),
     CURTIS_STREET_MY_BED({
         Entity(UUID.randomUUID().toString(), "Your Teenage Bed")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(character = 'B', foregroundRGB = RGB(0, 173, 238)))
+            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = RGB(0, 173, 238)))
     }),
     CURTIS_STREET_MY_DRESSER({
         Entity(UUID.randomUUID().toString(), "Your Teenage Dresser")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(character = 'R', foregroundRGB = RGB(0, 173, 238)))
+            .addComponent(DisplayComponent(true, character = 'R', foregroundRGB = RGB(0, 173, 238)))
     }),
     CURTIS_STREET_ALEXS_BED({
         Entity(UUID.randomUUID().toString(), "Alex's Childhood Bed")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'B', foregroundRGB = RGB(0, 139, 0)))
+            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = RGB(0, 139, 0)))
     }),
     CURTIS_STREET_BIG_TV({
         Entity(UUID.randomUUID().toString(), "The Big Television")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'T', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(DisplayComponent(true, character = 'T', foregroundRGB = RGB(0, 0, 0)))
     }),
     CURTIS_STREET_PLAYSTATION({
         Entity(UUID.randomUUID().toString(), "The playstation 2")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(character = 'p', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(DisplayComponent(true, character = 'p', foregroundRGB = RGB(0, 0, 0)))
             .addComponent(InspectableComponent(
                 "Your old PS2",
                 "You have fond memories of it, but when you think longer, you wonder if you hadn't " +
@@ -116,92 +116,92 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     CURTIS_STREET_GAMECUBE({
         Entity(UUID.randomUUID().toString(), "The gamecube")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(character = 'g', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(DisplayComponent(true, character = 'g', foregroundRGB = RGB(0, 0, 0)))
     }),
     CURTIS_STREET_ANIME_SHELF({
         Entity(UUID.randomUUID().toString(), "Your anime shelf")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(character = 'S', foregroundRGB = RGB(153, 51, 0)))
+            .addComponent(DisplayComponent(true, character = 'S', foregroundRGB = RGB(153, 51, 0)))
     }),
     CURTIS_STREET_DDS_COUCH({
         Entity(UUID.randomUUID().toString(), "A Segment Of The TV Couch")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'C', foregroundRGB = RGB(26, 26, 255)))
+            .addComponent(DisplayComponent(true, character = 'C', foregroundRGB = RGB(26, 26, 255)))
     }),
     CURTIS_STREET_MIDDLE_TOILET({
         Entity(UUID.randomUUID().toString(), "The Middle Toilet")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(character = 'O', foregroundRGB = RGB(0, 51, 51)))
+            .addComponent(DisplayComponent(true, character = 'O', foregroundRGB = RGB(0, 51, 51)))
     }),
     CURTIS_STREET_MIDDLE_SHOWER({
         Entity(UUID.randomUUID().toString(), "The Middle Shower")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'S', foregroundRGB = RGB(204, 255, 255)))
+            .addComponent(DisplayComponent(true, character = 'S', foregroundRGB = RGB(204, 255, 255)))
     }),
     CURTIS_STREET_MIDDLE_SINK({
         Entity(UUID.randomUUID().toString(), "The Middle Sink")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(character = 'I', foregroundRGB = RGB(0, 102, 0)))
+            .addComponent(DisplayComponent(true, character = 'I', foregroundRGB = RGB(0, 102, 0)))
     }),
     CURTIS_STREET_SMALL_PLASITC_TRASH_BIN({
         Entity(UUID.randomUUID().toString(), "One Of The Tiny Trash Bins")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(character = 'b', foregroundRGB = RGB(0, 10, 26)))
+            .addComponent(DisplayComponent(true, character = 'b', foregroundRGB = RGB(0, 10, 26)))
     }),
     CURTIS_STREET_MIDDLE_MIRROR({
         Entity(UUID.randomUUID().toString(), "Your Favourite Mirror")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(character = 'm', foregroundRGB = RGB(255, 255, 255)))
+            .addComponent(DisplayComponent(true, character = 'm', foregroundRGB = RGB(255, 255, 255)))
     }),
     HOSPITAL_ER_CHAIR({
         Entity(UUID.randomUUID().toString(), "An ER chair")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(character = 'c', foregroundRGB = RGB(51, 119, 255)))
+            .addComponent(DisplayComponent(true, character = 'c', foregroundRGB = RGB(51, 119, 255)))
     }),
     HOSPITAL_ER_RECEPTIONIST({
         Entity(UUID.randomUUID().toString(), "The ER receptionist")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(character = 'R', foregroundRGB = RGB(153, 187, 255)))
+            .addComponent(DisplayComponent(false, character = 'R', foregroundRGB = RGB(153, 187, 255)))
     }),
     HOSPITAL_ER_ELDERLY_COUGHER({
         Entity(UUID.randomUUID().toString(), "An elderly cougher")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(character = 'G', foregroundRGB = RGB(255, 0, 0)))
+            .addComponent(DisplayComponent(false, character = 'G', foregroundRGB = RGB(255, 0, 0)))
     }),
     HOSPITAL_ER_BABY({
         Entity(UUID.randomUUID().toString(), "A baby, in a pram")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(character = 'B', foregroundRGB = RGB(255, 0, 0)))
+            .addComponent(DisplayComponent(false, character = 'B', foregroundRGB = RGB(255, 0, 0)))
     }),
     HOSPITAL_ER_PARENT({
         Entity(UUID.randomUUID().toString(), "A worried parent")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(character = 'P', foregroundRGB = RGB(0, 102, 0)))
+            .addComponent(DisplayComponent(false, character = 'P', foregroundRGB = RGB(0, 102, 0)))
     }),
     HOSPITAL_CURTAINS({
         Entity(UUID.randomUUID().toString(), "Hospital curtains")
             .addComponent(CollisionComponent.fog())
-            .addComponent(DisplayComponent(character = 'c', foregroundRGB = RGB(51, 153, 255)))
+            .addComponent(DisplayComponent(true, character = 'c', foregroundRGB = RGB(51, 153, 255)))
     }),
     HOSPITAL_MACHINERY({
         Entity(UUID.randomUUID().toString(), "A bedside machine")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(character = 'M', foregroundRGB = RGB(51, 153, 255)))
+            .addComponent(DisplayComponent(true, character = 'M', foregroundRGB = RGB(51, 153, 255)))
     }),
     HOSPITAL_BED({
         Entity(UUID.randomUUID().toString(), "A hospital bed")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'B', foregroundRGB = RGB(51, 153, 255)))
+            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = RGB(51, 153, 255)))
     }),
     HOSPITAL_FOOD({
         Entity(UUID.randomUUID().toString(), "Lunch!")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(character = 'f', foregroundRGB = RGB(51, 153, 255)))
+            .addComponent(DisplayComponent(true, character = 'f', foregroundRGB = RGB(51, 153, 255)))
     }),
     A_FAMILIAR_FIGURE({
         Entity(UUID.randomUUID().toString(), "A familiar figure")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'P', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(DisplayComponent(false, character = 'P', foregroundRGB = RGB(0, 0, 0)))
             .addComponent(com.mtw.supplier.ecs.components.ai.FamiliarFigureAIComponent())
             .addComponent(SpeedComponent(150))
             .addComponent(ActionTimeComponent(150))
@@ -209,17 +209,17 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     AN_UNFAMILIAR_STREET_LIGHT({
         Entity(UUID.randomUUID().toString(), "A harsh light")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'L', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(DisplayComponent(true, character = 'L', foregroundRGB = RGB(0, 0, 0)))
     }),
     A_FAMILIAR_CAR({
         Entity(UUID.randomUUID().toString(), "A car you know well")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'C', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(DisplayComponent(true, character = 'C', foregroundRGB = RGB(0, 0, 0)))
     }),
     A_FAMILIAR_CAR_ALEXANDER({
         Entity(UUID.randomUUID().toString(), "Alexander")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(character = 'A', foregroundRGB = RGB(0, 51, 0)))
+            .addComponent(DisplayComponent(false, character = 'A', foregroundRGB = RGB(0, 51, 0)))
     })
 }
 
@@ -496,14 +496,14 @@ class DreamRoomBuilder(
             val door = Entity(UUID.randomUUID().toString(), "Door")
                 .addComponent(CollisionComponent.blocker())
                 .addComponent(DoorComponent(direction))
-                .addComponent(DisplayComponent(backgroundRGB = RGB.fromTileColor(this.wallColor),
+                .addComponent(DisplayComponent(true, backgroundRGB = RGB.fromTileColor(this.wallColor),
                     foregroundRGB = RGB(255, 255, 0), character = '%'))
             doors[direction] = door
             door
         } else {
             Entity(UUID.randomUUID().toString(), "Wall")
                 .addComponent(CollisionComponent.blocker())
-                .addComponent(DisplayComponent(backgroundRGB = RGB.fromTileColor(this.wallColor)))
+                .addComponent(DisplayComponent(true, backgroundRGB = RGB.fromTileColor(this.wallColor)))
         }
     }
 

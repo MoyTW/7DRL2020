@@ -17,6 +17,7 @@ data class RGB(val red: Int, val green: Int, val blue: Int) {
 
 @Serializable
 class DisplayComponent(
+    val seeInFoW: Boolean,
     val backgroundRGB: RGB? = null,
     val foregroundRGB: RGB? = null,
     val character: Char? = null
