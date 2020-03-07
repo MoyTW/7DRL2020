@@ -18,7 +18,7 @@ class MemoryScreen(tileGrid: TileGrid, private val primaryScreen: PrimaryScreen,
         .withText("Press Space Or Click On This Button To Continue")
         .withAlignmentWithin(screen, ComponentAlignment.BOTTOM_CENTER)
         .build()
-    private val memoryButtons: MutableList<AttachedComponent>
+    private val memoryButtons: MutableList<AttachedComponent> // TODO: see if you can color these!
 
     private val textPad: Int = 6
     private val keyString: String = "ABCDEFGHIJKL"

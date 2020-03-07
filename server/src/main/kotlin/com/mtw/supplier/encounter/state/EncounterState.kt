@@ -94,7 +94,7 @@ class EncounterState(
         }
         val num = terrorComponent.currentTerror - terrorComponent.minTerror
         val denom = terrorComponent.maxTerror - terrorComponent.minTerror
-        return num.toDouble() / denom.toDouble() * 100
+        return 100.0 - (num.toDouble() / denom.toDouble() * 100.0)
     }
 
     fun lastSeenRoomNames(): List<String> {
