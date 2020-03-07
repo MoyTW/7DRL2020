@@ -179,10 +179,9 @@ object Rulebook {
         val arePositionsAdjacent = encounterState.arePositionsAdjacent(
             action.actor.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)!!,
             action.target.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)!!)
-        if (!arePositionsAdjacent) { // TODO: lol
+        if (!arePositionsAdjacent) {
             println("You're not next to it you can't inspect that!!!")
         } else {
-            // TODO: implement
             val inspectComponent = action.target.getComponentOrNull(InspectableComponent::class)
             if (inspectComponent == null) {
                 println("You can't inspect that")
@@ -200,9 +199,11 @@ object Rulebook {
                         this.resolveAction(terrifyAction, encounterState)
                     }
 
-                    if (event.memory != null) {
+                    // Handle memories - i admit not sending it back for render is a silly way to do this
+                    val memoryComponent = encounterState.playerEntity().getComponent(PlayerComponent::class)
+                    if (event.memory != null && !memoryComponent.seenMemory(event.memory)) {
                         action.memory = event.memory
-                        encounterState.playerEntity().getComponent(PlayerComponent::class).addMemory(event.memory)
+                        memoryComponent.addMemory(event.memory)
                     }
 
                     inspectComponent.completeEvent(event)

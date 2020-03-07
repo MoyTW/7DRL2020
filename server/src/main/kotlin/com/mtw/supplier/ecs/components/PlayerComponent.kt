@@ -8,6 +8,7 @@ import com.mtw.supplier.encounter.rulebook.actions.TerrifyAction
 import com.mtw.supplier.encounter.rulebook.actions.TerrorChangeStats
 import com.mtw.supplier.encounter.state.EncounterState
 import kotlinx.serialization.Serializable
+import org.slf4j.LoggerFactory
 import kotlin.math.max
 import kotlin.math.min
 
@@ -31,14 +32,27 @@ class TerrorChangeMemory(
 
 @Serializable
 class PlayerComponent(
-    var targeted: Entity? = null,
-    private val memories: MutableList<Memory> = mutableListOf()
+    var targeted: Entity? = null
 ): Component() {
+    private val logger = LoggerFactory.getLogger(PlayerComponent::class.java)
+
     override var _parentId: String? = null
+
+    private val seenMemories: MutableSet<String> = mutableSetOf()
+    private val memories: MutableList<Memory> = mutableListOf()
 
     val maxMemories: Int = 12
 
+    fun seenMemory(memory: Memory): Boolean {
+        return this.seenMemories.contains(memory.name)
+    }
+
     fun addMemory(memory: Memory) {
+        if (seenMemories.contains(memory.name)) {
+            logger.error("can't double add memory you missed your seen check")
+            return
+        }
+
         if (memories.size > maxMemories) {
             memories.remove(memories.random())
         }
