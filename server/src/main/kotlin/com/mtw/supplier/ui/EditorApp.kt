@@ -23,7 +23,6 @@ import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.extensions.toScreen
 import org.hexworks.zircon.api.graphics.BoxType
 import org.hexworks.zircon.api.graphics.TileGraphics
-import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.screen.Screen
 import org.hexworks.zircon.api.uievent.*
 import java.lang.StringBuilder
@@ -43,6 +42,7 @@ enum class Direction(val dx: Int, val dy: Int) {
 data class TileWindows(
     val primaryScreen: Screen,
     val inspectScreen: InspectScreen,
+    val memoryScreen: MemoryScreen,
     val mapFoWTileGraphics: TileGraphics,
     val mapEntityTileGraphics: TileGraphics,
     val commentaryFragment: CommentaryFragment,
@@ -199,6 +199,7 @@ object EditorApp {
         primaryScreen.theme = ColorThemes.arc()
 
         val inspectScreen = InspectScreen(tileGrid, primaryScreen)
+        val memoryScreen = MemoryScreen(tileGrid, primaryScreen, gameState.encounterState)
 
         val mapFoWTileGraphics: TileGraphics = DrawSurfaces.tileGraphicsBuilder()
             .withSize(Size.create(MAP_WIDTH, MAP_HEIGHT))
@@ -213,7 +214,7 @@ object EditorApp {
         val commentaryFragment = CommentaryFragment(GAME_WIDTH - MAP_WIDTH, COMMENTARY_HEIGHT, MAP_WIDTH, 0)
         val statsFragment = StatsFragment(GAME_WIDTH - MAP_WIDTH, STATS_HEIGHT, MAP_WIDTH, 0 + COMMENTARY_HEIGHT)
 
-        val windows = TileWindows(primaryScreen, inspectScreen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, statsFragment, logVBox)
+        val windows = TileWindows(primaryScreen, inspectScreen, memoryScreen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, statsFragment, logVBox)
 
         primaryScreen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapFoWTileGraphics).build())
         primaryScreen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapEntityTileGraphics).build())
@@ -340,7 +341,7 @@ object EditorApp {
             KeyCode.MULTIPLY -> { gameState.targetNext(); true}
 
             KeyCode.KEY_I -> { gameState.inspectTarget(windows.inspectScreen); true}
-            KeyCode.KEY_R -> { gameState.displayMemories(); true}
+            KeyCode.KEY_R -> { gameState.displayMemories(windows.memoryScreen); true}
 
             else -> { false }
         }
@@ -403,11 +404,12 @@ class GameState {
         }
     }
 
-    internal fun displayMemories() {
+    internal fun displayMemories(memoryScreen: MemoryScreen) {
         val memories = encounterState.playerEntity().getComponent(PlayerComponent::class).memories
         for (memory in memories) {
             println(memory.name)
         }
+        memoryScreen.display()
     }
         
     internal fun postWaitAction() {
