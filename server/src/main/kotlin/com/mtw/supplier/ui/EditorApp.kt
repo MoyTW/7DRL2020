@@ -138,15 +138,6 @@ class StatsFragment(val width: Int, val height: Int, positionX: Int, positionY: 
         val leftLabel = Components.label()
             .withText("Nightmare")
             .withPosition(1, 0)
-            /* This doesn't seem to work; unsure why. We'll live with it I guess.
-            .withColorTheme(ColorThemeBuilder.newBuilder()
-                .withAccentColor(ANSITileColor.BRIGHT_YELLOW)
-                .withPrimaryForegroundColor(ANSITileColor.RED)
-                .withPrimaryBackgroundColor(ANSITileColor.GREEN)
-                .withSecondaryForegroundColor(ANSITileColor.BLUE)
-                .withSecondaryBackgroundColor(ANSITileColor.CYAN)
-                .build())
-                */
             .build()
         val rightLabel = Components.label().withText("Dream")
             .withPosition(width - "Nightmare".length - "Dream".length - 2, 0)
