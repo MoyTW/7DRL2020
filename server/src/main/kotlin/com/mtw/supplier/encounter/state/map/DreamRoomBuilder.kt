@@ -2,6 +2,7 @@ package com.mtw.supplier.encounter.state.map
 
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.*
+import com.mtw.supplier.encounter.rulebook.actions.TerrorChangeStats
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.color.TileColor
 
@@ -11,6 +12,20 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
         Entity(UUID.randomUUID().toString(), "Betty's big TV")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(character = 'T', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(InspectableComponent(
+                "Betty's big TV",
+                "It's not actually that big, by modern standards. It's probably, what, 20 years old by now?",
+                mutableListOf(
+                    InspectEvent(
+                        "2000 elections, Bush v. Gore",
+                        "You remember watching Bush v. Gore at Juliann's house. Juliann's dad was a staunch " +
+                            "Republican, and her mom vaguely Democratic. It was a weird night, especially given " +
+                            "Florida. That had seemed so wild at the time. And then it all went off the rails.",
+                        TerrorChangeStats(2, 0, 50, "You feel glum."),
+                        null
+                    )
+                )
+            ))
     }),
     BETTYS_LIVING_ROOM_COUCH({
         Entity(UUID.randomUUID().toString(), "Betty's living room couches")

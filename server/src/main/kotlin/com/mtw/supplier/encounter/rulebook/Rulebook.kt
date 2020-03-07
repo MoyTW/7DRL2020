@@ -158,15 +158,20 @@ object Rulebook {
                 // Don't set it to higher than it current is
                 if (newTerror < defenderTerror.currentTerror) {
                     defenderTerror.setTerror(newTerror)
+                    encounterState.messageLog.logEvent("TERROR", action.terrorChangeStats.description)
+                } else {
+                    encounterState.messageLog.logEvent("TERROR", "You would feel reassured, but it's too little.")
                 }
             } else { // If you're adding terror
                 val newTerror = min(defenderTerror.currentTerror + action.terrorChangeStats.dTerror, action.terrorChangeStats.changesUpToMax)
                 // Don't set it to lower than it currently is
                 if (newTerror > defenderTerror.currentTerror) {
                     defenderTerror.setTerror(newTerror)
+                    encounterState.messageLog.logEvent("TERROR", action.terrorChangeStats.description)
+                } else {
+                    encounterState.messageLog.logEvent("TERROR", "Such a small thing doesn't bother you now.")
                 }
             }
-            encounterState.messageLog.logEvent("TERROR", action.terrorChangeStats.description)
         }
     }
 
