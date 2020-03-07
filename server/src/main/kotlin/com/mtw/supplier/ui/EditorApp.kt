@@ -23,6 +23,7 @@ import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.extensions.toScreen
 import org.hexworks.zircon.api.graphics.BoxType
 import org.hexworks.zircon.api.graphics.TileGraphics
+import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.screen.Screen
 import org.hexworks.zircon.api.uievent.*
 import java.lang.StringBuilder
@@ -41,12 +42,28 @@ enum class Direction(val dx: Int, val dy: Int) {
 
 data class TileWindows(
     val primaryScreen: Screen,
+    val inspectScreen: InspectScreen,
     val mapFoWTileGraphics: TileGraphics,
     val mapEntityTileGraphics: TileGraphics,
     val commentaryFragment: CommentaryFragment,
     val statsFragment: StatsFragment,
     val logVBox: VBox
 )
+
+object WordWrapUtil {
+    fun wordWrap(text: String, width: Int, maxLines: Int): List<String> {
+        val lines = mutableListOf<String>()
+        val words = text.split(' ').toMutableList()
+        while (words.isNotEmpty() && lines.size < maxLines) {
+            val sb = StringBuilder(words.removeAt(0))
+            while (words.isNotEmpty() && sb.length + words[0].length < width) {
+                sb.append(" " + words.removeAt(0))
+            }
+            lines.add(sb.toString())
+        }
+        return lines
+    }
+}
 
 class CommentaryFragment(val width: Int, val height: Int, positionX: Int, positionY: Int): Fragment {
     private var header: AttachedComponent
@@ -64,19 +81,6 @@ class CommentaryFragment(val width: Int, val height: Int, positionX: Int, positi
         lines = mutableListOf()
     }
 
-    private fun wordWrap(text: String, width: Int, maxLines: Int): List<String> {
-        val lines = mutableListOf<String>()
-        val words = text.split(' ').toMutableList()
-        while (words.isNotEmpty() && lines.size < maxLines) {
-            val sb = StringBuilder(words.removeAt(0))
-            while (words.isNotEmpty() && sb.length + words[0].length < width) {
-                sb.append(" " + words.removeAt(0))
-            }
-            lines.add(sb.toString())
-        }
-        return lines
-    }
-
     fun setText(newHeader: String, newCommentary: String) {
         root.clear()
         header.detach()
@@ -89,7 +93,7 @@ class CommentaryFragment(val width: Int, val height: Int, positionX: Int, positi
             line.detach()
         }
         lines.clear()
-        val wrappedLines = wordWrap(newCommentary, this.maxTextLen, this.maxCommentaryLines)
+        val wrappedLines = WordWrapUtil.wordWrap(newCommentary, this.maxTextLen, this.maxCommentaryLines)
         /**
          * Ok, so, this is the set of lines which is causing the "blank screen on startup" bug. I don't know how to fix
          * it, and I don't have the time to properly debug it. Essentially, sometimes the for loop stalls out in the
@@ -176,6 +180,24 @@ class StatsFragment(val width: Int, val height: Int, positionX: Int, positionY: 
     }
 }
 
+class InspectScreen(val tileGrid: TileGrid, val primaryScreen: Screen) {
+    val screen = Screen.create(tileGrid)
+    val exitButton: Button = Components.button()
+        .withText("Press Space Or Click On This Button To Continue")
+        .withAlignmentWithin(screen, ComponentAlignment.BOTTOM_CENTER)
+        .build()
+
+    init {
+        screen.addComponent(exitButton)
+        screen.theme = ColorThemes.monokaiBlue()
+
+        exitButton.handleComponentEvents(ComponentEventType.ACTIVATED) {
+            primaryScreen.display()
+            UIEventResponse.processed()
+        }
+    }
+}
+
 object EditorApp {
     val gameState = GameState()
     val GAME_WIDTH: Int = 60
@@ -203,6 +225,8 @@ object EditorApp {
         primaryScreen.display()
         primaryScreen.theme = ColorThemes.arc()
 
+        val inspectScreen = InspectScreen(tileGrid, primaryScreen)
+
         val mapFoWTileGraphics: TileGraphics = DrawSurfaces.tileGraphicsBuilder()
             .withSize(Size.create(MAP_WIDTH, MAP_HEIGHT))
             .build()
@@ -216,17 +240,19 @@ object EditorApp {
         val commentaryFragment = CommentaryFragment(GAME_WIDTH - MAP_WIDTH, COMMENTARY_HEIGHT, MAP_WIDTH, 0)
         val statsFragment = StatsFragment(GAME_WIDTH - MAP_WIDTH, STATS_HEIGHT, MAP_WIDTH, 0 + COMMENTARY_HEIGHT)
 
-        val windows = TileWindows(primaryScreen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, statsFragment, logVBox)
+        val windows = TileWindows(primaryScreen, inspectScreen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, statsFragment, logVBox)
 
         primaryScreen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapFoWTileGraphics).build())
         primaryScreen.addLayer(LayerBuilder.newBuilder().withTileGraphics(mapEntityTileGraphics).build())
+        primaryScreen.addComponent(logVBox)
         primaryScreen.addFragment(commentaryFragment)
         primaryScreen.addFragment(statsFragment)
-        primaryScreen.addComponent(logVBox)
 
         tileGrid.processKeyboardEvents(KeyboardEventType.KEY_PRESSED) { keyboardEvent: KeyboardEvent, uiEventPhase: UIEventPhase ->
             handleKeyPress(keyboardEvent)
             renderGameState(windows, gameState.encounterState)
+            windows.inspectScreen.screen.display()
+            windows.inspectScreen.exitButton.requestFocus()
             UIEventResponse.pass()
         }
 
