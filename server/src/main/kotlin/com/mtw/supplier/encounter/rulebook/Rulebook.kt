@@ -201,6 +201,9 @@ object Rulebook {
                     }
 
                     inspectComponent.completeEvent(event)
+                } else {
+                    println(inspectComponent.defaultInspectHeader)
+                    println(inspectComponent.defaultInspectText)
                 }
             }
         }

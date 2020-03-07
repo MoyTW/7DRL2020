@@ -16,16 +16,13 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                 "Betty's big TV",
                 "It's not actually that big, by modern standards. It's probably, what, 20 years old by now?",
                 mutableListOf(
-                    InspectEvent(
-                        "2000 elections, Bush v. Gore",
+                    InspectEvent("2000 elections, Bush v. Gore",
                         "You remember watching Bush v. Gore at Juliann's house. Juliann's dad was a staunch " +
                             "Republican, and her mom vaguely Democratic. It was a weird night, especially given " +
-                            "Florida. That had seemed so wild at the time. And then it all went off the rails.",
+                            "Florida. That had seemed so wild at the time.",
                         TerrorChangeStats(2, 0, 50, "You feel glum."),
-                        null
-                    )
-                )
-            ))
+                        null)
+                )))
     }),
     BETTYS_LIVING_ROOM_COUCH({
         Entity(UUID.randomUUID().toString(), "Betty's living room couches")
@@ -86,6 +83,35 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
         Entity(UUID.randomUUID().toString(), "The playstation 2")
             .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(character = 'p', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(InspectableComponent(
+                "Your old PS2",
+                "You have fond memories of it, but when you think longer, you wonder if you hadn't " +
+                    "spent so much time reading, and playing games, and watching anime, would you have been " +
+                    "better-adjusted? Who knows.",
+                mutableListOf(
+                    InspectEvent("Middle School, a weekend at home",
+                        "You took your blankets downstairs, piled them up on the couch, and stayed up all " +
+                            "night playing Final Fantasy X. You had to turn the sound off, so your parents wouldn't " +
+                            "know (they enforced a limit of 1 hour game time per night). You feel comfortable and safe" +
+                            " when you think about it but - you were also depressed, and cranky, and hateful. The" +
+                            " lack of sleep, the obsessive escapism, surely couldn't have helped.",
+                        TerrorChangeStats(-2, 0, 100, "You feel comforted, despite all that."),
+                        null),
+                    InspectEvent("Playing Armored Core with Alex after school",
+                        "Alex was always more driven than you. More disciplined, more social. He would beat games a " +
+                            "lot quicker than you. He would practice more, too, if there was a competitive aspect. " +
+                            "You were older, but he was still better than you at games for as long as you can " +
+                            "remember. He was better in a lot of other ways, too.",
+                        TerrorChangeStats(-5, 0, 100, "You wish Alex were closer."),
+                        null),
+                    InspectEvent("Final Fantasy 7",
+                        "You didn't play it until years after it came out. In fact, you played FFX first. You " +
+                            "remember knowing that Aeris would die, but not really knowing how, so despite that you " +
+                            "were surprised when it happened. You remember watching Advent Children and marvelling " +
+                            "at how absurdly pretty they made everything look.",
+                        TerrorChangeStats(-2, 50, 100, "What was the point of all that, in the end?"),
+                        null)
+                )))
     }),
     CURTIS_STREET_GAMECUBE({
         Entity(UUID.randomUUID().toString(), "The gamecube")
