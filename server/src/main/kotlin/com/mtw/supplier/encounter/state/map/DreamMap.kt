@@ -290,6 +290,10 @@ class DreamMap: DreamMapI {
         }
     }
 
+    fun wasSeen(roomPosition: RoomPosition): Boolean {
+        return this.roomsById[roomPosition.roomUuid]!!.getTile(roomPosition)!!.explored
+    }
+
     fun markOccupied(roomUuid: String, time: Int) {
         this.seenHistory.markOccupied(roomUuid, time)
     }

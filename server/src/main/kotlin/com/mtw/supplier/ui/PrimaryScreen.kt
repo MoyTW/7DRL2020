@@ -1,33 +1,21 @@
 package com.mtw.supplier.ui
 
-import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.*
-import com.mtw.supplier.encounter.EncounterRunner
-import com.mtw.supplier.encounter.rulebook.actions.InspectAction
-import com.mtw.supplier.encounter.rulebook.actions.MoveAction
-import com.mtw.supplier.encounter.rulebook.actions.WaitAction
 import com.mtw.supplier.encounter.state.EncounterEndState
 import com.mtw.supplier.encounter.state.EncounterState
 import com.mtw.supplier.utils.AbsolutePosition
-import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.*
-import org.hexworks.zircon.api.application.AppConfig
 import org.hexworks.zircon.api.builder.component.HBoxBuilder
 import org.hexworks.zircon.api.builder.component.LabelBuilder
 import org.hexworks.zircon.api.builder.component.VBoxBuilder
-import org.hexworks.zircon.api.builder.graphics.LayerBuilder
 import org.hexworks.zircon.api.color.ANSITileColor
 import org.hexworks.zircon.api.component.*
 import org.hexworks.zircon.api.data.Position
-import org.hexworks.zircon.api.data.Size
 import org.hexworks.zircon.api.data.Tile
-import org.hexworks.zircon.api.extensions.toScreen
 import org.hexworks.zircon.api.graphics.BoxType
 import org.hexworks.zircon.api.graphics.Layer
 import org.hexworks.zircon.api.graphics.TileGraphics
 import org.hexworks.zircon.api.screen.Screen
-import org.hexworks.zircon.api.uievent.*
-import java.lang.StringBuilder
 import kotlin.math.min
 
 class CommentaryFragment(val width: Int, val height: Int, positionX: Int, positionY: Int): Fragment {
@@ -199,18 +187,24 @@ class PrimaryScreen(private val screen: Screen, private val encounterState: Enco
     }
 
     private fun renderDisplayEntities(tileGraphics: TileGraphics, encounterState: EncounterState) {
+        val fowCache = encounterState.fovCache!!
         val targetedEntity = encounterState.playerEntity().getComponent(PlayerComponent::class).targeted
         encounterState.entities()
             .filter { it.hasComponent(RoomPositionComponent::class) && it.hasComponent(DisplayComponent::class) }
             .map {
-                val entityPos = it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)
-                if (entityPos != null && encounterState.getVisibleEntityAtPosition(entityPos) == it) {
+                val entityPosComponent = it.getComponent(RoomPositionComponent::class)
+                val entityPos = entityPosComponent.asAbsolutePosition(encounterState)
+                val displayComponent = it.getComponent(DisplayComponent::class)
+                if (entityPos != null &&
+                    encounterState.getVisibleEntityAtPosition(entityPos) == it &&
+                    (fowCache.isInFoV(entityPos) ||
+                        (displayComponent.seeInFoW && encounterState.wasSeen(entityPosComponent.roomPosition)))) {
                     if (targetedEntity == it) {
                         // lol this is pretty slapdash, oh well
-                        val builder = it.getComponent(DisplayComponent::class).tileBuilder().withModifiers(Modifiers.blink())
+                        val builder = displayComponent.tileBuilder().withModifiers(Modifiers.blink())
                         draw(tileGraphics, builder.build(), entityPos)
                     } else {
-                        draw(tileGraphics, it.getComponent(DisplayComponent::class).toTile(), entityPos)
+                        draw(tileGraphics, displayComponent.toTile(), entityPos)
                     }
                 }
             }

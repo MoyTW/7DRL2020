@@ -73,6 +73,10 @@ class EncounterState(
         dreamMap.markOccupied(this.playerEntity().getComponent(RoomPositionComponent::class).roomUuid, this.currentTime)
     }
 
+    fun wasSeen(roomPosition: RoomPosition): Boolean {
+        return dreamMap.wasSeen(roomPosition)
+    }
+
     fun getNextEntityId(): Int {
         entityIdIdx += 1
         return entityIdIdx
