@@ -96,21 +96,21 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                             " when you think about it but - you were also depressed, and cranky, and hateful. The" +
                             " lack of sleep, the obsessive escapism, surely couldn't have helped.",
                         TerrorChangeStats(-2, 0, 100, "You feel comforted, despite all that."),
-                        null),
+                        TerrorChangeMemory("FFX All-Nighter", TerrorChangeStats(-7, 0, 100, "You wished you could be more like Yuna."))),
                     InspectEvent("Playing Armored Core with Alex after school",
                         "Alex was always more driven than you. More disciplined, more social. He would beat games a " +
                             "lot quicker than you. He would practice more, too, if there was a competitive aspect. " +
                             "You were older, but he was still better than you at games for as long as you can " +
                             "remember. He was better in a lot of other ways, too.",
                         TerrorChangeStats(-5, 0, 100, "You wish Alex were closer."),
-                        null),
+                        TerrorChangeMemory("Gaming with Alex", TerrorChangeStats(-15, 0, 100, "One of your fondest childhood memories."))),
                     InspectEvent("Final Fantasy 7",
-                        "You didn't play it until years after it came out. In fact, you played FFX first. You " +
-                            "remember knowing that Aeris would die, but not really knowing how, so despite that you " +
-                            "were surprised when it happened. You remember watching Advent Children and marvelling " +
-                            "at how absurdly pretty they made everything look.",
+                        "You didn't play it until years after it came out. In fact, you played FFX first." +
+                            " You knew that Aeris would die, but not really how, so despite that you were surprised " +
+                            "when it happened. You watched Advent Children, too, and were shocked by how pretty it " +
+                            "was. Still, FF7 wasn't that impactful for you. It was nice, you guess.",
                         TerrorChangeStats(-2, 50, 100, "What was the point of all that, in the end?"),
-                        null)
+                        TerrorChangeMemory("FF7", TerrorChangeStats(-2, 40, 100, "Did playing FF7 really help you much, in the end?")))
                 )))
     }),
     CURTIS_STREET_GAMECUBE({

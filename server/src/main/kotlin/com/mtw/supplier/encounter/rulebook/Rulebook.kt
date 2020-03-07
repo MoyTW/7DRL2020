@@ -200,6 +200,11 @@ object Rulebook {
                         this.resolveAction(terrifyAction, encounterState)
                     }
 
+                    if (event.memory != null) {
+                        action.memory = event.memory
+                        encounterState.playerEntity().getComponent(PlayerComponent::class).memories.add(event.memory)
+                    }
+
                     inspectComponent.completeEvent(event)
                     action.completed = true
                 } else {

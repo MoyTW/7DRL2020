@@ -2,6 +2,9 @@ package com.mtw.supplier.ecs.components
 
 import com.mtw.supplier.ecs.Component
 import com.mtw.supplier.ecs.Entity
+import com.mtw.supplier.encounter.EncounterRunner
+import com.mtw.supplier.encounter.rulebook.actions.TerrifyAction
+import com.mtw.supplier.encounter.rulebook.actions.TerrorChangeStats
 import com.mtw.supplier.encounter.state.EncounterState
 import kotlinx.serialization.Serializable
 import kotlin.math.max
@@ -16,12 +19,11 @@ abstract class Memory(
 
 class TerrorChangeMemory(
     name: String,
-    val dTerror: Int,
-    val changesDownToMin: Int = 0,
-    val changesUpToMax: Int = 100
+    val terrorChangeStats: TerrorChangeStats
 ) : Memory(name) {
     override fun remember(encounterState: EncounterState) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val player = encounterState.playerEntity()
+        EncounterRunner.runPlayerTurn(encounterState, TerrifyAction(player, player, terrorChangeStats))
     }
 
 }
@@ -32,6 +34,4 @@ class PlayerComponent(
     val memories: MutableList<Memory> = mutableListOf()
 ): Component() {
     override var _parentId: String? = null
-
-
 }

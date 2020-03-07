@@ -67,9 +67,13 @@ class InspectScreen(tileGrid: TileGrid, private val primaryScreen: Screen) {
         header.detach()
         header = screen.addComponent(buildHeader(action.headerText!!))
 
-        val wrappedLines = WordWrapUtil.wordWrap(action.bodyText!!, maxTextLen, maxLines)
+        val wrappedLines = WordWrapUtil.wordWrap(action.bodyText!!, maxTextLen, maxLines - 3)
         for (i in lines.indices) {
             lines[i].text = wrappedLines.getOrNull(i) ?: ""
+        }
+        if (action.memory != null) {
+            lines[wrappedLines.size + 1].text = "Memory gained!"
+            lines[wrappedLines.size + 2].text = "+ ${action.memory!!.name}"
         }
 
         this.screen.display()

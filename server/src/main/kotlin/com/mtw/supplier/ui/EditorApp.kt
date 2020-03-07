@@ -338,7 +338,9 @@ object EditorApp {
 
             KeyCode.DIVIDE -> { gameState.targetPrevious(); true}
             KeyCode.MULTIPLY -> { gameState.targetNext(); true}
+
             KeyCode.KEY_I -> { gameState.inspectTarget(windows.inspectScreen); true}
+            KeyCode.KEY_R -> { gameState.displayMemories(); true}
 
             else -> { false }
         }
@@ -398,6 +400,13 @@ class GameState {
             if (action.completed) {
                 inspectScreen.display(action)
             }
+        }
+    }
+
+    internal fun displayMemories() {
+        val memories = encounterState.playerEntity().getComponent(PlayerComponent::class).memories
+        for (memory in memories) {
+            println(memory.name)
         }
     }
         
