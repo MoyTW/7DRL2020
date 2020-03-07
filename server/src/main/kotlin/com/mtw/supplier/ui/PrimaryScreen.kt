@@ -6,6 +6,7 @@ import com.mtw.supplier.encounter.EncounterRunner
 import com.mtw.supplier.encounter.rulebook.actions.InspectAction
 import com.mtw.supplier.encounter.rulebook.actions.MoveAction
 import com.mtw.supplier.encounter.rulebook.actions.WaitAction
+import com.mtw.supplier.encounter.state.EncounterEndState
 import com.mtw.supplier.encounter.state.EncounterState
 import com.mtw.supplier.utils.AbsolutePosition
 import org.hexworks.cobalt.core.api.UUID
@@ -234,6 +235,10 @@ class PrimaryScreen(private val screen: Screen, private val encounterState: Enco
     }
 
     private fun renderGameState(windows: TileWindows, encounterState: EncounterState) {
+        if (encounterState.endState != EncounterEndState.ONGOING) {
+            windows.gameEndScreen.display(encounterState.endState)
+        }
+
         // Draw the map
         windows.mapFoWTileGraphics.clear()
         windows.mapEntityTileGraphics.clear()

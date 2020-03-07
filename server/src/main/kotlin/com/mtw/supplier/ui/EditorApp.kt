@@ -44,6 +44,7 @@ data class TileWindows(
     val primaryScreen: PrimaryScreen,
     val inspectScreen: InspectScreen,
     val memoryScreen: MemoryScreen,
+    val gameEndScreen: GameEndScreen,
     val mapFoWTileGraphics: TileGraphics,
     val mapEntityTileGraphics: TileGraphics,
     val commentaryFragment: CommentaryFragment,
@@ -56,11 +57,16 @@ object WordWrapUtil {
         val lines = mutableListOf<String>()
         val words = text.split(' ').toMutableList()
         while (words.isNotEmpty() && lines.size < maxLines) {
-            val sb = StringBuilder(words.removeAt(0))
-            while (words.isNotEmpty() && sb.length + words[0].length < width) {
-                sb.append(" " + words.removeAt(0))
+            if (words[0] == "\n") {
+                lines.add("")
+                words.removeAt(0)
+            } else {
+                val sb = StringBuilder(words.removeAt(0))
+                while (words.isNotEmpty() && sb.length + words[0].length < width && !words[0].contains("\n")) {
+                    sb.append(" " + words.removeAt(0))
+                }
+                lines.add(sb.toString())
             }
-            lines.add(sb.toString())
         }
         return lines
     }
@@ -90,6 +96,7 @@ object EditorApp {
 
         val inspectScreen = InspectScreen(tileGrid, primaryScreen)
         val memoryScreen = MemoryScreen(tileGrid, primaryScreen, gameState.encounterState)
+        val gameEndScreen = GameEndScreen(tileGrid, primaryScreen)
 
         val mapFoWTileGraphics: TileGraphics = DrawSurfaces.tileGraphicsBuilder()
             .withSize(Size.create(MAP_WIDTH, MAP_HEIGHT))
@@ -104,7 +111,7 @@ object EditorApp {
         val commentaryFragment = CommentaryFragment(GAME_WIDTH - MAP_WIDTH, COMMENTARY_HEIGHT, MAP_WIDTH, 0)
         val statsFragment = StatsFragment(GAME_WIDTH - MAP_WIDTH, STATS_HEIGHT, MAP_WIDTH, 0 + COMMENTARY_HEIGHT)
 
-        val windows = TileWindows(primaryScreen, inspectScreen, memoryScreen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, statsFragment, logVBox)
+        val windows = TileWindows(primaryScreen, inspectScreen, memoryScreen, gameEndScreen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, statsFragment, logVBox)
         // bad bad bad
         primaryScreen.windows = windows
 
