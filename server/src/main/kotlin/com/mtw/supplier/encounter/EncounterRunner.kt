@@ -3,12 +3,10 @@ package com.mtw.supplier.encounter
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.*
 import com.mtw.supplier.ecs.components.ai.AIComponent
-import com.mtw.supplier.ecs.components.ai.PathAIComponent
 import com.mtw.supplier.encounter.rulebook.Action
 import com.mtw.supplier.encounter.state.EncounterState
 import com.mtw.supplier.encounter.rulebook.Rulebook
-import com.mtw.supplier.utils.LinePathBuilder
-import com.mtw.supplier.utils.PathBuilder
+import com.mtw.supplier.encounter.state.EncounterEndState
 import org.slf4j.LoggerFactory
 
 object EncounterRunner {
@@ -42,41 +40,40 @@ object EncounterRunner {
     }
 
     fun runPlayerTurn(encounterState: EncounterState, playerAction: Action) {
-        if (encounterState.completed) { return }
-
-        // Move the player
-        Rulebook.resolveAction(playerAction, encounterState)
-        val speedComponent = playerAction.actor.getComponent(SpeedComponent::class)
-        playerAction.actor.getComponent(ActionTimeComponent::class).endTurn(speedComponent)
-
-        // Update the FoV for the player
-        encounterState.calculatePlayerFoVAndMarkExploration()
+        runPlayerTurn(encounterState, listOf(playerAction))
     }
 
     fun runPlayerTurn(encounterState: EncounterState, playerActions: List<Action>) {
-        if (encounterState.completed) { return }
+        if (encounterState.endState != EncounterEndState.ONGOING) { return }
 
         // Move the player
         Rulebook.resolveActions(playerActions, encounterState)
         val speedComponent = playerActions[0].actor.getComponent(SpeedComponent::class)
         playerActions[0].actor.getComponent(ActionTimeComponent::class).endTurn(speedComponent)
 
+        // Check for victory condition
+        if (encounterState.playerEntity().getComponent(TerrorComponent::class).currentTerror <= 0) {
+            encounterState.endState = EncounterEndState.VICTORY
+        } else if (encounterState.playerEntity().getComponent(TerrorComponent::class).currentTerror >= 100) {
+            encounterState.endState = EncounterEndState.DEFEAT
+        }
+
         // Update the FoV for the player
         encounterState.calculatePlayerFoVAndMarkExploration()
     }
 
     fun runUntilPlayerReady(encounterState: EncounterState) {
-        if (encounterState.completed) { return }
+        if (encounterState.endState != EncounterEndState.ONGOING) { return }
 
         var isPlayerReady = runNextActiveTick(encounterState)
-        while (!isPlayerReady && !encounterState.completed) {
+        while (!isPlayerReady && encounterState.endState == EncounterEndState.ONGOING) {
             isPlayerReady = runNextActiveTick(encounterState)
         }
         encounterState.calculatePlayerFoVAndMarkExploration()
     }
 
     fun runNextActiveTick(encounterState: EncounterState): Boolean {
-        if (encounterState.completed) { return false }
+        if (encounterState.endState != EncounterEndState.ONGOING) { return false }
 
         // Run the clock until the next entity is ready
         val ticksToNext = ticksToNextEvent(encounterState)
@@ -110,19 +107,4 @@ object EncounterRunner {
         //logger.info("========== END OF TURN ${encounterState.currentTime} ==========")
         return false
     }
-
-    fun runEncounter(encounterState: EncounterState, timeLimit: Int = 1000) {
-        when {
-            encounterState.completed -> throw CannotRunCompletedEncounterException()
-            encounterState.currentTime >= timeLimit -> throw CannotRunTimeLimitedException()
-            else -> {
-                while (!encounterState.completed && encounterState.currentTime < timeLimit) {
-                    this.runNextActiveTick(encounterState)
-                }
-            }
-        }
-    }
-
-    class CannotRunCompletedEncounterException : Exception("Cannot run next turn on a completed encounter!")
-    class CannotRunTimeLimitedException : Exception("Cannot run next turn on an encounter past the time limit!")
 }

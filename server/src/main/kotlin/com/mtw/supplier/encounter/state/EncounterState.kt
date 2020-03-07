@@ -44,10 +44,16 @@ class EncounterMessageLog {
     }
 }
 
+enum class EncounterEndState {
+    ONGOING,
+    VICTORY,
+    DEFEAT
+}
+
 @Serializable
 class EncounterState(
     private var _currentTime: Int = 0,
-    private var _completed: Boolean = false,
+    var endState: EncounterEndState = EncounterEndState.ONGOING,
     private var entityIdIdx: Int = 0 // TODO: uh this be dumb tho
 ) {
     val messageLog: EncounterMessageLog = EncounterMessageLog()
@@ -55,9 +61,6 @@ class EncounterState(
 
     val currentTime: Int
         get() = this._currentTime
-
-    val completed: Boolean
-        get() = this._completed
 
     fun calculatePlayerFoVAndMarkExploration() {
         this.fovCache = FoVCache.computeFoV(this.dreamMap,
@@ -104,15 +107,6 @@ class EncounterState(
     fun advanceTime(timeDiff: Int) {
         this._currentTime += timeDiff
     }
-
-    fun completeEncounter() {
-        if (this._completed) {
-            throw EncounterCannotBeCompletedTwiceException()
-        }
-        this._completed = true
-    }
-    class EncounterCannotBeCompletedTwiceException: Exception("Encounter cannot be completed twice!")
-
 
     // TODO: Possibly maintain internal list?
     fun entities(): List<Entity> {
