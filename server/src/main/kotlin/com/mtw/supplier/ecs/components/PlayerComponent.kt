@@ -2,15 +2,12 @@ package com.mtw.supplier.ecs.components
 
 import com.mtw.supplier.ecs.Component
 import com.mtw.supplier.ecs.Entity
-import com.mtw.supplier.encounter.EncounterRunner
 import com.mtw.supplier.encounter.rulebook.Action
 import com.mtw.supplier.encounter.rulebook.actions.TerrifyAction
 import com.mtw.supplier.encounter.rulebook.actions.TerrorChangeStats
 import com.mtw.supplier.encounter.state.EncounterState
 import kotlinx.serialization.Serializable
 import org.slf4j.LoggerFactory
-import kotlin.math.max
-import kotlin.math.min
 
 @Serializable
 abstract class Memory(
@@ -43,16 +40,15 @@ class PlayerComponent(
 
     val maxMemories: Int = 12
 
-    fun seenMemory(memory: Memory): Boolean {
-        return this.seenMemories.contains(memory.name)
+    fun seenEvent(eventKey: String): Boolean {
+        return this.seenMemories.contains(eventKey)
+    }
+
+    fun markEventSeen(eventKey: String) {
+        this.seenMemories.add(eventKey)
     }
 
     fun addMemory(memory: Memory) {
-        if (seenMemories.contains(memory.name)) {
-            logger.error("can't double add memory you missed your seen check")
-            return
-        }
-
         if (memories.size > maxMemories) {
             memories.remove(memories.random())
         }

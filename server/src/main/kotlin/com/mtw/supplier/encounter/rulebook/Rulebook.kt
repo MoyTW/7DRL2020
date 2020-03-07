@@ -186,8 +186,10 @@ object Rulebook {
             if (inspectComponent == null) {
                 println("You can't inspect that")
             } else {
-                if (inspectComponent.inspectEvents.isNotEmpty()) {
+                val memoryComponent = encounterState.playerEntity().getComponent(PlayerComponent::class)
+                if (inspectComponent.inspectEvents.any { !memoryComponent.seenEvent(it.eventHeader) }) {
                     val event = inspectComponent.inspectEvents.random()
+                    memoryComponent.markEventSeen(event.eventHeader)
 
                     // Handle popup
                     action.headerText = event.eventHeader
@@ -200,8 +202,8 @@ object Rulebook {
                     }
 
                     // Handle memories - i admit not sending it back for render is a silly way to do this
-                    val memoryComponent = encounterState.playerEntity().getComponent(PlayerComponent::class)
-                    if (event.memory != null && !memoryComponent.seenMemory(event.memory)) {
+
+                    if (event.memory != null) {
                         action.memory = event.memory
                         memoryComponent.addMemory(event.memory)
                     }
