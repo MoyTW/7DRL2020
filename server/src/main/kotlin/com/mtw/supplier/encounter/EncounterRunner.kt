@@ -53,6 +53,18 @@ object EncounterRunner {
         encounterState.calculatePlayerFoVAndMarkExploration()
     }
 
+    fun runPlayerTurn(encounterState: EncounterState, playerActions: List<Action>) {
+        if (encounterState.completed) { return }
+
+        // Move the player
+        Rulebook.resolveActions(playerActions, encounterState)
+        val speedComponent = playerActions[0].actor.getComponent(SpeedComponent::class)
+        playerActions[0].actor.getComponent(ActionTimeComponent::class).endTurn(speedComponent)
+
+        // Update the FoV for the player
+        encounterState.calculatePlayerFoVAndMarkExploration()
+    }
+
     fun runUntilPlayerReady(encounterState: EncounterState) {
         if (encounterState.completed) { return }
 

@@ -1,8 +1,10 @@
 package com.mtw.supplier.ui
 
 import com.mtw.supplier.ecs.components.PlayerComponent
+import com.mtw.supplier.encounter.EncounterRunner
 import com.mtw.supplier.encounter.rulebook.actions.InspectAction
 import com.mtw.supplier.encounter.state.EncounterState
+import com.sun.java.swing.plaf.windows.resources.windows
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.ComponentDecorations
 import org.hexworks.zircon.api.Components
@@ -22,8 +24,7 @@ class MemoryScreen(tileGrid: TileGrid, private val primaryScreen: Screen, privat
 
     private val textPad: Int = 6
     private val keyString: String = "ABCDEFGHIJKL"
-
-
+    
     init {
         screen.addComponent(exitButton)
         screen.theme = ColorThemes.monokaiBlue()
@@ -36,12 +37,22 @@ class MemoryScreen(tileGrid: TileGrid, private val primaryScreen: Screen, privat
 
         memoryButtons = mutableListOf()
 
-        screen.handleKeyboardEvents(KeyboardEventType.KEY_PRESSED) { keyboardEvent: KeyboardEvent, uiEventPhase: UIEventPhase ->
-            if (keyboardEvent.code == KeyCode.SPACE) {
-                primaryScreen.display()
-                UIEventResponse.processed()
-            } else {
-                UIEventResponse.pass()
+        screen.handleKeyboardEvents(KeyboardEventType.KEY_PRESSED) { keyboardEvent: KeyboardEvent, _: UIEventPhase ->
+            when (keyboardEvent.code) {
+                KeyCode.SPACE -> { primaryScreen.display(); UIEventResponse.processed() }
+                KeyCode.KEY_A -> { handleKey(keyboardEvent) }
+                KeyCode.KEY_B -> { handleKey(keyboardEvent) }
+                KeyCode.KEY_C -> { handleKey(keyboardEvent) }
+                KeyCode.KEY_D -> { handleKey(keyboardEvent) }
+                KeyCode.KEY_E -> { handleKey(keyboardEvent) }
+                KeyCode.KEY_F -> { handleKey(keyboardEvent) }
+                KeyCode.KEY_G -> { handleKey(keyboardEvent) }
+                KeyCode.KEY_H -> { handleKey(keyboardEvent) }
+                KeyCode.KEY_I -> { handleKey(keyboardEvent) }
+                KeyCode.KEY_J -> { handleKey(keyboardEvent) }
+                KeyCode.KEY_K -> { handleKey(keyboardEvent) }
+                KeyCode.KEY_L -> { handleKey(keyboardEvent) }
+                else -> { UIEventResponse.pass() }
             }
         }
 
@@ -50,11 +61,30 @@ class MemoryScreen(tileGrid: TileGrid, private val primaryScreen: Screen, privat
             UIEventResponse.processed()
         }
     }
+    
+    private fun handleKey(keyboardEvent: KeyboardEvent): UIEventResponse {
+        val char = keyboardEvent.key.toUpperCase()
+        val buttonIdx = keyString.indexOf(char)
+        println("BUTTONIDX: " + buttonIdx)
+
+        val playerComponent = encounterState.playerEntity().getComponent(PlayerComponent::class)
+        val memory = playerComponent.getMemories().getOrNull(buttonIdx)
+
+        return if (memory != null) {
+            primaryScreen.display()
+            playerComponent.removeMemory(memory)
+            EncounterRunner.runPlayerTurn(encounterState, memory.remember(encounterState))
+            EncounterRunner.runUntilPlayerReady(encounterState)
+            UIEventResponse.processed()
+        } else {
+            UIEventResponse.pass()
+        }
+    }
 
     fun display() {
         memoryButtons.map { it.detach() }
         memoryButtons.clear()
-        val memories = encounterState.playerEntity().getComponent(PlayerComponent::class).memories
+        val memories = encounterState.playerEntity().getComponent(PlayerComponent::class).getMemories()
         for (i in memories.indices) {
             val button = Components.button()
                 .withText(keyString[i] + ") " + memories[i].name)

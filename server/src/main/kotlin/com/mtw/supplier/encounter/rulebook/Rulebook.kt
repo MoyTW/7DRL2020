@@ -202,7 +202,7 @@ object Rulebook {
 
                     if (event.memory != null) {
                         action.memory = event.memory
-                        encounterState.playerEntity().getComponent(PlayerComponent::class).memories.add(event.memory)
+                        encounterState.playerEntity().getComponent(PlayerComponent::class).addMemory(event.memory)
                     }
 
                     inspectComponent.completeEvent(event)

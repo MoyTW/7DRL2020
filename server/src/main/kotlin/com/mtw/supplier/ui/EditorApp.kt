@@ -291,7 +291,7 @@ object EditorApp {
         }
     }
 
-    private fun renderGameState(windows: TileWindows, encounterState: EncounterState) {
+    fun renderGameState(windows: TileWindows, encounterState: EncounterState) {
         // Draw the map
         windows.mapFoWTileGraphics.clear()
         windows.mapEntityTileGraphics.clear()
@@ -405,10 +405,6 @@ class GameState {
     }
 
     internal fun displayMemories(memoryScreen: MemoryScreen) {
-        val memories = encounterState.playerEntity().getComponent(PlayerComponent::class).memories
-        for (memory in memories) {
-            println(memory.name)
-        }
         memoryScreen.display()
     }
         
