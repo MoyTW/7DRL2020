@@ -78,6 +78,22 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
         Entity(UUID.randomUUID().toString(), "The Big Television")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(true, character = 'T', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(InspectableComponent(
+                "The big television",
+                "Your parents used to have a smaller one, but they went and bought a new television after " +
+                    "you left for college. It was the largest television you'd ever seen in your life.",
+                mutableListOf(
+                    InspectEvent("A movie with Cesario",
+                        "There was a guy, Cesario, in college, who in hindsight was extremely obviously trying to " +
+                            "date you, but at the time you literally could not conceive of the possibility. " +
+                            "So even after you met his parents, and he met yours, and he " +
+                            "was staying over at your place over the weekend and watching a movie with you that " +
+                            "you went to the local rental store together to pick, you did " +
+                            "not pick up on what was going on. \n \n " +
+                            "Eventually, he gave up. You don't know what happened to him.",
+                        TerrorChangeStats(-10, 0, 100, "When years later you realized, you felt so happy."),
+                        TerrorChangeMemory("A movie with Cesario", TerrorChangeStats(-7, 0, 100,
+                            "Honestly you were probably cranky and angry the whole time."))))))
     }),
     CURTIS_STREET_PLAYSTATION({
         Entity(UUID.randomUUID().toString(), "The playstation 2")
@@ -111,47 +127,166 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                             "was. Still, FF7 wasn't that impactful for you. It was nice, you guess.",
                         TerrorChangeStats(-2, 50, 100, "What was the point of all that, in the end?"),
                         TerrorChangeMemory("FF7", TerrorChangeStats(-2, 40, 100, "Did playing FF7 really help you much, in the end?")))
-                )))
+                ))
+            )
     }),
     CURTIS_STREET_GAMECUBE({
         Entity(UUID.randomUUID().toString(), "The gamecube")
             .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(true, character = 'g', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(InspectableComponent(
+                "Your old Gamecube",
+                "What games other than Animal Crossing and Smash did this thing even have?",
+                mutableListOf(
+                    InspectEvent("Alex, practicing Smash",
+                        "He was, like, double as good as you at Smash. He was seriously insane. " +
+                            "You never even really figured out what wavedashing was but your brother knew. " +
+                            "He explained it to you and you kept forgetting. Eventually he just gave up. He ended up" +
+                            "going and competing in Smash tournaments (though you don't think he ever won). \n \n " +
+                            "You'd sometimes just sit on the couch and watch him practice.",
+                        TerrorChangeStats(-4, 0, 100, "Ah, how nostalgic."),
+                        TerrorChangeMemory("Watching Alex practice Smash", TerrorChangeStats(-7, 0, 100, "Those were good times."))),
+                    InspectEvent("Animal Crossing",
+                        "You loved Animal Crossing but there was always this weird pressure to it. " +
+                            "Like, the grim ticking of the clock made it anxiety-inducing in a way that you don't think was intended. " +
+                            "You can't remember many specifics, though, just flashes - fishing for fossils, the creepy gyroids, Tom Nook. " +
+                            "Weird, that you have such an emotional reaction to it but can recall so little.",
+                        null,
+                        TerrorChangeMemory("Animal Crossing", TerrorChangeStats(2, 0, 60, "You feel guilty leaving them behind.")))
+                ))
+            )
     }),
     CURTIS_STREET_ANIME_SHELF({
-        Entity(UUID.randomUUID().toString(), "Your anime shelf")
+        Entity(UUID.randomUUID().toString(), "Your anime and manga shelf")
             .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(true, character = 'S', foregroundRGB = RGB(153, 51, 0)))
+            .addComponent(InspectableComponent(
+                "Wasted time and effort",
+                "If you'd had more normal hobbies, would you have had more friends? Ha! " +
+                    "\"More\" - you had no friends from your high school.",
+                mutableListOf(
+                    InspectEvent("High school anime club",
+                        "It wasn't really a thing. There was one meeting. You don't remember what you watched. You " +
+                            "can't even remember any of the people there. \n \n " +
+                            "I guess clubs weren't really much of a thing in your school generally, but still! " +
+                            "What a pitiful bunch you must have been. \n \n " +
+                            "You suppose you should feel hurt but it's just so comical and distant you can't even pull up the strength to care.",
+                        null,
+                        null),
+                    InspectEvent("Lunch, alone",
+                        "Sometimes you'd go eat with the nerds who played D&D together, but you weren't really part of their group. " +
+                            "They were always, well, nice, but looking back on it it was probably just because you were a girl and not because of any real personal connection. " +
+                            "Isn't that depressing? You think you felt that way then, too. \n \n " +
+                            "More often you'd walk home for lunch and watch episodes of Pokemon, Sailor Moon, Fruits Basket, or Evangelion on your computer as you ate. \n \n " +
+                            "Why the hell did you watch Evangelion? Weird choice, teenage you. Misery loves company, I guess?",
+                        TerrorChangeStats(9, 0, 100, "The loneliness crashes over you like a wave."),
+                        TerrorChangeMemory("Lunch and anime", TerrorChangeStats(5, 0, 100, "High school was a real shit time, wasn't it?"))))))
     }),
     CURTIS_STREET_DDS_COUCH({
-        Entity(UUID.randomUUID().toString(), "A Segment Of The TV Couch")
+        Entity(UUID.randomUUID().toString(), "A segment of the TV couch")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(true, character = 'C', foregroundRGB = RGB(26, 26, 255)))
+            .addComponent(InspectableComponent(
+                "Bad memories and restless nights",
+                "You'd rather just not think about all those years. You weren't a great person to be " +
+                    "around, then.",
+                mutableListOf(
+                    InspectEvent("Back on the couch after college",
+                        "You didn't find a job out of college. You didn't know how. " +
+                            "You had a few interviews, but they went poorly. " +
+                            "You can't blame the interviewers. You were at best low in self-confidence, at worst " +
+                            "neurotic and self-flagellating. It's kind of incredible what a self-destructive wreck you" +
+                            "were. You weren't even socially adept enough to hide it for a few hours. Or maybe, you " +
+                            "just didn't care. \n \n " +
+                            "There's a gnawing guilt, at the edge of your brain, for what you put your parents through." +
+                            "Those times after college where you moved back in with them were not good for either you " +
+                            "or them. \n \n " +
+                            "But that was a long time ago. You've got a job, and you're better.",
+                        null,
+                        TerrorChangeMemory("Failing to get a job", TerrorChangeStats(10, 5, 100, "Even now you feel like a fraud."))),
+                    InspectEvent("You slept on this couch in high school",
+                        "When you think about it you realize you don't really know why you decided to do that. " +
+                            "That was during the middle of high school, when you were depressed. " +
+                            "The whole period's hazy in your memory. " +
+                            "Your grandpa was living in the guest bedroom, next door to the TV room, and you always felt " +
+                            "uneasy when he went into his room in the evening. Like you'd failed him by deciding to sleep " +
+                            "on the couch. He would never say that, but you wondered if he felt it. \n \n " +
+                            "But that was a long time ago. He's passed, and you're better.",
+                        null,
+                        TerrorChangeMemory("High school despair", TerrorChangeStats(6, 0, 100, "You don't want to remember that.")))))
+            )
     }),
     CURTIS_STREET_MIDDLE_TOILET({
-        Entity(UUID.randomUUID().toString(), "The Middle Toilet")
+        Entity(UUID.randomUUID().toString(), "The middle toilet")
             .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(true, character = 'O', foregroundRGB = RGB(0, 51, 51)))
+            .addComponent(InspectableComponent(
+                "Your favourite toilet",
+                "It was large, nice, and clean (that last part was because everybody in the house was very" +
+                    " clean). Your mom worked very hard at that.",
+                mutableListOf())
+            )
     }),
     CURTIS_STREET_MIDDLE_SHOWER({
-        Entity(UUID.randomUUID().toString(), "The Middle Shower")
+        Entity(UUID.randomUUID().toString(), "Your favourite shower")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(true, character = 'S', foregroundRGB = RGB(204, 255, 255)))
+            .addComponent(InspectableComponent(
+                "Your favourite shower",
+                "For a while, the plumbing was kind of broken and it would never go below a certain heat. " +
+                    "The heat was fine by you, though, you liked hot showers. The dermatologist said you shouldn't " +
+                    "take hot showers, and you shouldn't take long showers, but you defied both commandments. " +
+                    "You went through absurd amounts of moisturizing cream as a result.",
+                mutableListOf(
+                    InspectEvent("A feeling of warmth and safety",
+                        "Nobody will ever bother you when you're showering. It's warm, and the water is hot, and you " +
+                            "wish you could stay here, not doing anything, not dealing with anything, not worrying.",
+                            TerrorChangeStats(-4, 0, 100, "It's safe, here."),
+                        null)))
+            )
     }),
     CURTIS_STREET_MIDDLE_SINK({
-        Entity(UUID.randomUUID().toString(), "The Middle Sink")
+        Entity(UUID.randomUUID().toString(), "The middle sink")
             .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(true, character = 'I', foregroundRGB = RGB(0, 102, 0)))
+            .addComponent(InspectableComponent(
+                "The sink in the middle bathroom",
+                "It's a nice sink. Mom kept it clean.",
+                mutableListOf()
+            ))
     }),
     CURTIS_STREET_SMALL_PLASITC_TRASH_BIN({
         Entity(UUID.randomUUID().toString(), "One Of The Tiny Trash Bins")
             .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(true, character = 'b', foregroundRGB = RGB(0, 10, 26)))
+            .addComponent(InspectableComponent(
+                "One of the tiny trash bins",
+                "Mom would empty every trash bin in the house every night, like clockwork. She washed " +
+                    "dishes, did laundry, and cleaned the house like it was her job. Well, you suppose it was, to " +
+                    "her.",
+                mutableListOf()
+            ))
     }),
     CURTIS_STREET_MIDDLE_MIRROR({
-        Entity(UUID.randomUUID().toString(), "Your Favourite Mirror")
+        Entity(UUID.randomUUID().toString(), "A huge mirror")
             .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(true, character = 'm', foregroundRGB = RGB(255, 255, 255)))
+            .addComponent(InspectableComponent(
+                "A gigantic, wall-length mirror",
+                "Somehow you avoided looking at yourself almost entirely right up until, what? Five years ago?",
+                mutableListOf(
+                    InspectEvent("A fat, ugly idiot with eyes full of resentment",
+                        "Did you really look like that, or is that what you think you would have looked like, if " +
+                            "you'd seen yourself? You don't know. You screamed at your parents whenever they took " +
+                            "your picture. The only ones you have are family photos, taken with your " +
+                            "extended family. Of course you didn't scream then, that would have been disgraceful. " +
+                            "But you never went back and looked at those photos. \n \n " +
+                            "Your cousins would have photos of their family and extended family on display in their " +
+                            "house, full of smiling kids and parents. Your parents never put any photos up in your " +
+                            "house. They knew you'd throw a tantrum if they did.",
+                        TerrorChangeStats(1, 0, 100, "You think it's probably an illusion."),
+                        TerrorChangeMemory("Running from the camera", TerrorChangeStats(13, 0, 100, "They just wanted pictures of their kids."))))
+            ))
     }),
     HOSPITAL_ER_CHAIR({
         Entity(UUID.randomUUID().toString(), "An ER chair")
@@ -278,7 +413,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.BETTYS_BACKYARD_FRUITS
         ),
         tags = listOf(RoomTags.JULIANN))),
-    /*CURTIS_STREET_BEDROOM(DreamRoomBlueprintData(
+    CURTIS_STREET_BEDROOM(DreamRoomBlueprintData(
         "Your old bedroom",
         "You shared it with Alex until you left for college, aside from those years you stole the TV " +
             "room for yourself. You always found it kind of weird that your parents didn't mind making a brother and " +
@@ -292,7 +427,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_MY_DRESSER,
             EntityBlueprint.CURTIS_STREET_ALEXS_BED
         ),
-        tags = listOf(RoomTags.CURTIS_ST))),*/
+        tags = listOf(RoomTags.CURTIS_ST))),
     CURTIS_STREET_DOWN_DOWNSTAIRS(DreamRoomBlueprintData(
         "The down-downstairs TV room",
         "When you were fighting with your parents, you abandoned your room. You slept on this couch, " +
@@ -312,7 +447,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_DDS_COUCH
         ),
         tags = listOf(RoomTags.CURTIS_ST))),
-    /*CURTIS_STREET_MIDDLE_BATHROOM(DreamRoomBlueprintData(
+    CURTIS_STREET_MIDDLE_BATHROOM(DreamRoomBlueprintData(
         "The middle bathroom",
         "This was your favorite bathroom. The shower was nice and hot, there was plenty of space near " +
             "the sink, and the mirror was huge and always clear. You feel comfortable here.",
@@ -327,7 +462,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_SMALL_PLASITC_TRASH_BIN,
             EntityBlueprint.CURTIS_STREET_MIDDLE_MIRROR
         ),
-        tags = listOf(RoomTags.CURTIS_ST))),*/
+        tags = listOf(RoomTags.CURTIS_ST))),
     ASTHMA_HOSPITAL_EMERGENCY_ROOM(DreamRoomBlueprintData(
         "Emergency Room",
         "Your wheezing is terrifying in your young ears. Every breath results in a huge, hacking cough. " +

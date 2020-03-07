@@ -60,7 +60,7 @@ class GameEndScreen(tileGrid: TileGrid, private val primaryScreen: PrimaryScreen
             "It's dark, and you can hear the wheezing in your rapid breaths. " +
                 "Your room is wrong. Somehow you've managed to turn yourself around in bed. " +
                 "You can't see your alarm clock's readout when you turn your head to the left. " +
-                "Instead it's over near your feet." +
+                "Instead it's over near your feet. " +
                 "Your pillow has vanished, probably onto the floor like it usually does. \n \n " +
                 "You gingerly peel the sheets off and step off your bed. You breathe. Breathing is important. " +
                 "You recite the multiplication tables in your head. 1*1 is 1. 1*2 is 2. 1*3...3*4...7*3... " +
