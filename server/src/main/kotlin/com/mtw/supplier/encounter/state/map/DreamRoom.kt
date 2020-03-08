@@ -2,6 +2,7 @@ package com.mtw.supplier.encounter.state.map
 
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.RoomPositionComponent
+import com.mtw.supplier.encounter.state.map.blueprint.RoomTags
 import kotlinx.serialization.Serializable
 
 interface DreamTileI {
