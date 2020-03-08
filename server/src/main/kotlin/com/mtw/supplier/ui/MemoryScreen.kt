@@ -1,6 +1,7 @@
 package com.mtw.supplier.ui
 
 import com.mtw.supplier.ecs.components.PlayerComponent
+import com.mtw.supplier.ecs.components.TerrorChangeMemory
 import com.mtw.supplier.encounter.EncounterRunner
 import com.mtw.supplier.encounter.state.EncounterState
 import org.hexworks.zircon.api.ColorThemes
@@ -20,7 +21,7 @@ class MemoryScreen(tileGrid: TileGrid, private val primaryScreen: PrimaryScreen,
         .build()
     private val memoryButtons: MutableList<AttachedComponent> // TODO: see if you can color these!
 
-    private val textPad: Int = 6
+    private val textPad: Int = 2
     private val keyString: String = "ABCDEFGHIJKL"
     
     init {
@@ -84,8 +85,20 @@ class MemoryScreen(tileGrid: TileGrid, private val primaryScreen: PrimaryScreen,
         memoryButtons.clear()
         val memories = encounterState.playerEntity().getComponent(PlayerComponent::class).getMemories()
         for (i in memories.indices) {
+            val memory = memories[i]
+            var label = keyString[i] + ") " + memories[i].name
+
+            if (memory is TerrorChangeMemory) {
+                val stats = (memory as TerrorChangeMemory).terrorChangeStats
+                label += if (stats.dTerror > 0) {
+                    " (+${stats.dTerror} max ${stats.changesUpToMax})"
+                } else {
+                    " (${stats.dTerror} min ${stats.changesDownToMin})"
+                }
+            }
+
             val button = Components.button()
-                .withText(keyString[i] + ") " + memories[i].name)
+                .withText(label)
                 .withPosition(textPad, i*2 + 4)
                 .build()
             memoryButtons.add(screen.addComponent(button))
