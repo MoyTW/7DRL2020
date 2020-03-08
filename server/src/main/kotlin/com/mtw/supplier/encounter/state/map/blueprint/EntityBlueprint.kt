@@ -301,7 +301,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                         "Sometimes you'd go eat with the nerds who played D&D together, but you weren't really part of their group. " +
                             "They were always, well, nice, but looking back on it it was probably just because you were a girl and not because of any real personal connection. " +
                             "Isn't that depressing? You think you felt that way then, too. \n \n " +
-                            "More often you'd walk home for lunch and watch episodes of Pokemon, Sailor Moon, Fruits Basket, or Evangelion on your computer as you ate. \n \n " +
+                            "More often you'd walk home for lunch and watch episodes of Pokemon, Cardcaptor Sakura, Fruits Basket, or Evangelion on your computer as you ate. \n \n " +
                             "Why the hell did you watch Evangelion? Weird choice, teenage you. You guess misery loves company?",
                         TerrorChangeStats(9, 0, 100, "The loneliness crashes over you like a wave."),
                         TerrorChangeMemory("Lunch and anime", TerrorChangeStats(5, 0, 100, "High school was a real shit time, wasn't it?")))
@@ -552,7 +552,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                 mutableListOf(InspectEvent("You shouldn't be here",
                     "You should leave.",
                     TerrorChangeStats(10, 0, 95, "This place is dangerous."),
-                    TerrorChangeMemory("You don't want to remember this.", TerrorChangeStats(30, 0, 100, "Please don't remember this.")))
+                    TerrorChangeMemory("Please don't remember this. Not now.", TerrorChangeStats(30, 0, 100, "No. You refuse. It creeps in sideways anyhow.")))
                 )))
     }),
     A_FAMILIAR_CAR({
@@ -565,7 +565,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                 mutableListOf(InspectEvent("This car is dangerous",
                     "Don't get in.",
                     TerrorChangeStats(10, 0, 95, "Nothing here is safe."),
-                    TerrorChangeMemory("You don't want to remember this.", TerrorChangeStats(30, 0, 100, "Please don't remember this.")))
+                    TerrorChangeMemory("Please don't remember this. Not now.", TerrorChangeStats(30, 0, 100, "No. You refuse. It creeps in sideways anyhow.")))
                 )))
     }),
     A_FAMILIAR_CAR_ALEXANDER({
