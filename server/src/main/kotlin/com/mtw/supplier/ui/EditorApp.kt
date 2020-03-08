@@ -94,6 +94,9 @@ object EditorApp {
 
         val primaryScreen = PrimaryScreen(tileGrid.toScreen(), gameState.encounterState)
 
+        val introductionScreen = IntroductionScreen(tileGrid, primaryScreen)
+        introductionScreen.display()
+
         val inspectScreen = InspectScreen(tileGrid, primaryScreen)
         val memoryScreen = MemoryScreen(tileGrid, primaryScreen, gameState.encounterState)
         val gameEndScreen = GameEndScreen(tileGrid, primaryScreen)
