@@ -4,7 +4,6 @@ import com.mtw.supplier.ecs.components.RGB
 import kotlinx.serialization.Serializable
 import org.hexworks.zircon.api.color.TileColor
 
-@Serializable
 enum class ThemeTag(val tileColor: TileColor) {
     // Entity Tags
     YOU(TileColor.create(0, 0, 255)),
