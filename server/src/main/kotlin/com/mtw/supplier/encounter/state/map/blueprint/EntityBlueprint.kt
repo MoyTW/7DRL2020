@@ -812,4 +812,26 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                         null)
                 )))
     }),
+    STRANGE_PLACE_LEECH({
+        Entity(UUID.randomUUID().toString(), "A gigantic leech")
+            .addComponent(CollisionComponent.mover())
+            .addComponent(DisplayComponent(true, character = 'L', foregroundRGB = ThemeTag.STRANGE_PLACE.rgb))
+            .addComponent(StrangePlaceLeechAIComponent())
+            .addComponent(SpeedComponent(150))
+            .addComponent(ActionTimeComponent(150))
+            .addComponent(InspectableComponent(
+                "It pulls itself towards you",
+                "You have a vision of it bursting out of your foot and shudder.",
+                mutableListOf(
+                    InspectEvent("It raises itself up like a snake",
+                        "It's in your foot! You bite your lip hard, and taste blood. It's in your foot, it's " +
+                            "growing in your foot! You can feel it! You swing your packpack over your front and " +
+                            "frantically grab the heaviest textbook you can find. You drop your backpack, grit your " +
+                            "teeth, and shut your eyes. Then you slam the textbook down into your foot with all your strength. \n \n " +
+                            "For a moment, you cannot think at all. The pain is indescribable. \n \n " +
+                            "When you open your eyes, the leech is back where it was, watching you, like a snake.",
+                        TerrorChangeStats(25, 0, 100, "Your foot aches, faintly."),
+                        TerrorChangeMemory("Parasite dreams", TerrorChangeStats(25, 50, 100, "You shudder, and try not to look at your foot.")))
+                )))
+    }),
 }

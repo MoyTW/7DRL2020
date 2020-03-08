@@ -240,6 +240,17 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.STRANGE_PLACE_VOLCANO
         ),
         tag = ThemeTag.STRANGE_PLACE)),
+    STRANGE_PLACE_LEECHES(DreamRoomBlueprintData(
+        "Walking to school",
+        "You don't like walking to school after it rains.",
+        minWidth = 20, maxWidth = 30,
+        minHeight = 5, maxHeight = 5,
+        wallColor = ThemeTag.STRANGE_PLACE.tileColor,
+        entities = listOf(
+            EntityBlueprint.STRANGE_PLACE_LEECH,
+            EntityBlueprint.STRANGE_PLACE_LEECH
+        ),
+        tag = ThemeTag.STRANGE_PLACE)),
     VEGAS_THE_STRIP(DreamRoomBlueprintData(
         "The Vegas Strip",
         "The strip is alive at night and you hate it. There are misters spraying water onto patrons, and " +
