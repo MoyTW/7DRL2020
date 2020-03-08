@@ -124,6 +124,133 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                 "You know, you should really know what kind of fruit this thing gives by now.",
                 mutableListOf()))
     }),
+    JULIANNS_DESK({
+        Entity(UUID.randomUUID().toString(), "Your old desk")
+            .addComponent(CollisionComponent.mover())
+            .addComponent(DisplayComponent(true, character = 'D', foregroundRGB = ThemeTags.JULIANN.rgb))
+            .addComponent(InspectableComponent(
+                "Your old desk",
+                "You never used it anyways, so Juliann took it. " +
+                    "You're not sure what happened to Alex's old desk.",
+                mutableListOf()))
+    }),
+    JULIANNS_LAPTOP({
+        Entity(UUID.randomUUID().toString(), "Juliann's old laptop")
+            .addComponent(CollisionComponent.passable())
+            .addComponent(DisplayComponent(true, character = 'l', foregroundRGB = ThemeTags.JULIANN.rgb))
+            .addComponent(InspectableComponent(
+                "Juliann's old laptop",
+                "It's a macbook of some persuasion.",
+                mutableListOf(
+                    InspectEvent("You arrived early once",
+                        "Like, silly early. More than half an hour. " +
+                            "You weren't really sure to what - you were gonna get dinner together, or something. " +
+                            "Juliann let you in, and apologized, and said she had a scheduled a call with this person " +
+                            "from Chile she'd met when she was doing her NGO work, and asked if you needed anything. " +
+                            "You said no, then sat awkwardly out of camera, fiddling with your phone, as she talked in " +
+                            "Spanish to her friend. \n \n " +
+                            "You resented this random Chilean, even though he'd done nothing wrong. You resented " +
+                            "Juliann a little too, even though she'd done nothing wrong. " +
+                            "You tried to kill that feeling but feelings are hard to kill sometimes.",
+                        TerrorChangeStats(1, 0, 70, "What a terrible thing to think."),
+                        TerrorChangeMemory("Juliann and the Chilean", TerrorChangeStats(2, 0, 80,
+                            "You wish you could never be resentful again.")))
+                )))
+    }),
+    JULIANNS_TABLE({
+        Entity(UUID.randomUUID().toString(), "Juliann's apartment table")
+            .addComponent(CollisionComponent.mover())
+            .addComponent(DisplayComponent(true, character = 'T', foregroundRGB = ThemeTags.JULIANN.rgb))
+            .addComponent(InspectableComponent(
+                "Juliann's apartment table",
+                "It's a inexpensive folding table, though it's surprisingly sturdy. She's put a nice " +
+                    "tablecloth over it.",
+                mutableListOf(
+                    InspectEvent("Board games with her friends",
+                        "She invited you to play board games, once. It was her and two of her friends. " +
+                            "You weren't super charming or anything but as far as you can tell you didn't bring shame " +
+                            "upon either Juliann or yourself, and you had a good time, so that was a success.",
+                        TerrorChangeStats(-4, 0, 100, "A tiny step on a long path."),
+                        TerrorChangeMemory("Board games with Juliann", TerrorChangeStats(-6, 25, 100,
+                            "You got better at it eventually.")))
+                )))
+    }),
+    JULIANNS_COOKING_UTENSILS({
+        Entity(UUID.randomUUID().toString(), "Juliann's kitchen equipment")
+            .addComponent(CollisionComponent.mover())
+            .addComponent(DisplayComponent(true, character = 'K', foregroundRGB = ThemeTags.JULIANN.rgb))
+            .addComponent(InspectableComponent(
+                "Juliann's kitchen equipment",
+                "It's an impressive array, to be sure. " +
+                    "She's got a battery of pie pans (she loves baking) and some nice knives and some more obscure " +
+                    "stuff, like a drum sieve. Got a nice stand mixer, too.",
+                mutableListOf(
+                    InspectEvent("Juliann loved to cook",
+                        "She cooked with her mom, a lot, and she was good at it. " +
+                            "You always felt a little jealous. That was something that...you felt mixed messages on. " +
+                            "Both your moms took being a wife very seriously, which isn't really something that American " +
+                            "girls get told explicitly, and a lot of the messaging is anti-that, but then, " +
+                            "it's still there and it still basically expects wives to " +
+                            "keep up the house and manage the children, and so the fact that you never really learned " +
+                            "to cook felt like a failure. \n \n " +
+                            "And then, to double the insult, cooking for yourself became popular and cool and upper " +
+                            "class, and like half of the younger men at work are way better cooks than you and ugh.",
+                        TerrorChangeStats(2, 0, 75, "Bah!"),
+                        TerrorChangeMemory("Cooking is cool, now", TerrorChangeStats(5, 25, 100,
+                            "That's how it goes, but you don't like it.")))
+                )))
+    }),
+    JULIANNS_FOLDING_CHAIRS({
+        Entity(UUID.randomUUID().toString(), "One of Juliann's chairs")
+            .addComponent(CollisionComponent.passable())
+            .addComponent(DisplayComponent(true, character = 'c', foregroundRGB = ThemeTags.JULIANN.rgb))
+            .addComponent(InspectableComponent(
+                "A folding chair",
+                "It's cheap and folds for easy storage and transport.",
+                mutableListOf()))
+    }),
+    CURTIS_STREET_YOUR_OLD_DESK({
+        Entity(UUID.randomUUID().toString(), "Your old desk")
+            .addComponent(CollisionComponent.mover())
+            .addComponent(DisplayComponent(true, character = 'D', foregroundRGB = ThemeTags.YOU.rgb))
+            .addComponent(InspectableComponent(
+                "Your old desk",
+                "It's a wooden desk, pretty nice, but a little small for a fully grown adult. " +
+                    "There wasn't quite enough leg room for you by the end of high school. It's otherwise unremarkable.",
+                mutableListOf(
+                    InspectEvent("Studying",
+                        "You hated studying in your room. You never much used the desk for that. " +
+                            "You would lie on the floor and study, sometimes, or you'd use the living room table. " +
+                            "That presented problems when you were fighting with your parents, though. \n \n " +
+                            "You never much used the desk for other things, either. " +
+                            "Only some light drawing, but you never got enough confidence in your art to think you " +
+                            "could make something of it.",
+                        null,
+                        null)
+                )))
+    }),
+    CURTIS_STREET_ALEXS_OLD_DESK({
+        Entity(UUID.randomUUID().toString(), "Alex's old desk")
+            .addComponent(CollisionComponent.mover())
+            .addComponent(DisplayComponent(true, character = 'D', foregroundRGB = ThemeTags.ALEX.rgb))
+            .addComponent(InspectableComponent(
+                "Alex's old desk",
+                "He, at least, ended up doing well.",
+                mutableListOf(
+                    InspectEvent("Alex's schoolwork",
+                        "He took his classes more seriously. He got some sort of ridiculous GPA in high " +
+                            "school, something like 4.3, which was only possible at my school if you took literally " +
+                            "all the AP classes possible. And he had a group of friends that he hung out with, many of " +
+                            "which he still talks to, in addition to the friends he made in college. " +
+                            "And then he got a great job, too, making lots of money, that he enjoys. \n \n " +
+                            "You feel like a failure of an older sister. " +
+                            "You wish you could've been something other than a burden to him. \n \n " +
+                            "You're so, so grateful to him for putting up with you.",
+                        TerrorChangeStats(-3, 0, 100, "Studying really did pay off for him."),
+                        TerrorChangeMemory("Your brother is so much better", TerrorChangeStats(-8, 0, 100,
+                            "You're glad he ended up doing well, despite you.")))
+                )))
+    }),
     CURTIS_STREET_MY_BED({
         Entity(UUID.randomUUID().toString(), "Your teenage bed")
             .addComponent(CollisionComponent.mover())
@@ -159,7 +286,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     CURTIS_STREET_MY_DRESSER({
         Entity(UUID.randomUUID().toString(), "Your dresser")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'D', foregroundRGB = ThemeTags.YOU.rgb))
+            .addComponent(DisplayComponent(true, character = 'R', foregroundRGB = ThemeTags.YOU.rgb))
             .addComponent(InspectableComponent(
                 "Your dresser",
                 "The sturdiest dresser you've ever known, your faithful companion.",

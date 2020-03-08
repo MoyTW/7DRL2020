@@ -70,6 +70,21 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.BETTYS_BACKYARD_FRUITS
         ),
         tags = listOf(ThemeTags.JULIANN))),
+    JULIANNS_APARTMENT(DreamRoomBlueprintData(
+        "Juliann's old apartment",
+        "It's small, but lively. There are two bedrooms and you know she was sharing it with a college " +
+            "friend, but you never met her roommate. It's clean and well-organized.",
+        minWidth = 8, maxWidth = 8,
+        minHeight = 8, maxHeight = 8,
+        wallColor = ThemeTags.JULIANN.tileColor,
+        entities = listOf(
+            EntityBlueprint.JULIANNS_DESK,
+            EntityBlueprint.JULIANNS_LAPTOP,
+            EntityBlueprint.JULIANNS_TABLE,
+            EntityBlueprint.JULIANNS_COOKING_UTENSILS,
+            EntityBlueprint.JULIANNS_FOLDING_CHAIRS
+        ),
+        tags = listOf(ThemeTags.JULIANN))),
     CURTIS_STREET_BEDROOM(DreamRoomBlueprintData(
         "Your old bedroom",
         "You shared it with Alex until you left for college, aside from those years you stole the TV " +
@@ -80,6 +95,8 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         wallColor = TileColor.create(255, 153, 204),
         // hopefully wood veneer-ish
         entities = listOf(
+            EntityBlueprint.CURTIS_STREET_YOUR_OLD_DESK,
+            EntityBlueprint.CURTIS_STREET_ALEXS_OLD_DESK,
             EntityBlueprint.CURTIS_STREET_SMALL_PLASITC_TRASH_BIN,
             EntityBlueprint.CURTIS_STREET_MY_BED,
             EntityBlueprint.CURTIS_STREET_MY_DRESSER,
