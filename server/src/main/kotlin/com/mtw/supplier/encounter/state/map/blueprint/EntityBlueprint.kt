@@ -2,6 +2,7 @@ package com.mtw.supplier.encounter.state.map.blueprint
 
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.*
+import com.mtw.supplier.ecs.components.ai.*
 import com.mtw.supplier.encounter.rulebook.actions.TerrorChangeStats
 import org.hexworks.cobalt.core.api.UUID
 
@@ -423,21 +424,43 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
         Entity(UUID.randomUUID().toString(), "The ER receptionist")
             .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(false, character = 'R', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
+            .addComponent(HospitalErReceptionistAIComponent())
+            .addComponent(SpeedComponent(50))
+            .addComponent(ActionTimeComponent(50))
+            .addComponent(InspectableComponent(
+                "A harried receptionist",
+                "You don't remember the person, more the idea of a person. She's a wavy figure in blue scrubs, but " +
+                    "did she really have blue scrubs? Was it, in fact, a she? Did she pay attention to you and only " +
+                    "you?",
+                mutableListOf()))
     }),
     HOSPITAL_ER_ELDERLY_COUGHER({
         Entity(UUID.randomUUID().toString(), "An elderly cougher")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(false, character = 'G', foregroundRGB = RGB(255, 0, 0)))
+            .addComponent(DisplayComponent(false, character = 'E', foregroundRGB = RGB(255, 0, 0)))
+            .addComponent(HospitalErElderlyCougherAIComponent())
+            .addComponent(SpeedComponent(250))
+            .addComponent(ActionTimeComponent(250))
+            .addComponent(InspectableComponent(
+                "A dying octogenarian",
+                "Lungs wet and full of pus, spewing out fetid air, gasping, dying.",
+                mutableListOf()))
     }),
     HOSPITAL_ER_BABY({
         Entity(UUID.randomUUID().toString(), "A baby, in a pram")
             .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(false, character = 'B', foregroundRGB = RGB(255, 0, 0)))
+            .addComponent(HospitalErBabyAIComponent())
+            .addComponent(SpeedComponent(200))
+            .addComponent(ActionTimeComponent(200))
     }),
     HOSPITAL_ER_PARENT({
         Entity(UUID.randomUUID().toString(), "A worried parent")
             .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(false, character = 'P', foregroundRGB = RGB(0, 102, 0)))
+            .addComponent(HospitalErParentAIComponent())
+            .addComponent(SpeedComponent(200))
+            .addComponent(ActionTimeComponent(200))
     }),
     HOSPITAL_CURTAINS({
         Entity(UUID.randomUUID().toString(), "Hospital curtains")
@@ -463,7 +486,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
         Entity(UUID.randomUUID().toString(), "A familiar figure")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(false, character = '!', foregroundRGB = RGB(0, 0, 0)))
-            .addComponent(com.mtw.supplier.ecs.components.ai.FamiliarFigureAIComponent())
+            .addComponent(FamiliarFigureAIComponent())
             .addComponent(SpeedComponent(150))
             .addComponent(ActionTimeComponent(150))
     }),

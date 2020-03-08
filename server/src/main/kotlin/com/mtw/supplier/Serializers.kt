@@ -16,6 +16,7 @@ object Serializers {
                 // ai
                 AIComponent::class with AIComponent.serializer()
                 FamiliarFigureAIComponent::class with FamiliarFigureAIComponent.serializer()
+                HospitalErReceptionistAIComponent::class with HospitalErReceptionistAIComponent.serializer()
                 PathAIComponent::class with PathAIComponent.serializer()
 
                 // item
