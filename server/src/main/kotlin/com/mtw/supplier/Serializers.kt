@@ -15,10 +15,8 @@ object Serializers {
             polymorphic(Component::class) {
                 // ai
                 AIComponent::class with AIComponent.serializer()
-                EnemyScoutAIComponent::class with EnemyScoutAIComponent.serializer()
                 FamiliarFigureAIComponent::class with FamiliarFigureAIComponent.serializer()
                 PathAIComponent::class with PathAIComponent.serializer()
-                TestAIComponent::class with TestAIComponent.serializer()
 
                 // item
                 CarryableComponent::class with CarryableComponent.serializer()
