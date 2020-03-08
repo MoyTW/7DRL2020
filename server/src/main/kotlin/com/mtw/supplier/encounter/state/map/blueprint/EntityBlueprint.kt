@@ -126,33 +126,75 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     CURTIS_STREET_MY_BED({
         Entity(UUID.randomUUID().toString(), "Your teenage bed")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = RGB(0, 173, 238)))
+            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = ThemeTags.YOU.rgb))
             .addComponent(InspectableComponent(
-                "Betty's living room desk",
-                "Incredibly unexceptional, as far as desks go. Covered with paperwork from Betty's business, usually.",
+                "Your teenaage bed",
+                "Not much here but bad memories.",
                 mutableListOf(
-                    InspectEvent("Your mom and Betty, arguing",
-                        "Betty took debts very seriously. Somehow Betty owed your mom twenty dollars, probably because " +
-                            "they went out to eat together, so one day they were talking and Betty tried to give your " +
-                            "mom the money. Your mom was like, oh, it's no big deal! but Betty said it was, and your " +
-                            "mom wouldn't back down, and so on, and so on, with them becoming increasingly loud. " +
-                            "Eventually, Betty just slapped the twenty dollars down on the table and left the house, " +
-                            "even though it was *her house*. \n \n " +
-                            "You were trying not to die from laughter the whole time.",
-                        TerrorChangeStats(-6, 0, 100, "Hahahahahahaha!"),
-                        TerrorChangeMemory("Betty and your mom", TerrorChangeStats(-4, 0, 100,
-                            "You hope you can have a friend like that.")))
+                    InspectEvent("You and a razor blade",
+                        "You only ever had one suicide \"attempt\", and it was a pretty weak one. You took " +
+                            "an exacto knife one day, sat in your bed, and scored your wrists. You didn't break the " +
+                            "skin. It was mostly to spite your mom. \n \n " +
+                            "Your mom freaked out and called the police. " +
+                            "You sat in bed as she demanded they come take you away, and then just felt " +
+                            "incredibly dumb and ashamed for making the police deal with your mom, who was clearly overreacting. " +
+                            "If you were really serious you'd be dead already, couldn't she see that? \n \n " +
+                            "You wanted to shout, \"MOM I'M NOT A DANGER TO MYSELF OR OTHERS STOP CALLING THE POLICE!\" \n \n" +
+                            "Christ, you were an idiot.",
+                        TerrorChangeStats(3, 0, 100, "It's a wonder your mom didn't kill you yourself."),
+                        TerrorChangeMemory("Your \"suicide attempt\"", TerrorChangeStats(-6, 0, 100,
+                            "You feel terrible but it seems funny to you now."))),
+                    InspectEvent("A hole in the wall",
+                        "At some point in the midst of the nightmare that was high school you took a dictionary and smashed the wall with it, right behind the head of your bed. " +
+                            "It left a sizable dent. Walls are shockingly fragile. Who knew? \n \n " +
+                            "You mentioned it to one of the psychiatrists later and smugly added that, of course you " +
+                            "didn't punch the wall with your hand, you could hurt yourself that way. \n \n " +
+                            "You were a real piece of work, huh.",
+                        TerrorChangeStats(-1, 50, 100, "You were a real weird kid."),
+                        TerrorChangeMemory("Dictionary versus bedroom wall", TerrorChangeStats(-3, 60, 100,
+                            "It's just so absurd.")))
                 )))
     }),
     CURTIS_STREET_MY_DRESSER({
-        Entity(UUID.randomUUID().toString(), "Your Teenage Dresser")
+        Entity(UUID.randomUUID().toString(), "Your dresser")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'R', foregroundRGB = RGB(0, 173, 238)))
+            .addComponent(DisplayComponent(true, character = 'D', foregroundRGB = ThemeTags.YOU.rgb))
+            .addComponent(InspectableComponent(
+                "Your dresser",
+                "The sturdiest dresser you've ever known, your faithful companion.",
+                mutableListOf(
+                    InspectEvent("You've taken it everywhere",
+                        "The dresser is big, wooden, and sturdy. You've taken it everywhere you've moved, except for that one internship in Iowa. " +
+                            "Other than that it's followed you from home to college back to your parents' house, to " +
+                            "your first apartment, second apartment, third apartment, and finally the house you live in now. " +
+                            "It has ample storage space, and is just generally very nice. Never let you down yet.",
+                        TerrorChangeStats(-4, 40, 100, "It's a wonder your mom didn't kill you yourself."),
+                        null)
+                )))
     }),
     CURTIS_STREET_ALEXS_BED({
-        Entity(UUID.randomUUID().toString(), "Alex's Childhood Bed")
+        Entity(UUID.randomUUID().toString(), "Alex's childhood bed")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = RGB(0, 139, 0)))
+            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = ThemeTags.ALEX.rgb))
+            .addComponent(InspectableComponent(
+                "Alex's childhood bed",
+                "It is impossible for you to reflect upon this without thinking, \"man! that's a creepy " +
+                    "thing I did wasn't it?\" Like older siblings don't usually literally steal their younger siblings' " +
+                    "beds, much less - like is it weirder if an older brother steals his younger brothers' bed, or an " +
+                    "older sister steals her younger brothers' bed? \n \n " +
+                    "Just flat-out bizarre.",
+                mutableListOf(
+                    InspectEvent("Stealing your brothers' bed",
+                        "At some point you started taking up the habit of just stealing Alex's bed. You'd go to sleep " +
+                            "before him, but just...using his bed instead of yours. Or you'd just nap in his bed. Not " +
+                            "always, of course, but often enough to be a serious problem. \n \n " +
+                            "He wasn't thrilled, but he went along with it. Alex put up with a lot, frankly. \n \n " +
+                            "You've never told anybody about this. You wouldn't know how to, at least not without coming across as insane. " +
+                            "You don't even know what to make of it yourself.",
+                        TerrorChangeStats(-4, 0, 100, "It made you feel safe."),
+                        TerrorChangeMemory("Stealing Alex's bed", TerrorChangeStats(-1, 0, 100,
+                            "What were you thining?")))
+                )))
     }),
     CURTIS_STREET_BIG_TV({
         Entity(UUID.randomUUID().toString(), "The Big Television")
@@ -173,7 +215,8 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                             "Eventually, he gave up. You don't know what happened to him.",
                         TerrorChangeStats(-10, 0, 100, "When years later you realized, you felt so happy."),
                         TerrorChangeMemory("A movie with Cesario", TerrorChangeStats(-7, 0, 100,
-                            "Honestly you were probably cranky and angry the whole time."))))))
+                            "Honestly you were probably cranky and angry the whole time.")))
+                )))
     }),
     CURTIS_STREET_PLAYSTATION({
         Entity(UUID.randomUUID().toString(), "The playstation 2")
@@ -207,8 +250,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                             "was. Still, FF7 wasn't that impactful for you. It was nice, you guess.",
                         TerrorChangeStats(-2, 50, 100, "What was the point of all that, in the end?"),
                         TerrorChangeMemory("FF7", TerrorChangeStats(-2, 40, 100, "Did playing FF7 really help you much, in the end?")))
-                ))
-            )
+                )))
     }),
     CURTIS_STREET_GAMECUBE({
         Entity(UUID.randomUUID().toString(), "The gamecube")
@@ -233,8 +275,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                             "Weird, that you have such an emotional reaction to it but can recall so little.",
                         null,
                         TerrorChangeMemory("Animal Crossing", TerrorChangeStats(2, 0, 60, "You feel guilty leaving them behind.")))
-                ))
-            )
+                )))
     }),
     CURTIS_STREET_ANIME_SHELF({
         Entity(UUID.randomUUID().toString(), "Your anime and manga shelf")
@@ -260,7 +301,8 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                             "More often you'd walk home for lunch and watch episodes of Pokemon, Sailor Moon, Fruits Basket, or Evangelion on your computer as you ate. \n \n " +
                             "Why the hell did you watch Evangelion? Weird choice, teenage you. You guess misery loves company?",
                         TerrorChangeStats(9, 0, 100, "The loneliness crashes over you like a wave."),
-                        TerrorChangeMemory("Lunch and anime", TerrorChangeStats(5, 0, 100, "High school was a real shit time, wasn't it?"))))))
+                        TerrorChangeMemory("Lunch and anime", TerrorChangeStats(5, 0, 100, "High school was a real shit time, wasn't it?")))
+                )))
     }),
     CURTIS_STREET_DDS_COUCH({
         Entity(UUID.randomUUID().toString(), "A segment of the TV couch")
@@ -293,8 +335,8 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                             "on the couch. He would never say that, but you wondered if he felt it. \n \n " +
                             "But that was a long time ago. He's passed, and you're better.",
                         null,
-                        TerrorChangeMemory("High school despair", TerrorChangeStats(6, 0, 100, "You don't want to remember that.")))))
-            )
+                        TerrorChangeMemory("High school despair", TerrorChangeStats(6, 0, 100, "You don't want to remember that.")))
+                )))
     }),
     CURTIS_STREET_MIDDLE_TOILET({
         Entity(UUID.randomUUID().toString(), "The middle toilet")
