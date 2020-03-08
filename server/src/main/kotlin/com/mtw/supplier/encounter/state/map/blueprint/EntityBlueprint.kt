@@ -112,7 +112,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                 "Betty's greens",
                 "You're not entirely sure what kind of plant this is, but she made potstickers once with " +
                     "these and gave you some. They were pretty good but you cooked them wrong so some of them fell " +
-                    "apart.",
+                    "apart. You made sure to thank her anyways.",
                 mutableListOf()))
     }),
     BETTYS_BACKYARD_FRUITS({
@@ -140,7 +140,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                             "You sat in bed as she demanded they come take you away, and then just felt " +
                             "incredibly dumb and ashamed for making the police deal with your mom, who was clearly overreacting. " +
                             "If you were really serious you'd be dead already, couldn't she see that? \n \n " +
-                            "You wanted to shout, \"MOM I'M NOT A DANGER TO MYSELF OR OTHERS STOP CALLING THE POLICE!\" \n \n" +
+                            "You wanted to shout, \"MOM I'M NOT A DANGER TO MYSELF OR OTHERS STOP CALLING THE POLICE!\" \n \n " +
                             "Christ, you were an idiot.",
                         TerrorChangeStats(3, 0, 100, "It's a wonder your mom didn't kill you yourself."),
                         TerrorChangeMemory("Your \"suicide attempt\"", TerrorChangeStats(-6, 0, 100,
@@ -179,11 +179,13 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
             .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = ThemeTags.ALEX.rgb))
             .addComponent(InspectableComponent(
                 "Alex's childhood bed",
-                "It is impossible for you to reflect upon this without thinking, \"man! that's a creepy " +
+                "It is impossible for you to reflect upon this without thinking, \"Wow! that's a creepy " +
                     "thing I did wasn't it?\" Like older siblings don't usually literally steal their younger siblings' " +
                     "beds, much less - like is it weirder if an older brother steals his younger brothers' bed, or an " +
-                    "older sister steals her younger brothers' bed? \n \n " +
-                    "Just flat-out bizarre.",
+                    "older sister steals her younger brothers' bed? And it's super fucking weird if a brother steals " +
+                    "his sisters' bed (which Alex did not do, he's not fucking insane). \n \n " +
+                    "Just, like, what was going on with you? Well. A lot of things, frankly. " +
+                    "It's a wonder you turned out as high-functioning as you are.",
                 mutableListOf(
                     InspectEvent("Stealing your brothers' bed",
                         "At some point you started taking up the habit of just stealing Alex's bed. You'd go to sleep " +
@@ -194,7 +196,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                             "You don't even know what to make of it yourself.",
                         TerrorChangeStats(-4, 0, 100, "It made you feel safe."),
                         TerrorChangeMemory("Stealing Alex's bed", TerrorChangeStats(-1, 0, 100,
-                            "What were you thining?")))
+                            "What were you thinking?")))
                 )))
     }),
     CURTIS_STREET_BIG_TV({
@@ -408,7 +410,8 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                             "house, full of smiling kids and parents. Your parents never put any photos up in your " +
                             "house. They knew you'd throw a tantrum if they did.",
                         TerrorChangeStats(1, 0, 100, "You think it's probably an illusion."),
-                        TerrorChangeMemory("Running from the camera", TerrorChangeStats(13, 0, 100, "They just wanted pictures of their kids.")))
+                        TerrorChangeMemory("Running from the camera", TerrorChangeStats(13, 0, 100,
+                            "They just wanted pictures of their kids.")))
                 )))
     }),
     HOSPITAL_ER_CHAIR({
@@ -425,8 +428,8 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
             .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(false, character = 'R', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
             .addComponent(HospitalErReceptionistAIComponent())
-            .addComponent(SpeedComponent(50))
-            .addComponent(ActionTimeComponent(50))
+            .addComponent(SpeedComponent(75))
+            .addComponent(ActionTimeComponent(75))
             .addComponent(InspectableComponent(
                 "A harried receptionist",
                 "You don't remember the person, more the idea of a person. She's a wavy figure in blue scrubs, but " +
@@ -453,6 +456,10 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
             .addComponent(HospitalErBabyAIComponent())
             .addComponent(SpeedComponent(200))
             .addComponent(ActionTimeComponent(200))
+            .addComponent(InspectableComponent(
+                "A yellow baby",
+                "It looks unhealthy and sickly.",
+                mutableListOf()))
     }),
     HOSPITAL_ER_PARENT({
         Entity(UUID.randomUUID().toString(), "A worried parent")
@@ -461,26 +468,63 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
             .addComponent(HospitalErParentAIComponent())
             .addComponent(SpeedComponent(200))
             .addComponent(ActionTimeComponent(200))
+            .addComponent(InspectableComponent(
+                "The parents are all frantic",
+                "Words are spilling out of their mouths, their eyes full of tears, panic in ruling their voice.",
+                mutableListOf()))
     }),
     HOSPITAL_CURTAINS({
         Entity(UUID.randomUUID().toString(), "Hospital curtains")
             .addComponent(CollisionComponent.fog())
             .addComponent(DisplayComponent(true, character = 'c', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
+            .addComponent(InspectableComponent(
+                "Curtains",
+                "They block sight, but not sound. Not that it was much of an issue - you were pretty much " +
+                    "alone in the ward. Lucky you.",
+                mutableListOf()))
     }),
     HOSPITAL_MACHINERY({
         Entity(UUID.randomUUID().toString(), "A bedside machine")
             .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(true, character = 'M', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
+            .addComponent(InspectableComponent(
+                "Some sort of machine",
+                "You think it measured heart rate, and maybe something to do with the blood. It " +
+                    "left you alone, and you left it alone.",
+                mutableListOf()))
     }),
     HOSPITAL_BED({
         Entity(UUID.randomUUID().toString(), "A hospital bed")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
+            .addComponent(InspectableComponent(
+                "A hospital bed",
+                "They never actually restricted you to the bed, and you brought some books. You enjoyed " +
+                    "wandering around the ward, dragging your oxygen tank behind you. It was on wheels, of course.",
+                mutableListOf(InspectEvent("Wandering around the ward",
+                    "You don't remember much, but you do remember two things. First, that it felt safe. " +
+                        "Second, that somewhere around the ward, they had a Sega Genesis with Ecco The Dolphin on it. " +
+                        "You played it a little, not knowing the name, until one day in college you saw a classmate " +
+                        "showing another classmate a video of the game, and you recognized it. \n \n " +
+                        "Funny what sticks with you.",
+                    TerrorChangeStats(-6, 0, 100, "You like dolphins."),
+                    TerrorChangeMemory("The hospital ward", TerrorChangeStats(-15, 0, 100, "Safe and comforting.")))
+                )))
     }),
     HOSPITAL_FOOD({
         Entity(UUID.randomUUID().toString(), "Lunch!")
             .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(true, character = 'f', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
+            .addComponent(InspectableComponent(
+                "Hospital food",
+                "You clearly have trash food taste, because you really liked the food.",
+                mutableListOf(InspectEvent("They brought you food!",
+                    "A real step up from school. You had nothing to do here, and, consequently, nothing that was asked " +
+                        "of you. And there were always people checking in. Somehow, you trusted them. " +
+                        "Well, they were healthcare professionals, so that seems a safe bet.",
+                    TerrorChangeStats(-3, 0, 100, "You liked it here."),
+                    TerrorChangeMemory("Lunch at the hospital", TerrorChangeStats(-9, 0, 100, "What's not to like?")))
+                )))
     }),
     A_FAMILIAR_FIGURE({
         Entity(UUID.randomUUID().toString(), "A familiar figure")
