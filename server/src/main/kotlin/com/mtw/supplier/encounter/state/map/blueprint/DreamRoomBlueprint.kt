@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import org.hexworks.zircon.api.color.TileColor
 
 @Serializable
-enum class ThemeTags(val tileColor: TileColor) {
+enum class ThemeTag(val tileColor: TileColor) {
     // Entity Tags
     YOU(TileColor.create(0, 0, 255)),
     ALEX(TileColor.create(0, 51, 0)),
@@ -33,7 +33,7 @@ data class DreamRoomBlueprintData(
     val maxHeight: Int,
     val wallColor: TileColor,
     val entities: List<EntityBlueprint>,
-    val tags: List<ThemeTags>
+    val tag: ThemeTag
 )
 
 enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
@@ -43,7 +43,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             " kids. You never see her anymore. She always has something scheduled. She's very popular.",
         minWidth = 10, maxWidth = 10,
         minHeight = 14, maxHeight = 14,
-        wallColor = ThemeTags.JULIANN.tileColor,
+        wallColor = ThemeTag.JULIANN.tileColor,
         entities = listOf(
             EntityBlueprint.BETTYS_LIVING_ROOM_TV,
             EntityBlueprint.BETTYS_LIVING_ROOM_COUCH,
@@ -55,14 +55,14 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.BETTYS_LIVING_ROOM_BOOKSHELVES,
             EntityBlueprint.BETTYS_LIVING_ROOM_DESK
         ),
-        tags = listOf(ThemeTags.JULIANN))),
+        tag = ThemeTag.JULIANN)),
     BETTYS_BACKYARD(DreamRoomBlueprintData(
         "Juliann's old backyard",
         "Betty and Lawrence never liked answering the front door, so when you were going over to " +
             "Juliann's house you always went through the backyard.",
         minWidth = 10, maxWidth = 10,
         minHeight = 14, maxHeight = 14,
-        wallColor = ThemeTags.JULIANN.tileColor,
+        wallColor = ThemeTag.JULIANN.tileColor,
         entities = listOf(
             EntityBlueprint.BETTYS_BACKYARD_LAUNDRY,
             EntityBlueprint.BETTYS_BACKYARD_LAUNDRY,
@@ -70,14 +70,14 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.BETTYS_BACKYARD_HERBS,
             EntityBlueprint.BETTYS_BACKYARD_FRUITS
         ),
-        tags = listOf(ThemeTags.JULIANN))),
+        tag = ThemeTag.JULIANN)),
     JULIANNS_APARTMENT(DreamRoomBlueprintData(
         "Juliann's old apartment",
         "It's small, but lively. There are two bedrooms and you know she was sharing it with a college " +
             "friend, but you never met her roommate. It's clean and well-organized.",
         minWidth = 8, maxWidth = 8,
         minHeight = 8, maxHeight = 8,
-        wallColor = ThemeTags.JULIANN.tileColor,
+        wallColor = ThemeTag.JULIANN.tileColor,
         entities = listOf(
             EntityBlueprint.JULIANNS_DESK,
             EntityBlueprint.JULIANNS_LAPTOP,
@@ -85,7 +85,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.JULIANNS_COOKING_UTENSILS,
             EntityBlueprint.JULIANNS_FOLDING_CHAIRS
         ),
-        tags = listOf(ThemeTags.JULIANN))),
+        tag = ThemeTag.JULIANN)),
     CURTIS_STREET_BEDROOM(DreamRoomBlueprintData(
         "Your old bedroom",
         "You shared it with Alex until you left for college, aside from those years you stole the TV " +
@@ -103,7 +103,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_MY_DRESSER,
             EntityBlueprint.CURTIS_STREET_ALEXS_BED
         ),
-        tags = listOf(ThemeTags.CURTIS_ST))),
+        tag = ThemeTag.CURTIS_ST)),
     CURTIS_STREET_DOWN_DOWNSTAIRS(DreamRoomBlueprintData(
         "The down-downstairs TV room",
         "When you were fighting with your parents, you abandoned your room. You slept on this couch, " +
@@ -123,7 +123,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_DDS_COUCH,
             EntityBlueprint.CURTIS_STREET_DDS_COUCH
         ),
-        tags = listOf(ThemeTags.CURTIS_ST))),
+        tag = ThemeTag.CURTIS_ST)),
     CURTIS_STREET_MIDDLE_BATHROOM(DreamRoomBlueprintData(
         "The middle bathroom",
         "This was your favorite bathroom. The shower was nice and hot, there was plenty of space near " +
@@ -139,14 +139,14 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_MIDDLE_SINK,
             EntityBlueprint.CURTIS_STREET_MIDDLE_MIRROR
         ),
-        tags = listOf(ThemeTags.CURTIS_ST))),
+        tag = ThemeTag.CURTIS_ST)),
     ASTHMA_HOSPITAL_EMERGENCY_ROOM(DreamRoomBlueprintData(
         "Emergency Room",
         "Your wheezing is terrifying in your young ears. Every breath results in a huge, hacking cough. " +
             "Your mom is frantic. You can't breathe. You're dying.",
         minWidth = 25, maxWidth = 30,
         minHeight = 45, maxHeight = 50,
-        wallColor = ThemeTags.HOSPITAL.tileColor,
+        wallColor = ThemeTag.HOSPITAL.tileColor,
         // hopefully wood veneer-ish
         entities = listOf(
             EntityBlueprint.HOSPITAL_ER_CHAIR,
@@ -188,7 +188,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.HOSPITAL_ER_BABY,
             EntityBlueprint.HOSPITAL_ER_PARENT,
             EntityBlueprint.HOSPITAL_ER_PARENT
-        ), tags = listOf(ThemeTags.HOSPITAL))),
+        ), tag = ThemeTag.HOSPITAL)),
     ASTHMA_HOSPITAL_WARD(DreamRoomBlueprintData(
         "Pediatric Ward",
         "They've hooked some tubing up your nose and given you an oxygen tank to wheel around. The tank " +
@@ -196,14 +196,14 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             "being hospitalized, after all.",
         minWidth = 5, maxWidth = 5,
         minHeight = 9, maxHeight = 9,
-        wallColor = ThemeTags.HOSPITAL.tileColor,
+        wallColor = ThemeTag.HOSPITAL.tileColor,
         entities = listOf(
             EntityBlueprint.HOSPITAL_CURTAINS,
             EntityBlueprint.HOSPITAL_MACHINERY,
             EntityBlueprint.HOSPITAL_BED,
             EntityBlueprint.HOSPITAL_FOOD
         ),
-        tags = listOf(ThemeTags.HOSPITAL))),
+        tag = ThemeTag.HOSPITAL)),
     VEGAS_THE_STRIP(DreamRoomBlueprintData(
         "The Vegas Strip",
         "The strip is alive at night and you hate it. There are misters spraying water onto patrons, and " +
@@ -211,7 +211,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             "in entirely too little clothing and you want to shrink away and hide.",
         minWidth = 50, maxWidth = 60,
         minHeight = 6, maxHeight = 6,
-        wallColor = ThemeTags.FAMILIAR_FIGURE.tileColor,
+        wallColor = ThemeTag.FAMILIAR_FIGURE.tileColor,
         entities = listOf(
             EntityBlueprint.VEGAS_STRIP_COLLEGE_GIRL,
             EntityBlueprint.VEGAS_STRIP_COLLEGE_GIRL,
@@ -245,7 +245,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
             EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST
         ),
-        tags = listOf(ThemeTags.VEGAS))),
+        tag = ThemeTag.VEGAS)),
 }
 class CurtisStreetDadsRoom() {
     // Has a huge bed

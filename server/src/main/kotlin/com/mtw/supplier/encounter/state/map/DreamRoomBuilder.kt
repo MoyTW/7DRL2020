@@ -4,7 +4,7 @@ import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.*
 import com.mtw.supplier.encounter.state.map.blueprint.DreamRoomBlueprint
 import com.mtw.supplier.encounter.state.map.blueprint.EntityBlueprint
-import com.mtw.supplier.encounter.state.map.blueprint.ThemeTags
+import com.mtw.supplier.encounter.state.map.blueprint.ThemeTag
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.color.TileColor
 
@@ -17,7 +17,7 @@ class DreamRoomBuilder(
     var wallColor: TileColor = TileColor.transparent(),
     var exits: List<ExitDirection> = ExitDirection.ALL_DIRECTIONS,
     val entityBlueprints: MutableList<EntityBlueprint> = mutableListOf(),
-    val tags: MutableList<ThemeTags> = mutableListOf()
+    var tag: ThemeTag? = null
 ) {
     private val roomUuid: String = UUID.randomUUID().toString()
     private val doors: MutableMap<ExitDirection, Entity> = mutableMapOf()
@@ -35,7 +35,7 @@ class DreamRoomBuilder(
         this.height = (data.minHeight..data.maxHeight).random()
         this.wallColor = data.wallColor
         this.entityBlueprints.addAll(data.entities)
-        this.tags.addAll(data.tags)
+        this.tag = data.tag
         return this
     }
 
@@ -91,7 +91,7 @@ class DreamRoomBuilder(
             height!!,
             doors,
             nodes,
-            tags
+            tag!!
         )
 
         buildWalls(room)

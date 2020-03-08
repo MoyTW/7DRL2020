@@ -4,7 +4,7 @@ import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.DoorComponent
 import com.mtw.supplier.ecs.components.RoomPositionComponent
 import com.mtw.supplier.encounter.state.map.blueprint.DreamRoomBlueprint
-import com.mtw.supplier.encounter.state.map.blueprint.ThemeTags
+import com.mtw.supplier.encounter.state.map.blueprint.ThemeTag
 import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 import org.slf4j.LoggerFactory
@@ -33,7 +33,7 @@ class DreamMapBuilder(val numRooms: Int = DreamRoomBlueprint.values().size) {
             }
 
         }
-        map.initializeWith(map.inDeckRooms.filter { it.tags.contains(ThemeTags.CURTIS_ST) }.random())
+        map.initializeWith(map.inDeckRooms.filter { it.tag == ThemeTag.CURTIS_ST }.random())
         return map
     }
 }
@@ -192,8 +192,22 @@ class DreamMap: DreamMapI {
         this.roomsById[room.uuid] = room
     }
 
-    private fun pullInDeckRoom(): DreamRoom {
-        return inDeckRooms.random()
+    private fun pullInDeckRoom(existingRoom: DreamRoom): DreamRoom {
+        val trySameTag = when ((1..100).random()) {
+            in 1..75 -> true
+            else -> false
+        }
+        return if (!trySameTag) {
+            inDeckRooms.random()
+        } else {
+            val sameTag = inDeckRooms.filter { it.tag == existingRoom.tag }
+            if (sameTag.isNotEmpty()) {
+                sameTag.random()
+            } else {
+                inDeckRooms.random()
+            }
+        }
+
     }
 
     fun drawAndConnectRoom(existingRoomUuid: String, exitDirection: ExitDirection) {
@@ -218,7 +232,7 @@ class DreamMap: DreamMapI {
             val graphed = this.roomsById[this.roomGraph.getConnected(existingRoomUuid, exitDirection)!!]!!
             mapGraphedRoom(existingRoom, exitDirection, graphed)
         } else {
-            val newRoom = pullInDeckRoom()
+            val newRoom = pullInDeckRoom(existingRoom)
             if (this.roomsById[newRoom.uuid] == null) {
                 this.roomsById[newRoom.uuid] = newRoom
             }

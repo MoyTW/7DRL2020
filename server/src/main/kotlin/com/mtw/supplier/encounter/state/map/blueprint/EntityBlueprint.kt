@@ -127,7 +127,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     JULIANNS_DESK({
         Entity(UUID.randomUUID().toString(), "Your old desk")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'D', foregroundRGB = ThemeTags.JULIANN.rgb))
+            .addComponent(DisplayComponent(true, character = 'D', foregroundRGB = ThemeTag.JULIANN.rgb))
             .addComponent(InspectableComponent(
                 "Your old desk",
                 "You never used it anyways, so Juliann took it. " +
@@ -137,7 +137,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     JULIANNS_LAPTOP({
         Entity(UUID.randomUUID().toString(), "Juliann's old laptop")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(true, character = 'l', foregroundRGB = ThemeTags.JULIANN.rgb))
+            .addComponent(DisplayComponent(true, character = 'l', foregroundRGB = ThemeTag.JULIANN.rgb))
             .addComponent(InspectableComponent(
                 "Juliann's old laptop",
                 "It's a macbook of some persuasion.",
@@ -160,7 +160,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     JULIANNS_TABLE({
         Entity(UUID.randomUUID().toString(), "Juliann's apartment table")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'T', foregroundRGB = ThemeTags.JULIANN.rgb))
+            .addComponent(DisplayComponent(true, character = 'T', foregroundRGB = ThemeTag.JULIANN.rgb))
             .addComponent(InspectableComponent(
                 "Juliann's apartment table",
                 "It's a inexpensive folding table, though it's surprisingly sturdy. She's put a nice " +
@@ -178,7 +178,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     JULIANNS_COOKING_UTENSILS({
         Entity(UUID.randomUUID().toString(), "Juliann's kitchen equipment")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'K', foregroundRGB = ThemeTags.JULIANN.rgb))
+            .addComponent(DisplayComponent(true, character = 'K', foregroundRGB = ThemeTag.JULIANN.rgb))
             .addComponent(InspectableComponent(
                 "Juliann's kitchen equipment",
                 "It's an impressive array, to be sure. " +
@@ -203,7 +203,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     JULIANNS_FOLDING_CHAIRS({
         Entity(UUID.randomUUID().toString(), "One of Juliann's chairs")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(true, character = 'c', foregroundRGB = ThemeTags.JULIANN.rgb))
+            .addComponent(DisplayComponent(true, character = 'c', foregroundRGB = ThemeTag.JULIANN.rgb))
             .addComponent(InspectableComponent(
                 "A folding chair",
                 "It's cheap and folds for easy storage and transport.",
@@ -212,7 +212,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     CURTIS_STREET_YOUR_OLD_DESK({
         Entity(UUID.randomUUID().toString(), "Your old desk")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'D', foregroundRGB = ThemeTags.YOU.rgb))
+            .addComponent(DisplayComponent(true, character = 'D', foregroundRGB = ThemeTag.YOU.rgb))
             .addComponent(InspectableComponent(
                 "Your old desk",
                 "It's a wooden desk, pretty nice, but a little small for a fully grown adult. " +
@@ -232,7 +232,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     CURTIS_STREET_ALEXS_OLD_DESK({
         Entity(UUID.randomUUID().toString(), "Alex's old desk")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'D', foregroundRGB = ThemeTags.ALEX.rgb))
+            .addComponent(DisplayComponent(true, character = 'D', foregroundRGB = ThemeTag.ALEX.rgb))
             .addComponent(InspectableComponent(
                 "Alex's old desk",
                 "He, at least, ended up doing well.",
@@ -254,7 +254,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     CURTIS_STREET_MY_BED({
         Entity(UUID.randomUUID().toString(), "Your teenage bed")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = ThemeTags.YOU.rgb))
+            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = ThemeTag.YOU.rgb))
             .addComponent(InspectableComponent(
                 "Your teenaage bed",
                 "Not much here but bad memories.",
@@ -286,7 +286,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     CURTIS_STREET_MY_DRESSER({
         Entity(UUID.randomUUID().toString(), "Your dresser")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'R', foregroundRGB = ThemeTags.YOU.rgb))
+            .addComponent(DisplayComponent(true, character = 'R', foregroundRGB = ThemeTag.YOU.rgb))
             .addComponent(InspectableComponent(
                 "Your dresser",
                 "The sturdiest dresser you've ever known, your faithful companion.",
@@ -303,7 +303,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     CURTIS_STREET_ALEXS_BED({
         Entity(UUID.randomUUID().toString(), "Alex's childhood bed")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = ThemeTags.ALEX.rgb))
+            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = ThemeTag.ALEX.rgb))
             .addComponent(InspectableComponent(
                 "Alex's childhood bed",
                 "It is impossible for you to reflect upon this without thinking, \"Wow! that's a creepy " +
@@ -553,7 +553,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     HOSPITAL_ER_RECEPTIONIST({
         Entity(UUID.randomUUID().toString(), "The ER receptionist")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(false, character = 'R', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
+            .addComponent(DisplayComponent(false, character = 'R', foregroundRGB = ThemeTag.ER_ENTITY.rgb))
             .addComponent(HospitalErReceptionistAIComponent())
             .addComponent(SpeedComponent(125))
             .addComponent(ActionTimeComponent(125))
@@ -603,7 +603,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     HOSPITAL_CURTAINS({
         Entity(UUID.randomUUID().toString(), "Hospital curtains")
             .addComponent(CollisionComponent.fog())
-            .addComponent(DisplayComponent(true, character = 'c', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
+            .addComponent(DisplayComponent(true, character = 'c', foregroundRGB = ThemeTag.ER_ENTITY.rgb))
             .addComponent(InspectableComponent(
                 "Curtains",
                 "They block sight, but not sound. Not that it was much of an issue - you were pretty much " +
@@ -613,7 +613,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     HOSPITAL_MACHINERY({
         Entity(UUID.randomUUID().toString(), "A bedside machine")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'M', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
+            .addComponent(DisplayComponent(true, character = 'M', foregroundRGB = ThemeTag.ER_ENTITY.rgb))
             .addComponent(InspectableComponent(
                 "Some sort of machine",
                 "You think it measured heart rate, and maybe something to do with the blood. It " +
@@ -623,7 +623,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     HOSPITAL_BED({
         Entity(UUID.randomUUID().toString(), "A hospital bed")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
+            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = ThemeTag.ER_ENTITY.rgb))
             .addComponent(InspectableComponent(
                 "A hospital bed",
                 "They never actually restricted you to the bed, and you brought some books. You enjoyed " +
@@ -641,7 +641,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     HOSPITAL_FOOD({
         Entity(UUID.randomUUID().toString(), "Lunch!")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(true, character = 'f', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
+            .addComponent(DisplayComponent(true, character = 'f', foregroundRGB = ThemeTag.ER_ENTITY.rgb))
             .addComponent(InspectableComponent(
                 "Hospital food",
                 "You clearly have trash food taste, because you really liked the food.",
@@ -800,6 +800,6 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     A_FAMILIAR_CAR_ALEXANDER({
         Entity(UUID.randomUUID().toString(), "Alexander")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(false, character = 'A', foregroundRGB = ThemeTags.ALEX.rgb))
+            .addComponent(DisplayComponent(false, character = 'A', foregroundRGB = ThemeTag.ALEX.rgb))
     })
 }
