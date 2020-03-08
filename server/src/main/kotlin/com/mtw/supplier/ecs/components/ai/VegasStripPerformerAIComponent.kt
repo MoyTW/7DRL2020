@@ -36,7 +36,7 @@ class VegasStripPerformerAIComponent(val performerType: PerformerType): AICompon
 
         val parentAbsPos = parentRoomPos.asAbsolutePosition(encounterState)!!
 
-        val isInFow = encounterState.fovCache!!.isInFoV(parentAbsPos)
+        val isInFow = encounterState.fovCache?.isInFoV(parentAbsPos) ?: return listOf(WaitAction(parent, null))
 
         return if (!isInFow) {
             listOf(WaitAction(parent, null))

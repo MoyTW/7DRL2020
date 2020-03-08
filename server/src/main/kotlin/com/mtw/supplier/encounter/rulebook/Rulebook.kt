@@ -158,7 +158,7 @@ object Rulebook {
                     defenderTerror.setTerror(newTerror)
                     encounterState.messageLog.logEvent("TERROR", action.terrorChangeStats.description)
                 } else {
-                    if (abs(action.terrorChangeStats.dTerror) > 1) {
+                    if (abs(action.terrorChangeStats.dTerror) > 2) {
                         encounterState.messageLog.logEvent("TERROR", "You would feel reassured, but it's too little.")
                     }
                 }
@@ -169,10 +169,9 @@ object Rulebook {
                     defenderTerror.setTerror(newTerror)
                     encounterState.messageLog.logEvent("TERROR", action.terrorChangeStats.description)
                 } else {
-                    if (abs(action.terrorChangeStats.dTerror) > 1) {
-                        encounterState.messageLog.logEvent("TERROR", "You would feel reassured, but it's too little.")
+                    if (abs(action.terrorChangeStats.dTerror) > 2) {
+                        encounterState.messageLog.logEvent("TERROR", "Such a small thing doesn't bother you now.")
                     }
-                    encounterState.messageLog.logEvent("TERROR", "Such a small thing doesn't bother you now.")
                 }
             }
         }
