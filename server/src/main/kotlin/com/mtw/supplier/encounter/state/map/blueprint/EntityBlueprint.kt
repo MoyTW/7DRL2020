@@ -381,7 +381,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
             ))
     }),
     CURTIS_STREET_SMALL_PLASITC_TRASH_BIN({
-        Entity(UUID.randomUUID().toString(), "One Of The Tiny Trash Bins")
+        Entity(UUID.randomUUID().toString(), "One of the tiny trash bins")
             .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(true, character = 'b', foregroundRGB = RGB(0, 10, 26)))
             .addComponent(InspectableComponent(

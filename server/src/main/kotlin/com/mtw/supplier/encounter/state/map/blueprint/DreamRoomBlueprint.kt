@@ -35,7 +35,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
     BETTYS_LIVING_ROOM(DreamRoomBlueprintData(
         "Juliann's old living room",
         "Well, actually Juliann's mom's living room. You used to come here all the time, when you were" +
-            " kids. You never see her anymore. She always has something scheduled. She's very popular socially.",
+            " kids. You never see her anymore. She always has something scheduled. She's very popular.",
         minWidth = 10, maxWidth = 10,
         minHeight = 14, maxHeight = 14,
         wallColor = ThemeTags.JULIANN.tileColor,
@@ -76,6 +76,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         wallColor = TileColor.create(255, 153, 204),
         // hopefully wood veneer-ish
         entities = listOf(
+            EntityBlueprint.CURTIS_STREET_SMALL_PLASITC_TRASH_BIN,
             EntityBlueprint.CURTIS_STREET_MY_BED,
             EntityBlueprint.CURTIS_STREET_MY_DRESSER,
             EntityBlueprint.CURTIS_STREET_ALEXS_BED
@@ -91,6 +92,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         wallColor = TileColor.create(255, 153, 204), // light-pink-ish
         // hopefully hardwood-ish
         entities = listOf(
+            EntityBlueprint.CURTIS_STREET_SMALL_PLASITC_TRASH_BIN,
             EntityBlueprint.CURTIS_STREET_BIG_TV,
             EntityBlueprint.CURTIS_STREET_GAMECUBE,
             EntityBlueprint.CURTIS_STREET_PLAYSTATION,
@@ -109,10 +111,10 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         wallColor = TileColor.create(255, 153, 204), // light-pink-ish
         // hopefully hardwood-ish
         entities = listOf(
+            EntityBlueprint.CURTIS_STREET_SMALL_PLASITC_TRASH_BIN,
             EntityBlueprint.CURTIS_STREET_MIDDLE_TOILET,
             EntityBlueprint.CURTIS_STREET_MIDDLE_SHOWER,
             EntityBlueprint.CURTIS_STREET_MIDDLE_SINK,
-            EntityBlueprint.CURTIS_STREET_SMALL_PLASITC_TRASH_BIN,
             EntityBlueprint.CURTIS_STREET_MIDDLE_MIRROR
         ),
         tags = listOf(ThemeTags.CURTIS_ST))),
