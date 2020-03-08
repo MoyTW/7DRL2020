@@ -92,7 +92,7 @@ object EncounterRunner {
             readyEntities.removeAt(0)
             if (entity.hasComponent(AIComponent::class)) {
                 val nextActions = entity.getComponent(AIComponent::class).decideNextActions(encounterState)
-                logger.debug("Actions: $nextActions")
+                //logger.debug("Actions: $nextActions")
                 Rulebook.resolveActions(nextActions, encounterState)
                 val speedComponent = entity.getComponent(SpeedComponent::class)
                 entity.getComponent(ActionTimeComponent::class).endTurn(speedComponent)

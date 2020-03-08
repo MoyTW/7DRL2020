@@ -64,7 +64,8 @@ class IntroductionScreen(tileGrid: TileGrid, private val primaryScreen: PrimaryS
             "+ Movement: Numpad or YUBN+HJKL \n " +
             "+ Target: 't' or '/' and '*' \n " +
             "+ Inspect: 'i' \n " +
-            "+ Remember: 'r'"
+            "+ Remember: 'r' \n " +
+            "+ This Screen: '?'"
         val wrappedLines = WordWrapUtil.wordWrap(bodyText, maxTextLen, maxLines - 6)
         for (i in lines.indices) {
             lines[i].text = wrappedLines.getOrNull(i) ?: ""

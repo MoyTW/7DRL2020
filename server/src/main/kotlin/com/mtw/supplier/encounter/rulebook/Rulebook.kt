@@ -182,11 +182,11 @@ object Rulebook {
             action.actor.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)!!,
             action.target.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)!!)
         if (!arePositionsAdjacent) {
-            println("You're not next to it you can't inspect that!!!")
+            return
         } else {
             val inspectComponent = action.target.getComponentOrNull(InspectableComponent::class)
             if (inspectComponent == null) {
-                println("You can't inspect that")
+                return
             } else {
                 val memoryComponent = encounterState.playerEntity().getComponent(PlayerComponent::class)
                 if (inspectComponent.inspectEvents.any { !memoryComponent.seenEvent(it.eventHeader) }) {

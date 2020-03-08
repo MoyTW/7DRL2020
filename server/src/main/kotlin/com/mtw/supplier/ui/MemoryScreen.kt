@@ -64,7 +64,6 @@ class MemoryScreen(tileGrid: TileGrid, private val primaryScreen: PrimaryScreen,
     private fun handleKey(keyboardEvent: KeyboardEvent): UIEventResponse {
         val char = keyboardEvent.key.toUpperCase()
         val buttonIdx = keyString.indexOf(char)
-        println("BUTTONIDX: " + buttonIdx)
 
         val playerComponent = encounterState.playerEntity().getComponent(PlayerComponent::class)
         val memory = playerComponent.getMemories().getOrNull(buttonIdx)

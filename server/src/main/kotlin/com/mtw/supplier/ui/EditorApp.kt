@@ -32,6 +32,7 @@ enum class Direction(val dx: Int, val dy: Int) {
 }
 
 data class TileWindows(
+    val introductionScreen: IntroductionScreen,
     val primaryScreen: PrimaryScreen,
     val inspectScreen: InspectScreen,
     val memoryScreen: MemoryScreen,
@@ -105,7 +106,7 @@ object EditorApp {
         val commentaryFragment = CommentaryFragment(GAME_WIDTH - MAP_WIDTH, COMMENTARY_HEIGHT, MAP_WIDTH, 0)
         val statsFragment = StatsFragment(GAME_WIDTH - MAP_WIDTH, STATS_HEIGHT, MAP_WIDTH, 0 + COMMENTARY_HEIGHT)
 
-        val windows = TileWindows(primaryScreen, inspectScreen, memoryScreen, gameEndScreen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, statsFragment, logVBox)
+        val windows = TileWindows(introductionScreen, primaryScreen, inspectScreen, memoryScreen, gameEndScreen, mapFoWTileGraphics, mapEntityTileGraphics, commentaryFragment, statsFragment, logVBox)
         // bad bad bad
         primaryScreen.windows = windows
 
@@ -152,6 +153,8 @@ object EditorApp {
 
             KeyCode.KEY_I -> { gameState.inspectTarget(windows.inspectScreen); true}
             KeyCode.KEY_R -> { gameState.displayMemories(windows.memoryScreen); true}
+
+            KeyCode.SLASH -> { windows.introductionScreen.display(); true}
 
             else -> { false }
         }

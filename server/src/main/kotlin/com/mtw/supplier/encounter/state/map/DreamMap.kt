@@ -246,7 +246,6 @@ class DreamMap: DreamMapI {
                     .minBy { seenHistory.lastSeenAt(it) ?: Integer.MAX_VALUE }
                 if (last != null) {
                     roomGraph.disconnect(this.roomsById[last]!!)
-                    println("DISCONNECTING: " + this.roomsById[last]!!.name)
 
                     // Remove the room from the map
                     this.mappedRoomsToAbsolutePositions.remove(last)
