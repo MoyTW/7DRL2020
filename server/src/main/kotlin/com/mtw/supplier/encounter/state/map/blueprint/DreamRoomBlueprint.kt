@@ -6,9 +6,11 @@ import org.hexworks.zircon.api.color.TileColor
 
 @Serializable
 enum class ThemeTags(val tileColor: TileColor) {
-    // Character Tags
+    // Entity Tags
     YOU(TileColor.create(0, 0, 255)),
     ALEX(TileColor.create(0, 51, 0)),
+    ER_ENTITY(TileColor.create(51, 153, 255)),
+
     // Room Tags
     CURTIS_ST(TileColor.create(255, 153, 204)),
     JULIANN(TileColor.create(128, 128, 255));

@@ -8,7 +8,6 @@ import com.mtw.supplier.encounter.rulebook.actions.MoveAction
 import com.mtw.supplier.encounter.rulebook.actions.WaitAction
 import com.mtw.supplier.encounter.state.EncounterState
 import com.mtw.supplier.encounter.state.map.blueprint.ThemeTags
-import com.mtw.supplier.utils.AbsolutePosition
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.*
 import org.hexworks.zircon.api.application.AppConfig

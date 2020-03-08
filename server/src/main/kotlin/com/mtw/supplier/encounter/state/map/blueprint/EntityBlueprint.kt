@@ -407,18 +407,22 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                             "house, full of smiling kids and parents. Your parents never put any photos up in your " +
                             "house. They knew you'd throw a tantrum if they did.",
                         TerrorChangeStats(1, 0, 100, "You think it's probably an illusion."),
-                        TerrorChangeMemory("Running from the camera", TerrorChangeStats(13, 0, 100, "They just wanted pictures of their kids."))))
-            ))
+                        TerrorChangeMemory("Running from the camera", TerrorChangeStats(13, 0, 100, "They just wanted pictures of their kids.")))
+                )))
     }),
     HOSPITAL_ER_CHAIR({
         Entity(UUID.randomUUID().toString(), "An ER chair")
             .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(true, character = 'c', foregroundRGB = RGB(51, 119, 255)))
+            .addComponent(InspectableComponent(
+                "An ER chair",
+                "An unremarkable chair for a mostly unremarkable ER.",
+                mutableListOf()))
     }),
     HOSPITAL_ER_RECEPTIONIST({
         Entity(UUID.randomUUID().toString(), "The ER receptionist")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(false, character = 'R', foregroundRGB = RGB(153, 187, 255)))
+            .addComponent(DisplayComponent(false, character = 'R', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
     }),
     HOSPITAL_ER_ELDERLY_COUGHER({
         Entity(UUID.randomUUID().toString(), "An elderly cougher")
@@ -438,22 +442,22 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     HOSPITAL_CURTAINS({
         Entity(UUID.randomUUID().toString(), "Hospital curtains")
             .addComponent(CollisionComponent.fog())
-            .addComponent(DisplayComponent(true, character = 'c', foregroundRGB = RGB(51, 153, 255)))
+            .addComponent(DisplayComponent(true, character = 'c', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
     }),
     HOSPITAL_MACHINERY({
         Entity(UUID.randomUUID().toString(), "A bedside machine")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'M', foregroundRGB = RGB(51, 153, 255)))
+            .addComponent(DisplayComponent(true, character = 'M', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
     }),
     HOSPITAL_BED({
         Entity(UUID.randomUUID().toString(), "A hospital bed")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = RGB(51, 153, 255)))
+            .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
     }),
     HOSPITAL_FOOD({
         Entity(UUID.randomUUID().toString(), "Lunch!")
             .addComponent(CollisionComponent.passable())
-            .addComponent(DisplayComponent(true, character = 'f', foregroundRGB = RGB(51, 153, 255)))
+            .addComponent(DisplayComponent(true, character = 'f', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
     }),
     A_FAMILIAR_FIGURE({
         Entity(UUID.randomUUID().toString(), "A familiar figure")
