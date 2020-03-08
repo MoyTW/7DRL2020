@@ -793,6 +793,25 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                         TerrorChangeMemory("Scared of ET", TerrorChangeStats(-15, 50, 100, "What a thing to be scared of.")))
                 )))
     }),
+    STRANGE_PLACE_VOLCANO({
+        Entity(UUID.randomUUID().toString(), "A rumbling volcano")
+            .addComponent(CollisionComponent.mover())
+            .addComponent(DisplayComponent(true, character = 'V', foregroundRGB = ThemeTag.STRANGE_PLACE.rgb))
+            .addComponent(StrangePlaceVolcanoAIComponent())
+            .addComponent(SpeedComponent(100))
+            .addComponent(ActionTimeComponent(100))
+            .addComponent(InspectableComponent(
+                "You can feel the heat",
+                "You have to warn your parents.",
+                mutableListOf(
+                    InspectEvent("It rumbles and shakes",
+                        "You need to warn your parents, now! Visions of a giant wave of lava sweeping over " +
+                            "your house push their way into your mind, your parents roasting and screaming, Alex " +
+                            "crisping up in his crib like a potato chip, his tears lost in the roar of the eruption.",
+                        TerrorChangeStats(10, 0, 100, "Where's the door!? Why can't you find it!?"),
+                        null)
+                )))
+    }),
     A_FAMILIAR_FIGURE({
         Entity(UUID.randomUUID().toString(), "A familiar figure")
             .addComponent(CollisionComponent.blocker())
