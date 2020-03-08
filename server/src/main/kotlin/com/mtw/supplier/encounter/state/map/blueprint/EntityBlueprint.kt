@@ -755,6 +755,23 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                 mutableListOf()
             ))
     }),
+    SPIDER_SWARM({
+        Entity(UUID.randomUUID().toString(), "A carpet of spiders")
+            .addComponent(CollisionComponent.mover())
+            .addComponent(DisplayComponent(true, character = 'S', foregroundRGB = ThemeTag.STRANGE_PLACE.rgb))
+            .addComponent(SpiderSwarmAIComponent())
+            .addComponent(SpeedComponent(100))
+            .addComponent(ActionTimeComponent(100))
+            .addComponent(InspectableComponent(
+                "A writing mass of spiders",
+                "They're crawling all around each other, around you, seemingly flowing up from the ground.",
+                mutableListOf(
+                    InspectEvent("Why did you do that?",
+                        "That was a bad idea.",
+                        TerrorChangeStats(100, 0, 100, "No, seriously, why?"),
+                        null)
+                )))
+    }),
     A_FAMILIAR_FIGURE({
         Entity(UUID.randomUUID().toString(), "A familiar figure")
             .addComponent(CollisionComponent.blocker())

@@ -33,7 +33,7 @@ class DreamMapBuilder(val numRooms: Int = DreamRoomBlueprint.values().size) {
             }
 
         }
-        map.initializeWith(map.inDeckRooms.filter { it.tag == ThemeTag.CURTIS_ST }.random())
+        map.initializeWith(map.inDeckRooms.filter { it.tag == ThemeTag.STRANGE_PLACE }.random())
         return map
     }
 }

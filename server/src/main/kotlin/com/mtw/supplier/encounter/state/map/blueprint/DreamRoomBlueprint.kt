@@ -16,6 +16,7 @@ enum class ThemeTag(val tileColor: TileColor) {
     JULIANN(TileColor.create(128, 128, 255)),
     HOSPITAL(TileColor.create(15, 15, 15)),
     VEGAS(TileColor.create(230, 0, 0)),
+    STRANGE_PLACE(TileColor.create(0, 0, 0)),
 
     // Entity & Room Tags
     FAMILIAR_FIGURE(TileColor.create(0, 0, 0));
@@ -204,6 +205,19 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.HOSPITAL_FOOD
         ),
         tag = ThemeTag.HOSPITAL)),
+    STRANGE_PLACE_SPIDERS(DreamRoomBlueprintData(
+        "A strange marsh",
+        "It's dark, here. You're lost. You remember Matthew saying something about what should happen if " +
+            "you get lost. Stay, and yell, you think - but as you look around you realize you're not alone.",
+        minWidth = 14, maxWidth = 14,
+        minHeight = 14, maxHeight = 14,
+        wallColor = ThemeTag.STRANGE_PLACE.tileColor,
+        entities = listOf(
+            EntityBlueprint.SPIDER_SWARM,
+            EntityBlueprint.SPIDER_SWARM,
+            EntityBlueprint.SPIDER_SWARM
+        ),
+        tag = ThemeTag.STRANGE_PLACE)),
     VEGAS_THE_STRIP(DreamRoomBlueprintData(
         "The Vegas Strip",
         "The strip is alive at night and you hate it. There are misters spraying water onto patrons, and " +
@@ -211,7 +225,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             "in entirely too little clothing and you want to shrink away and hide.",
         minWidth = 50, maxWidth = 60,
         minHeight = 6, maxHeight = 6,
-        wallColor = ThemeTag.FAMILIAR_FIGURE.tileColor,
+        wallColor = ThemeTag.VEGAS.tileColor,
         entities = listOf(
             EntityBlueprint.VEGAS_STRIP_COLLEGE_GIRL,
             EntityBlueprint.VEGAS_STRIP_COLLEGE_GIRL,
