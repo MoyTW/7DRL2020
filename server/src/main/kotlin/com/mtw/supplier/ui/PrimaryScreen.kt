@@ -231,7 +231,7 @@ class PrimaryScreen(private val screen: Screen, private val encounterState: Enco
     }
 
     private fun renderGameState(windows: TileWindows, encounterState: EncounterState) {
-        if (encounterState.endState != EncounterEndState.ONGOING) {
+        if (encounterState.endState != EncounterEndState.ONGOING && !windows.inspectScreen.displayed) {
             windows.gameEndScreen.display(encounterState.endState)
         }
 

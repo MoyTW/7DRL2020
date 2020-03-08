@@ -23,6 +23,7 @@ class InspectScreen(tileGrid: TileGrid, private val primaryScreen: PrimaryScreen
     private val textPad: Int = 6
     private val maxTextLen: Int = screen.width - textPad * 2
 
+    var displayed: Boolean = false
 
     private fun buildHeader(text: String): Header {
         return Components.header()
@@ -50,6 +51,7 @@ class InspectScreen(tileGrid: TileGrid, private val primaryScreen: PrimaryScreen
 
         screen.handleKeyboardEvents(KeyboardEventType.KEY_PRESSED) { keyboardEvent: KeyboardEvent, uiEventPhase: UIEventPhase ->
             if (keyboardEvent.code == KeyCode.SPACE) {
+                this.displayed = false
                 primaryScreen.display()
                 UIEventResponse.processed()
             } else {
@@ -58,6 +60,7 @@ class InspectScreen(tileGrid: TileGrid, private val primaryScreen: PrimaryScreen
         }
 
         exitButton.handleComponentEvents(ComponentEventType.ACTIVATED) {
+            this.displayed = false
             primaryScreen.display()
             UIEventResponse.processed()
         }
@@ -76,6 +79,7 @@ class InspectScreen(tileGrid: TileGrid, private val primaryScreen: PrimaryScreen
             lines[wrappedLines.size + 2].text = "+ ${action.memory!!.name}"
         }
 
+        this.displayed = true
         this.screen.display()
     }
 }
