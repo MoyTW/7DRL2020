@@ -653,6 +653,108 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                     TerrorChangeMemory("Lunch at the hospital", TerrorChangeStats(-9, 0, 100, "What's not to like?")))
                 )))
     }),
+    VEGAS_STRIP_COLLEGE_GIRL({
+        Entity(UUID.randomUUID().toString(), "A college girl")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(false, character = 'G', foregroundRGB = RGB(128, 0, 0)))
+            .addComponent(VegasStripCollegeGirlAIComponent())
+            .addComponent(SpeedComponent(100))
+            .addComponent(ActionTimeComponent(100))
+            .addComponent(InspectableComponent(
+                "A laughing girl",
+                "You feel like you've failed, standing next to her.",
+                mutableListOf(
+                    InspectEvent("She's impossibly perfect",
+                        "Everything about her is both incredibly beautiful, but unique and authentic. " +
+                            "Her style is impeccable, but not derivative. " +
+                            "She probably gets men looking her and saying, \"You look beautiful without any makeup on.\" " +
+                            "She radiates that impossible effortlessness that only a rare combination of incredible work " +
+                            "and natural gifts can achieve.",
+                        TerrorChangeStats(15, 0, 100, "You want to run and hide."),
+                        TerrorChangeMemory("You feel ashamed of how you look", TerrorChangeStats(15, 0, 100, "You know you shouldn't, but you do."))),
+                    InspectEvent("She's surrounded by her friends",
+                        "They're laughing, and joking, and smiling. You can't follow what it is that's so hilarious " +
+                            "but you suspect you wouldn't really feel the same way if you heard. " +
+                            "They look so happy to be here, like they're having the time of their lives.",
+                        TerrorChangeStats(20, 0, 100, "You don't belong here with them."),
+                        TerrorChangeMemory("College girls in Vegas", TerrorChangeStats(15, 0, 100, "You've never travelled with friends.")))
+                    )
+                ))
+    }),
+    VEGAS_STRIP_COLLEGE_BOY({
+        Entity(UUID.randomUUID().toString(), "A college-age man")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(false, character = 'M', foregroundRGB = RGB(128, 0, 0)))
+            .addComponent(VegasStripCollegeBoyAIComponent())
+            .addComponent(SpeedComponent(100))
+            .addComponent(ActionTimeComponent(100))
+            .addComponent(InspectableComponent(
+                "A college-age man",
+                "He's out of your league.",
+                mutableListOf(
+                    InspectEvent("He's impossibly perfect",
+                        "He's tall, and his face is covered in a genuine, heartfelt smile. " +
+                            "His face is hard to look at directly without turning away in shame. " +
+                            "You can see his finely toned muscles on his exposed arms, big enough to be impressive but not so big they're weird. " +
+                            "He walks with the carefree strut of somebody who might not have everything today, but will undoutably have everything one day.",
+                        TerrorChangeStats(15, 0, 100, "You want to run and hide."),
+                        TerrorChangeMemory("You feel ashamed of how you look", TerrorChangeStats(15, 0, 100, "You know you shouldn't, but you do."))),
+                    InspectEvent("He's surrounded by her friends",
+                        "They're laughing, and joking, and smiling. You can't follow what it is that's so hilarious " +
+                            "but you suspect you wouldn't really feel the same way if you heard. " +
+                            "They look so happy to be here, like they're having the time of their lives.",
+                        TerrorChangeStats(20, 0, 100, "You don't belong here with them."),
+                        TerrorChangeMemory("College men in Vegas", TerrorChangeStats(15, 0, 100, "Utterly out of your league.")))
+                )))
+    }),
+    VEGAS_STRIP_MIDDLE_AGED_TOURIST({
+        Entity(UUID.randomUUID().toString(), "A middle-aged tourist")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(false, character = 'T', foregroundRGB = RGB(128, 0, 0)))
+            .addComponent(VegasStripMiddleAgedTouristAIComponent())
+            .addComponent(SpeedComponent(300))
+            .addComponent(ActionTimeComponent(300))
+            .addComponent(InspectableComponent(
+                "A middle-aged tourist",
+                "Well-off, but not rich. You doubt the rich walk the strip.",
+                mutableListOf()))
+    }),
+    VEGAS_STRIP_COSTUME_POLICEMAN({
+        Entity(UUID.randomUUID().toString(), "A fake policeman")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(false, character = 'P', foregroundRGB = RGB(128, 0, 0)))
+            .addComponent(VegasStripPerformerAIComponent(PerformerType.POLICEMAN))
+            .addComponent(SpeedComponent(100))
+            .addComponent(ActionTimeComponent(100))
+            .addComponent(InspectableComponent(
+                "A man in a policeman costume",
+                "It, uh, it's less of a costume than being mostly naked, better to show off his finely toned body. " +
+                    "There's the policeman cap, and then there's a collar with a badge on it and some sort of cut-off hot pants? " +
+                    "You're not entirely sure how to describe this article of clothing. You are not nearly cool enough to be familiar with it.",
+                mutableListOf(
+                    InspectEvent("He twirls a pair of handcuffs",
+                        "\"You want to take a picture?\" he asks, looking at you and smiling. You freeze. Uh. \n \n " +
+                            "\"No thank you,\" you say, smiling, and move on.",
+                        TerrorChangeStats(-2, 40, 100, "Well, it is his job."),
+                        TerrorChangeMemory("Picture-taking on the Strip", TerrorChangeStats(-1, 40, 100, "Well that was awkward.")))
+                )
+            ))
+    }),
+    VEGAS_STRIP_COSTUME_BIRD_OF_PARADISE({
+        Entity(UUID.randomUUID().toString(), "A woman in feathers")
+            .addComponent(CollisionComponent.blocker())
+            .addComponent(DisplayComponent(false, character = 'B', foregroundRGB = RGB(128, 0, 0)))
+            .addComponent(VegasStripPerformerAIComponent(PerformerType.BIRD_OF_PARADISE))
+            .addComponent(SpeedComponent(100))
+            .addComponent(ActionTimeComponent(100))
+            .addComponent(InspectableComponent(
+                "A woman wearing mostly feathers",
+                "There are feathers on her head, feathers trailing her arms, feathers somehow sticking out of her " +
+                    "back on some sort of \"wings\", and what you assume are just enough feathers to keep her being arrested for public indecency, if Vegas has any such laws. " +
+                    "You have no idea how this costume stays on without falling apart, but it's deeply impressive.",
+                mutableListOf()
+            ))
+    }),
     A_FAMILIAR_FIGURE({
         Entity(UUID.randomUUID().toString(), "A familiar figure")
             .addComponent(CollisionComponent.blocker())

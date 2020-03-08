@@ -117,6 +117,10 @@ class EncounterState(
         return this.dreamMap.entities
     }
 
+    fun entitiesInRoom(roomUuid: String): List<Entity> {
+        return this.dreamMap.getEntitiesInRoom(roomUuid)
+    }
+
     fun playerEntity(): Entity {
         return this.entities().first { it.hasComponent(PlayerComponent::class) }
     }

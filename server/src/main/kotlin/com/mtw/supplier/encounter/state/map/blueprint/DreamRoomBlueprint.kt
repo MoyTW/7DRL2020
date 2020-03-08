@@ -15,6 +15,7 @@ enum class ThemeTags(val tileColor: TileColor) {
     CURTIS_ST(TileColor.create(255, 153, 204)),
     JULIANN(TileColor.create(128, 128, 255)),
     HOSPITAL(TileColor.create(15, 15, 15)),
+    VEGAS(TileColor.create(230, 0, 0)),
 
     // Entity & Room Tags
     FAMILIAR_FIGURE(TileColor.create(0, 0, 0));
@@ -203,54 +204,48 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.HOSPITAL_FOOD
         ),
         tags = listOf(ThemeTags.HOSPITAL))),
-    AN_UNFAMILIAR_STREET(DreamRoomBlueprintData(
-        "An unfamiliar street",
-        "You don't feel safe here.",
-        minWidth = 28, maxWidth = 36,
-        minHeight = 5, maxHeight = 5,
+    VEGAS_THE_STRIP(DreamRoomBlueprintData(
+        "The Vegas Strip",
+        "The strip is alive at night and you hate it. There are misters spraying water onto patrons, and " +
+            "beautiful, buff men in some sort of weird policeman fetish costumes and impossibly tall and thin women " +
+            "in entirely too little clothing and you want to shrink away and hide.",
+        minWidth = 50, maxWidth = 60,
+        minHeight = 8, maxHeight = 8,
         wallColor = ThemeTags.FAMILIAR_FIGURE.tileColor,
         entities = listOf(
-            EntityBlueprint.A_FAMILIAR_CAR,
-            EntityBlueprint.A_FAMILIAR_CAR,
-            EntityBlueprint.A_FAMILIAR_CAR,
-            EntityBlueprint.A_FAMILIAR_CAR,
-            EntityBlueprint.A_FAMILIAR_CAR,
-            EntityBlueprint.A_FAMILIAR_CAR,
-            EntityBlueprint.A_FAMILIAR_CAR,
-            EntityBlueprint.A_FAMILIAR_CAR,
-            EntityBlueprint.A_FAMILIAR_CAR,
-            EntityBlueprint.A_FAMILIAR_CAR,
-            EntityBlueprint.A_FAMILIAR_CAR,
-            EntityBlueprint.A_FAMILIAR_CAR,
-            EntityBlueprint.AN_UNFAMILIAR_STREET_LIGHT,
-            EntityBlueprint.AN_UNFAMILIAR_STREET_LIGHT,
-            EntityBlueprint.AN_UNFAMILIAR_STREET_LIGHT,
-            EntityBlueprint.AN_UNFAMILIAR_STREET_LIGHT,
-            EntityBlueprint.A_FAMILIAR_FIGURE
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_GIRL,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_GIRL,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_GIRL,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_GIRL,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_GIRL,
+            EntityBlueprint.VEGAS_STRIP_COSTUME_POLICEMAN,
+            EntityBlueprint.VEGAS_STRIP_COSTUME_POLICEMAN,
+            EntityBlueprint.VEGAS_STRIP_COSTUME_POLICEMAN,
+            EntityBlueprint.VEGAS_STRIP_COSTUME_BIRD_OF_PARADISE,
+            EntityBlueprint.VEGAS_STRIP_COSTUME_BIRD_OF_PARADISE,
+            EntityBlueprint.VEGAS_STRIP_COSTUME_BIRD_OF_PARADISE,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_BOY,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_BOY,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_BOY,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_BOY,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_BOY,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_BOY,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST,
+            EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST
         ),
-        tags = listOf(ThemeTags.FAMILIAR_FIGURE))),
-    AN_UNFAMILIAR_APARTMENT(DreamRoomBlueprintData(
-        "An unfamiliar apartment",
-        "You're trapped. The walls are too close; he is too close. You can't breathe.",
-        minWidth = 6, maxWidth = 6,
-        minHeight = 6, maxHeight = 6,
-        wallColor = ThemeTags.FAMILIAR_FIGURE.tileColor,
-        entities = listOf(
-            EntityBlueprint.A_FAMILIAR_FIGURE
-        ),
-        tags = listOf(ThemeTags.FAMILIAR_FIGURE))),
-    A_FAMILIAR_CAR(DreamRoomBlueprintData(
-        "A familiar car",
-        "You felt safe in here, once, but now - you feel the stress, in your heart, in your rasping " +
-            "breath. Alex is here, he grabs your hand. You'll be safe. You'll be safe as long as you stay with Alex.",
-        minWidth = 4, maxWidth = 4,
-        minHeight = 4, maxHeight = 4,
-        wallColor = ThemeTags.FAMILIAR_FIGURE.tileColor,
-        entities = listOf(
-            EntityBlueprint.A_FAMILIAR_FIGURE,
-            EntityBlueprint.A_FAMILIAR_CAR_ALEXANDER
-        ),
-        tags = listOf(ThemeTags.FAMILIAR_FIGURE))),
+        tags = listOf(ThemeTags.VEGAS))),
 }
 class CurtisStreetDadsRoom() {
     // Has a huge bed

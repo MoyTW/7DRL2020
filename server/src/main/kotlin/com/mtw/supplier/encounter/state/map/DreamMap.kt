@@ -328,6 +328,9 @@ class DreamMap: DreamMapI {
     override val entities: List<Entity>
         get() = roomsById.flatMap { it.value.entities() }
 
+    fun getEntitiesInRoom(roomUuid: String): List<Entity> {
+        return  this.roomsById[roomUuid]!!.entities()
+    }
 
     override fun getDoors(roomUuid: String): Map<ExitDirection, Entity> {
         return this.roomsById[roomUuid]!!.doors
