@@ -35,7 +35,7 @@ class VegasStripCollegeBoyAIComponent: AIComponent() {
         val isInFow = encounterState.fovCache!!.isInFoV(parentAbsPos)
 
         return if (!isInFow) {
-            val nearestPerformer = nearestPerformer(parentRoomPos.roomPosition, parentAbsPos, encounterState)
+            val nearestPerformer = nearestPerformer(parentRoomPos.roomPosition, parentAbsPos, encounterState) ?: return listOf(WaitAction(parent, null))
             val move = moveTo(parent, parentAbsPos, nearestPerformer, encounterState)
             return if (move != null) {
                 listOf(move)
@@ -47,7 +47,7 @@ class VegasStripCollegeBoyAIComponent: AIComponent() {
                 in 1..25 -> {
                     val talk = TerrifyAction(parent, player, TerrorChangeStats(2, 0, 75,
                         "\"Daaaaam!\" yells the college-aged man, pointing."))
-                    val nearestPerformer = nearestPerformer(parentRoomPos.roomPosition, parentAbsPos, encounterState)
+                    val nearestPerformer = nearestPerformer(parentRoomPos.roomPosition, parentAbsPos, encounterState) ?: return listOf(talk)
                     val move = moveTo(parent, parentAbsPos, nearestPerformer, encounterState)
                     return if (move != null) {
                         listOf(move, talk)

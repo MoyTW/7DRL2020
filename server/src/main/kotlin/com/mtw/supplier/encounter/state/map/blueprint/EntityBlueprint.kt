@@ -653,6 +653,30 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                     TerrorChangeMemory("Lunch at the hospital", TerrorChangeStats(-9, 0, 100, "What's not to like?")))
                 )))
     }),
+    VEGAS_SMOKE_CLOUD({
+        Entity(UUID.randomUUID().toString(), "A cloud of cigarette smoke")
+            .addComponent(CollisionComponent.fog())
+            .addComponent(DisplayComponent(false, character = 's', foregroundRGB = RGB(128, 0, 0)))
+            .addComponent(VegasSmokeCloudAIComponent())
+            .addComponent(SpeedComponent(300))
+            .addComponent(ActionTimeComponent(300))
+            .addComponent(InspectableComponent(
+                "A cloud of cigarette smoke",
+                "Your eyes water. Your lungs ache. Too much of this will set off you asthma, best be gone.",
+                mutableListOf()))
+    }),
+    VEGAS_SLOT_MACHINE({
+        Entity(UUID.randomUUID().toString(), "A flashing slot machine")
+            .addComponent(CollisionComponent.fog())
+            .addComponent(DisplayComponent(false, character = 'S', foregroundRGB = RGB(128, 0, 0)))
+            .addComponent(VegasSlotMachineAIComponent())
+            .addComponent(SpeedComponent(300))
+            .addComponent(ActionTimeComponent(300))
+            .addComponent(InspectableComponent(
+                "A flashing slot machine",
+                "You don't like slots, or the sounds they make, or the strobing lights they so often have.",
+                mutableListOf()))
+    }),
     VEGAS_STRIP_COLLEGE_GIRL({
         Entity(UUID.randomUUID().toString(), "A college girl")
             .addComponent(CollisionComponent.blocker())

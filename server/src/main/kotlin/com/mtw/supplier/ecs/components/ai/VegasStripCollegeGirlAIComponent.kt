@@ -31,12 +31,12 @@ class VegasStripCollegeGirlAIComponent: AIComponent() {
         }
 
         val parentAbsPos = parentRoomPos.asAbsolutePosition(encounterState)!!
-        val playerAbsPos = playerRoomPos.asAbsolutePosition(encounterState)!!
 
-        val isInFow = encounterState.fovCache!!.isInFoV(parentAbsPos)
+        val isInFow = encounterState.fovCache?.isInFoV(parentAbsPos) ?: return listOf(WaitAction(parent, null))
 
         return if (!isInFow) {
             val nearestPerformer = nearestPerformer(parentRoomPos.roomPosition, parentAbsPos, encounterState)
+                ?: return listOf(WaitAction(parent, null))
             val move = moveTo(parent, parentAbsPos, nearestPerformer, encounterState)
             return if (move != null) {
                 listOf(move)
@@ -48,7 +48,7 @@ class VegasStripCollegeGirlAIComponent: AIComponent() {
                 in 1..25 -> {
                     val talk = TerrifyAction(parent, player, TerrorChangeStats(2, 0, 75,
                         "\"Hey look!\" yells the college girl, pointing."))
-                    val nearestPerformer = nearestPerformer(parentRoomPos.roomPosition, parentAbsPos, encounterState)
+                    val nearestPerformer = nearestPerformer(parentRoomPos.roomPosition, parentAbsPos, encounterState) ?: return listOf(talk)
                     val move = moveTo(parent, parentAbsPos, nearestPerformer, encounterState)
                     return if (move != null) {
                         listOf(move, talk)
@@ -68,11 +68,11 @@ class VegasStripCollegeGirlAIComponent: AIComponent() {
         }
     }
 
-    private fun nearestPerformer(parentRoomPosition: RoomPosition, parentAbsolutePosition: AbsolutePosition, encounterState: EncounterState): AbsolutePosition {
+    private fun nearestPerformer(parentRoomPosition: RoomPosition, parentAbsolutePosition: AbsolutePosition, encounterState: EncounterState): AbsolutePosition? {
         return encounterState.entitiesInRoom(parentRoomPosition.roomUuid)
             .mapNotNull { it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState) }
             .minBy { EncounterStateUtils.distanceBetween(it, parentAbsolutePosition)
-        }!!
+        }
     }
 
     private fun moveTo(parent: Entity, parentPos: AbsolutePosition, targetPos: AbsolutePosition, encounterState: EncounterState): MoveAction? {

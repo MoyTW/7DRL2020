@@ -150,6 +150,7 @@ object Rulebook {
         val defender = action.target
         val defenderTerror = defender.getComponentOrNull(TerrorComponent::class)
         if (defenderTerror != null) {
+            // If you're subtracting terror
             if (action.terrorChangeStats.dTerror < 0) {
                 val newTerror = max(defenderTerror.currentTerror + action.terrorChangeStats.dTerror, action.terrorChangeStats.changesDownToMin)
                 // Don't set it to higher than it current is

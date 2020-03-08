@@ -293,6 +293,48 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.VEGAS_STRIP_MIDDLE_AGED_TOURIST
         ),
         tag = ThemeTag.VEGAS)),
+    VEGAS_THE_CASINO_FLOOR(DreamRoomBlueprintData(
+        "The Excalibur Floor",
+        "The strip is alive at night and you hate it. There are misters spraying water onto patrons, and " +
+            "beautiful, buff men in some sort of weird policeman fetish costumes and impossibly tall and thin women " +
+            "in entirely too little clothing and you want to shrink away and hide.",
+        minWidth = 20, maxWidth = 30,
+        minHeight = 20, maxHeight = 30,
+        wallColor = ThemeTag.VEGAS.tileColor,
+        entities = listOf(
+            EntityBlueprint.VEGAS_SMOKE_CLOUD,
+            EntityBlueprint.VEGAS_SMOKE_CLOUD,
+            EntityBlueprint.VEGAS_SMOKE_CLOUD,
+            EntityBlueprint.VEGAS_SMOKE_CLOUD,
+            EntityBlueprint.VEGAS_SMOKE_CLOUD,
+            EntityBlueprint.VEGAS_SMOKE_CLOUD,
+            EntityBlueprint.VEGAS_SMOKE_CLOUD,
+            EntityBlueprint.VEGAS_SMOKE_CLOUD,
+            EntityBlueprint.VEGAS_SMOKE_CLOUD,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_GIRL,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_GIRL,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_GIRL,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_BOY,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_BOY,
+            EntityBlueprint.VEGAS_STRIP_COLLEGE_BOY,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE,
+            EntityBlueprint.VEGAS_SLOT_MACHINE
+        ),
+        tag = ThemeTag.VEGAS)),
 }
 class CurtisStreetDadsRoom() {
     // Has a huge bed
