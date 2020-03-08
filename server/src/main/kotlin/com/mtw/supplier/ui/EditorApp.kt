@@ -7,6 +7,7 @@ import com.mtw.supplier.encounter.rulebook.actions.InspectAction
 import com.mtw.supplier.encounter.rulebook.actions.MoveAction
 import com.mtw.supplier.encounter.rulebook.actions.WaitAction
 import com.mtw.supplier.encounter.state.EncounterState
+import com.mtw.supplier.encounter.state.map.blueprint.ThemeTags
 import com.mtw.supplier.utils.AbsolutePosition
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.*
@@ -246,7 +247,7 @@ class GameState {
 
         val player = Entity(UUID.randomUUID().toString(), "player")
             .addComponent(PlayerComponent())
-            .addComponent(DisplayComponent(false, foregroundRGB = RGB(0, 0, 255), character = '@'))
+            .addComponent(DisplayComponent(false, foregroundRGB = ThemeTags.YOU.rgb, character = '@'))
             .addComponent(TerrorComponent())
             .addComponent(CollisionComponent.mover())
             .addComponent(ActionTimeComponent(100))

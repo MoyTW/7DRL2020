@@ -2,7 +2,7 @@ package com.mtw.supplier.encounter.state.map
 
 import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.RoomPositionComponent
-import com.mtw.supplier.encounter.state.map.blueprint.RoomTags
+import com.mtw.supplier.encounter.state.map.blueprint.ThemeTags
 import kotlinx.serialization.Serializable
 
 interface DreamTileI {
@@ -45,7 +45,7 @@ class DreamRoom internal constructor(
     val height: Int,
     val doors: Map<ExitDirection, Entity>,
     private val nodes: Array<Array<DreamTile>>,
-    val tags: List<RoomTags>
+    val tags: List<ThemeTags>
 ) {
     internal fun isInBounds(x: Int, y: Int): Boolean {
         return x in 0 until width && y in 0 until height

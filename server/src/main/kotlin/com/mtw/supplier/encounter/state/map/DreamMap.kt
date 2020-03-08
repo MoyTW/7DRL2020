@@ -4,7 +4,7 @@ import com.mtw.supplier.ecs.Entity
 import com.mtw.supplier.ecs.components.DoorComponent
 import com.mtw.supplier.ecs.components.RoomPositionComponent
 import com.mtw.supplier.encounter.state.map.blueprint.DreamRoomBlueprint
-import com.mtw.supplier.encounter.state.map.blueprint.RoomTags
+import com.mtw.supplier.encounter.state.map.blueprint.ThemeTags
 import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 import org.slf4j.LoggerFactory
@@ -33,7 +33,7 @@ class DreamMapBuilder(val numRooms: Int = DreamRoomBlueprint.values().size) {
             }
 
         }
-        map.initializeWith(map.inDeckRooms.filter { it.tags.contains(RoomTags.CURTIS_ST) }.random())
+        map.initializeWith(map.inDeckRooms.filter { it.tags.contains(ThemeTags.CURTIS_ST) }.random())
         return map
     }
 }

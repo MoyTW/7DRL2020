@@ -98,21 +98,51 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
         Entity(UUID.randomUUID().toString(), "Betty's tomato plants")
             .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(true, character = 't', foregroundRGB = RGB(153, 0, 0)))
+            .addComponent(InspectableComponent(
+                "Betty's tomato plants",
+                "She likes gardening.",
+                mutableListOf()))
     }),
     BETTYS_BACKYARD_HERBS({
         Entity(UUID.randomUUID().toString(), "Betty's homegrown greens")
             .addComponent(CollisionComponent.passable())
             .addComponent(DisplayComponent(true, character = 'h', foregroundRGB = RGB(0, 153, 51)))
+            .addComponent(InspectableComponent(
+                "Betty's greens",
+                "You're not entirely sure what kind of plant this is, but she made potstickers once with " +
+                    "these and gave you some. They were pretty good but you cooked them wrong so some of them fell " +
+                    "apart.",
+                mutableListOf()))
     }),
     BETTYS_BACKYARD_FRUITS({
         Entity(UUID.randomUUID().toString(), "Betty's fruit tree")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(true, character = 'F', foregroundRGB = RGB(0, 150, 51)))
+            .addComponent(InspectableComponent(
+                "Betty's fruit tree",
+                "You know, you should really know what kind of fruit this thing gives by now.",
+                mutableListOf()))
     }),
     CURTIS_STREET_MY_BED({
-        Entity(UUID.randomUUID().toString(), "Your Teenage Bed")
+        Entity(UUID.randomUUID().toString(), "Your teenage bed")
             .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(true, character = 'B', foregroundRGB = RGB(0, 173, 238)))
+            .addComponent(InspectableComponent(
+                "Betty's living room desk",
+                "Incredibly unexceptional, as far as desks go. Covered with paperwork from Betty's business, usually.",
+                mutableListOf(
+                    InspectEvent("Your mom and Betty, arguing",
+                        "Betty took debts very seriously. Somehow Betty owed your mom twenty dollars, probably because " +
+                            "they went out to eat together, so one day they were talking and Betty tried to give your " +
+                            "mom the money. Your mom was like, oh, it's no big deal! but Betty said it was, and your " +
+                            "mom wouldn't back down, and so on, and so on, with them becoming increasingly loud. " +
+                            "Eventually, Betty just slapped the twenty dollars down on the table and left the house, " +
+                            "even though it was *her house*. \n \n " +
+                            "You were trying not to die from laughter the whole time.",
+                        TerrorChangeStats(-6, 0, 100, "Hahahahahahaha!"),
+                        TerrorChangeMemory("Betty and your mom", TerrorChangeStats(-4, 0, 100,
+                            "You hope you can have a friend like that.")))
+                )))
     }),
     CURTIS_STREET_MY_DRESSER({
         Entity(UUID.randomUUID().toString(), "Your Teenage Dresser")
@@ -404,6 +434,6 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     A_FAMILIAR_CAR_ALEXANDER({
         Entity(UUID.randomUUID().toString(), "Alexander")
             .addComponent(CollisionComponent.blocker())
-            .addComponent(DisplayComponent(false, character = 'A', foregroundRGB = RGB(0, 51, 0)))
+            .addComponent(DisplayComponent(false, character = 'A', foregroundRGB = ThemeTags.ALEX.rgb))
     })
 }

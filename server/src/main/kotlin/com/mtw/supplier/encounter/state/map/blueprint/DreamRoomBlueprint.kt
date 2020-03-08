@@ -1,12 +1,20 @@
 package com.mtw.supplier.encounter.state.map.blueprint
 
+import com.mtw.supplier.ecs.components.RGB
 import kotlinx.serialization.Serializable
 import org.hexworks.zircon.api.color.TileColor
 
 @Serializable
-enum class RoomTags(val tileColor: TileColor) {
+enum class ThemeTags(val tileColor: TileColor) {
+    // Character Tags
+    YOU(TileColor.create(0, 0, 255)),
+    ALEX(TileColor.create(0, 51, 0)),
+    // Room Tags
     CURTIS_ST(TileColor.create(255, 153, 204)),
-    JULIANN(TileColor.create(128, 128, 255))
+    JULIANN(TileColor.create(128, 128, 255));
+
+    val rgb: RGB
+        get() = RGB.fromTileColor(this.tileColor)
 }
 
 data class DreamRoomBlueprintData(
@@ -18,7 +26,7 @@ data class DreamRoomBlueprintData(
     val maxHeight: Int,
     val wallColor: TileColor,
     val entities: List<EntityBlueprint>,
-    val tags: List<RoomTags> = listOf()
+    val tags: List<ThemeTags> = listOf()
 )
 
 enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
@@ -28,7 +36,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             " kids. You never see her anymore. She always has something scheduled. She's very popular socially.",
         minWidth = 10, maxWidth = 10,
         minHeight = 14, maxHeight = 14,
-        wallColor = RoomTags.JULIANN.tileColor,
+        wallColor = ThemeTags.JULIANN.tileColor,
         entities = listOf(
             EntityBlueprint.BETTYS_LIVING_ROOM_TV,
             EntityBlueprint.BETTYS_LIVING_ROOM_COUCH,
@@ -40,14 +48,14 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.BETTYS_LIVING_ROOM_BOOKSHELVES,
             EntityBlueprint.BETTYS_LIVING_ROOM_DESK
         ),
-        tags = listOf(RoomTags.JULIANN))),
+        tags = listOf(ThemeTags.JULIANN))),
     BETTYS_BACKYARD(DreamRoomBlueprintData(
         "Juliann's old backyard",
         "Betty and Lawrence never liked answering the front door, so when you were going over to " +
             "Juliann's house you always went through the backyard.",
         minWidth = 10, maxWidth = 10,
         minHeight = 14, maxHeight = 14,
-        wallColor = RoomTags.JULIANN.tileColor,
+        wallColor = ThemeTags.JULIANN.tileColor,
         entities = listOf(
             EntityBlueprint.BETTYS_BACKYARD_LAUNDRY,
             EntityBlueprint.BETTYS_BACKYARD_LAUNDRY,
@@ -55,7 +63,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.BETTYS_BACKYARD_HERBS,
             EntityBlueprint.BETTYS_BACKYARD_FRUITS
         ),
-        tags = listOf(RoomTags.JULIANN))),
+        tags = listOf(ThemeTags.JULIANN))),
     CURTIS_STREET_BEDROOM(DreamRoomBlueprintData(
         "Your old bedroom",
         "You shared it with Alex until you left for college, aside from those years you stole the TV " +
@@ -70,7 +78,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_MY_DRESSER,
             EntityBlueprint.CURTIS_STREET_ALEXS_BED
         ),
-        tags = listOf(RoomTags.CURTIS_ST))),
+        tags = listOf(ThemeTags.CURTIS_ST))),
     CURTIS_STREET_DOWN_DOWNSTAIRS(DreamRoomBlueprintData(
         "The down-downstairs TV room",
         "When you were fighting with your parents, you abandoned your room. You slept on this couch, " +
@@ -89,7 +97,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_DDS_COUCH,
             EntityBlueprint.CURTIS_STREET_DDS_COUCH
         ),
-        tags = listOf(RoomTags.CURTIS_ST))),
+        tags = listOf(ThemeTags.CURTIS_ST))),
     CURTIS_STREET_MIDDLE_BATHROOM(DreamRoomBlueprintData(
         "The middle bathroom",
         "This was your favorite bathroom. The shower was nice and hot, there was plenty of space near " +
@@ -105,7 +113,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.CURTIS_STREET_SMALL_PLASITC_TRASH_BIN,
             EntityBlueprint.CURTIS_STREET_MIDDLE_MIRROR
         ),
-        tags = listOf(RoomTags.CURTIS_ST))),
+        tags = listOf(ThemeTags.CURTIS_ST))),
     ASTHMA_HOSPITAL_EMERGENCY_ROOM(DreamRoomBlueprintData(
         "Emergency Room",
         "Your wheezing is terrifying in your young ears. Every breath results in a huge, hacking cough. " +
