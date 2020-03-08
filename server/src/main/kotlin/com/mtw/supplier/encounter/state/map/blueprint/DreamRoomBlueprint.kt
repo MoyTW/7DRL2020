@@ -207,8 +207,8 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         tag = ThemeTag.HOSPITAL)),
     STRANGE_PLACE_SPIDERS(DreamRoomBlueprintData(
         "A strange marsh",
-        "It's dark, here. You're lost. You remember Matthew saying something about what should happen if " +
-            "you get lost. Stay, and yell, you think - but as you look around you realize you're not alone.",
+        "It's dark, here. You remember Matthew saying something about what should happen if " +
+            "you left the path. He told you not to leave the path. Why did you agree to go camping?",
         minWidth = 14, maxWidth = 14,
         minHeight = 14, maxHeight = 14,
         wallColor = ThemeTag.STRANGE_PLACE.tileColor,

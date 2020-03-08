@@ -758,7 +758,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     SPIDER_SWARM({
         Entity(UUID.randomUUID().toString(), "A carpet of spiders")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'S', foregroundRGB = ThemeTag.STRANGE_PLACE.rgb))
+            .addComponent(DisplayComponent(false, character = 'S', foregroundRGB = ThemeTag.STRANGE_PLACE.rgb))
             .addComponent(StrangePlaceSpiderSwarmAIComponent())
             .addComponent(SpeedComponent(100))
             .addComponent(ActionTimeComponent(100))
@@ -775,7 +775,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     ET({
         Entity(UUID.randomUUID().toString(), "A short, wrinkly alien")
             .addComponent(CollisionComponent.mover())
-            .addComponent(DisplayComponent(true, character = 'E', foregroundRGB = ThemeTag.STRANGE_PLACE.rgb))
+            .addComponent(DisplayComponent(false, character = 'E', foregroundRGB = ThemeTag.STRANGE_PLACE.rgb))
             .addComponent(StrangePlaceETAIComponent())
             .addComponent(SpeedComponent(150))
             .addComponent(ActionTimeComponent(150))
