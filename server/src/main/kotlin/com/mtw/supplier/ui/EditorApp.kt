@@ -7,6 +7,7 @@ import com.mtw.supplier.encounter.rulebook.actions.InspectAction
 import com.mtw.supplier.encounter.rulebook.actions.MoveAction
 import com.mtw.supplier.encounter.rulebook.actions.WaitAction
 import com.mtw.supplier.encounter.state.EncounterState
+import com.mtw.supplier.encounter.state.EncounterStateUtils
 import com.mtw.supplier.encounter.state.map.blueprint.ThemeTags
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.zircon.api.*
@@ -156,6 +157,8 @@ object EditorApp {
 
             KeyCode.DIVIDE -> { gameState.targetPrevious(); true}
             KeyCode.MULTIPLY -> { gameState.targetNext(); true}
+            KeyCode.KEY_T -> { gameState.targetNext(); true}
+            KeyCode.KEY_P -> { gameState.targetPrevious(); true}
 
             KeyCode.KEY_I -> { gameState.inspectTarget(windows.inspectScreen); true}
             KeyCode.KEY_R -> { gameState.displayMemories(windows.memoryScreen); true}
@@ -179,7 +182,11 @@ class GameState {
             // dumbest filtering ever
             .filterNot { it.name.toUpperCase() == "DOOR" }
             .filterNot { it.name.toUpperCase() == "WALL" }
-            .sortedBy { it.name }
+            .sortedBy {
+                val playerPos = player.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)!!
+                val visiblePos = it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState)!!
+                EncounterStateUtils.distanceBetween(playerPos, visiblePos)
+            }
         if (visibleEntities.isNotEmpty()) {
             val currentTarget = player.getComponent(PlayerComponent::class).targeted
             if (currentTarget == null) {
