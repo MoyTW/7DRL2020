@@ -21,28 +21,79 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                             "Republican, and her mom vaguely Democratic. It was a weird night, especially given " +
                             "Florida. That had seemed so wild at the time.",
                         TerrorChangeStats(2, 0, 50, "You feel glum."),
-                        null)
+                        TerrorChangeMemory("Bush, and the years since", TerrorChangeStats(4, 0, 80,
+                            "Not worth thinking about."))),
+                    InspectEvent("The 1984 Dune movie",
+                        "You have no idea how it came to be but you watched the 1984 version of Dune once at Juliann's house. " +
+                            "Betty made hot chocolate. It was great and you both loved it.",
+                        TerrorChangeStats(-2, 0, 100, "Good times."),
+                        TerrorChangeMemory("Dune, 1984", TerrorChangeStats(-1, 0, 100,
+                            "That was such a weird movie.")))
                 )))
     }),
     BETTYS_LIVING_ROOM_COUCH({
         Entity(UUID.randomUUID().toString(), "Betty's living room couches")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(true, character = 'C', foregroundRGB = RGB(10, 10, 41)))
+            .addComponent(InspectableComponent(
+                "Betty's couches",
+                "They weren't particularly nice, but they were clean.",
+                mutableListOf()))
     }),
     BETTYS_LIVING_ROOM_BOOKSHELVES({
         Entity(UUID.randomUUID().toString(), "Betty's living room bookshelves")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(true, character = 'S', foregroundRGB = RGB(153, 51, 0)))
+            .addComponent(InspectableComponent(
+                "Betty's living room bookshelves",
+                "Alongside Juliann's childhood picture books, it was mostly textbooks. Betty and Lawrence " +
+                    "took school very seriously, as immigrant Chinese often do. You didn't have it so bad but Juliann " +
+                    "had it awful, though Juliann was very studious and intelligent so she never disappointed. Not " +
+                    "until later, when she went off to follow her passions instead of making lots of money with her " +
+                    "math degree.",
+                mutableListOf(
+                    InspectEvent("The bookshelf, full of schoolbooks",
+                        "Your eyes catch the titles of some of Juliann's old textbooks. Years after you'd " +
+                            "both graduated, you'd gone with Betty into her garage to fetch - something, you don't " +
+                            "know what. She was moving some boxes out of the way. " +
+                            "You asked her what was in there, and she said it was Juliann's old schoolwork. \n \n " +
+                            "There were, like, seven boxes of it. \n \n " +
+                            "At least your parents weren't like that. Though, maybe they should have been.",
+                        TerrorChangeStats(2, 0, 60, "Just a tad creepy."),
+                        TerrorChangeMemory("Betty, with Juliann's schoolwork", TerrorChangeStats(9, 0, 100,
+                            "The pressure on Juliann was immense.")))
+                )))
     }),
     BETTYS_LIVING_ROOM_DESK({
         Entity(UUID.randomUUID().toString(), "Betty's living room desk")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(true, character = 'D', foregroundRGB = RGB(153, 51, 0)))
+            .addComponent(InspectableComponent(
+                "Betty's living room desk",
+                "Incredibly unexceptional, as far as desks go. Covered with paperwork from Betty's business, usually.",
+                mutableListOf(
+                    InspectEvent("Your mom and Betty, arguing",
+                        "Betty took debts very seriously. Somehow Betty owed your mom twenty dollars, probably because " +
+                            "they went out to eat together, so one day they were talking and Betty tried to give your " +
+                            "mom the money. Your mom was like, oh, it's no big deal! but Betty said it was, and your " +
+                            "mom wouldn't back down, and so on, and so on, with them becoming increasingly loud. " +
+                            "Eventually, Betty just slapped the twenty dollars down on the table and left the house, " +
+                            "even though it was *her house*. \n \n " +
+                            "You were trying not to die from laughter the whole time.",
+                        TerrorChangeStats(-6, 0, 100, "Hahahahahahaha!"),
+                        TerrorChangeMemory("Betty and your mom", TerrorChangeStats(-4, 0, 100,
+                            "You hope you can have a friend like that.")))
+                )))
     }),
     BETTYS_BACKYARD_LAUNDRY({
         Entity(UUID.randomUUID().toString(), "Laundry drying in the sun")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(true, character = 'L', foregroundRGB = RGB(220, 220, 220)))
+            .addComponent(InspectableComponent(
+                "Betty's laundry drying poles",
+                "She owned a dryer, but she preferred the sun anyways, when it was bright out. Come to think " +
+                    "of it, your mom did too.",
+                mutableListOf()))
     }),
     BETTYS_BACKYARD_TOMATOES({
         Entity(UUID.randomUUID().toString(), "Betty's tomato plants")
@@ -178,7 +229,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                             "They were always, well, nice, but looking back on it it was probably just because you were a girl and not because of any real personal connection. " +
                             "Isn't that depressing? You think you felt that way then, too. \n \n " +
                             "More often you'd walk home for lunch and watch episodes of Pokemon, Sailor Moon, Fruits Basket, or Evangelion on your computer as you ate. \n \n " +
-                            "Why the hell did you watch Evangelion? Weird choice, teenage you. Misery loves company, I guess?",
+                            "Why the hell did you watch Evangelion? Weird choice, teenage you. You guess misery loves company?",
                         TerrorChangeStats(9, 0, 100, "The loneliness crashes over you like a wave."),
                         TerrorChangeMemory("Lunch and anime", TerrorChangeStats(5, 0, 100, "High school was a real shit time, wasn't it?"))))))
     }),
@@ -358,9 +409,9 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
     })
 }
 
-enum class RoomTags {
-    CURTIS_ST,
-    JULIANN
+enum class RoomTags(val tileColor: TileColor) {
+    CURTIS_ST(TileColor.create(255, 153, 204)),
+    JULIANN(TileColor.create(128, 128, 255))
 }
 
 data class DreamRoomBlueprintData(
@@ -371,7 +422,6 @@ data class DreamRoomBlueprintData(
     val minHeight: Int,
     val maxHeight: Int,
     val wallColor: TileColor,
-    val floorColor: TileColor,
     val entities: List<EntityBlueprint>,
     val tags: List<RoomTags> = listOf()
 )
@@ -383,8 +433,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             " kids. You never see her anymore. She always has something scheduled. She's very popular socially.",
         minWidth = 10, maxWidth = 10,
         minHeight = 14, maxHeight = 14,
-        wallColor = TileColor.create(128, 128, 255),
-        floorColor = TileColor.create(133, 94, 66),
+        wallColor = RoomTags.JULIANN.tileColor,
         entities = listOf(
             EntityBlueprint.BETTYS_LIVING_ROOM_TV, 
             EntityBlueprint.BETTYS_LIVING_ROOM_COUCH,
@@ -403,8 +452,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             "Juliann's house you always went through the backyard.",
         minWidth = 10, maxWidth = 10,
         minHeight = 14, maxHeight = 14,
-        wallColor = TileColor.create(128, 128, 255),
-        floorColor = TileColor.create(133, 94, 66),
+        wallColor = RoomTags.JULIANN.tileColor,
         entities = listOf(
             EntityBlueprint.BETTYS_BACKYARD_LAUNDRY,
             EntityBlueprint.BETTYS_BACKYARD_LAUNDRY,
@@ -421,7 +469,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         minWidth = 8, maxWidth = 8,
         minHeight = 5, maxHeight = 5,
         wallColor = TileColor.create(255, 153, 204),
-        floorColor = TileColor.create(133, 94, 66), // hopefully wood veneer-ish
+        // hopefully wood veneer-ish
         entities = listOf(
             EntityBlueprint.CURTIS_STREET_MY_BED,
             EntityBlueprint.CURTIS_STREET_MY_DRESSER,
@@ -436,7 +484,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         minWidth = 7, maxWidth = 9,
         minHeight = 14, maxHeight = 16,
         wallColor = TileColor.create(255, 153, 204), // light-pink-ish
-        floorColor = TileColor.create(255, 153, 204), // hopefully hardwood-ish
+        // hopefully hardwood-ish
         entities = listOf(
             EntityBlueprint.CURTIS_STREET_BIG_TV,
             EntityBlueprint.CURTIS_STREET_GAMECUBE,
@@ -454,7 +502,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         minWidth = 5, maxWidth = 5,
         minHeight = 7, maxHeight = 7,
         wallColor = TileColor.create(255, 153, 204), // light-pink-ish
-        floorColor = TileColor.create(255, 153, 204), // hopefully hardwood-ish
+        // hopefully hardwood-ish
         entities = listOf(
             EntityBlueprint.CURTIS_STREET_MIDDLE_TOILET,
             EntityBlueprint.CURTIS_STREET_MIDDLE_SHOWER,
@@ -470,7 +518,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         minWidth = 25, maxWidth = 30,
         minHeight = 45, maxHeight = 50,
         wallColor = TileColor.create(15, 15, 15),
-        floorColor = TileColor.create(0, 0, 0), // hopefully wood veneer-ish
+        // hopefully wood veneer-ish
         entities = listOf(
             EntityBlueprint.HOSPITAL_ER_CHAIR,
             EntityBlueprint.HOSPITAL_ER_CHAIR,
@@ -520,7 +568,6 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         minWidth = 5, maxWidth = 5,
         minHeight = 9, maxHeight = 9,
         wallColor = TileColor.create(210, 210, 210),
-        floorColor = TileColor.create(255, 255, 255),
         entities = listOf(
             EntityBlueprint.HOSPITAL_CURTAINS,
             EntityBlueprint.HOSPITAL_MACHINERY,
@@ -533,7 +580,6 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         minWidth = 28, maxWidth = 36,
         minHeight = 5, maxHeight = 5,
         wallColor = TileColor.create(0, 0, 0),
-        floorColor = TileColor.create(105, 105, 105),
         entities = listOf(
             EntityBlueprint.A_FAMILIAR_CAR,
             EntityBlueprint.A_FAMILIAR_CAR,
@@ -559,7 +605,6 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         minWidth = 6, maxWidth = 6,
         minHeight = 6, maxHeight = 6,
         wallColor = TileColor.create(0, 0, 0),
-        floorColor = TileColor.create(255, 255, 255),
         entities = listOf(
             EntityBlueprint.A_FAMILIAR_FIGURE
         ))),
@@ -570,7 +615,6 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
         minWidth = 4, maxWidth = 4,
         minHeight = 4, maxHeight = 4,
         wallColor = TileColor.create(0, 0, 0),
-        floorColor = TileColor.create(255, 255, 255),
         entities = listOf(
             EntityBlueprint.A_FAMILIAR_FIGURE,
             EntityBlueprint.A_FAMILIAR_CAR_ALEXANDER
@@ -599,7 +643,6 @@ class DreamRoomBuilder(
     var commentary: String? = null,
     var width: Int? = null,
     var height: Int? = null,
-    var floorColor: TileColor? = TileColor.transparent(),
     var wallColor: TileColor = TileColor.transparent(),
     var exits: List<ExitDirection> = ExitDirection.ALL_DIRECTIONS,
     val entityBlueprints: MutableList<EntityBlueprint> = mutableListOf(),
@@ -619,7 +662,6 @@ class DreamRoomBuilder(
         this.commentary = data.commentary
         this.width = (data.minWidth..data.maxWidth).random()
         this.height = (data.minHeight..data.maxHeight).random()
-        this.floorColor = data.floorColor
         this.wallColor = data.wallColor
         this.entityBlueprints.addAll(data.entities)
         this.tags.addAll(data.tags)
