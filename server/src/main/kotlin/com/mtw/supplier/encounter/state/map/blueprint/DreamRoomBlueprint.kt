@@ -218,6 +218,17 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.SPIDER_SWARM
         ),
         tag = ThemeTag.STRANGE_PLACE)),
+    STRANGE_PLACE_ET(DreamRoomBlueprintData(
+        "Near a road, at night",
+        "It's dark, here. You're lost. The undergrowth by the side of the road concerns you but if you " +
+            "follow the road you should be fine - but there's rustling in the bushes.",
+        minWidth = 4, maxWidth = 4,
+        minHeight = 20, maxHeight = 30,
+        wallColor = ThemeTag.STRANGE_PLACE.tileColor,
+        entities = listOf(
+            EntityBlueprint.ET
+        ),
+        tag = ThemeTag.STRANGE_PLACE)),
     VEGAS_THE_STRIP(DreamRoomBlueprintData(
         "The Vegas Strip",
         "The strip is alive at night and you hate it. There are misters spraying water onto patrons, and " +

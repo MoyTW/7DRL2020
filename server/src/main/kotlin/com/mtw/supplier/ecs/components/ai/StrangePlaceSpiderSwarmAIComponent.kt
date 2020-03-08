@@ -13,7 +13,7 @@ import com.mtw.supplier.utils.AbsolutePosition
 import kotlinx.serialization.Serializable
 
 @Serializable
-class SpiderSwarmAIComponent: AIComponent() {
+class StrangePlaceSpiderSwarmAIComponent: AIComponent() {
     override var _parentId: String? = null
     override var isActive: Boolean = true
 
@@ -32,8 +32,16 @@ class SpiderSwarmAIComponent: AIComponent() {
         val playerAbsPos = playerRoomPos.asAbsolutePosition(encounterState)!!
 
         val isAdjacent = encounterState.arePositionsAdjacent(parentAbsPos, playerAbsPos)
+        val isInFow = encounterState.fovCache?.isInFoV(parentAbsPos) ?: return listOf(WaitAction(parent, null))
 
-        return if (!isAdjacent) {
+        return if (!isInFow) {
+            val move = moveToPlayer(parent, parentAbsPos, playerAbsPos, encounterState)
+            if (move != null) {
+                listOf(move)
+            } else {
+                listOf(WaitAction(parent, null))
+            }
+        } else if (!isAdjacent) {
             when ((1..100).random()) {
                 in 1..50 -> listOf(WaitAction(parent, "The spiders skitter randomly."))
                 else -> {

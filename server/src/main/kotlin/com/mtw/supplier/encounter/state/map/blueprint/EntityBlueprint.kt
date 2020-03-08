@@ -759,7 +759,7 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
         Entity(UUID.randomUUID().toString(), "A carpet of spiders")
             .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(true, character = 'S', foregroundRGB = ThemeTag.STRANGE_PLACE.rgb))
-            .addComponent(SpiderSwarmAIComponent())
+            .addComponent(StrangePlaceSpiderSwarmAIComponent())
             .addComponent(SpeedComponent(100))
             .addComponent(ActionTimeComponent(100))
             .addComponent(InspectableComponent(
@@ -770,6 +770,27 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
                         "That was a bad idea.",
                         TerrorChangeStats(100, 0, 100, "No, seriously, why?"),
                         null)
+                )))
+    }),
+    ET({
+        Entity(UUID.randomUUID().toString(), "A short, wrinkly alien")
+            .addComponent(CollisionComponent.mover())
+            .addComponent(DisplayComponent(true, character = 'E', foregroundRGB = ThemeTag.STRANGE_PLACE.rgb))
+            .addComponent(StrangePlaceETAIComponent())
+            .addComponent(SpeedComponent(150))
+            .addComponent(ActionTimeComponent(150))
+            .addComponent(InspectableComponent(
+                "ET, The Extra Terrestrial",
+                "You were a bundle of nerves as a kid, huh.",
+                mutableListOf(
+                    InspectEvent("It's...it's ET.",
+                        "When you were a little kid, your parents showed you ET. You don't remember doing " +
+                            "this, but your parents told you about it afterwards. There's a scene they described where " +
+                            "the kid is first meeting ET, and ET rises out of some bushes. \n \n " +
+                            "Apparently when you saw ET, you screamed and ran out of the room. \n \n " +
+                            "You were, like, five.",
+                        TerrorChangeStats(-30, 50, 100, "Jesus. You can't believe you remember that."),
+                        TerrorChangeMemory("Scared of ET", TerrorChangeStats(-15, 50, 100, "What a thing to be scared of.")))
                 )))
     }),
     A_FAMILIAR_FIGURE({
