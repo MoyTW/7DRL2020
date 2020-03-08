@@ -45,31 +45,15 @@ class VegasStripMiddleAgedTouristAIComponent: AIComponent() {
                     } else
                         listOf(MoveAction(parent, adjacentOpen.random()))
                     }
-                in 21..40 -> listOf(TerrifyAction(parent, player, TerrorChangeStats(-1, 40, 100,
+                in 21..40 -> listOf(TerrifyAction(parent, player, TerrorChangeStats(-1, 60, 100,
                     "\"Oh, Mildred, let's get a picture!\"")))
-                in 41..60 -> listOf(TerrifyAction(parent, player, TerrorChangeStats(-1, 40, 100,
+                in 41..60 -> listOf(TerrifyAction(parent, player, TerrorChangeStats(-1, 60, 100,
                     "\"Oh look Mildred, Excalibur!\"")))
-                in 61..80 -> listOf(TerrifyAction(parent, player, TerrorChangeStats(-1, 40, 100,
+                in 61..80 -> listOf(TerrifyAction(parent, player, TerrorChangeStats(-1, 60, 100,
                     "\"Just six inches to the left please, James.\"")))
-                else -> listOf(TerrifyAction(parent, player, TerrorChangeStats(-1, 40, 100,
+                else -> listOf(TerrifyAction(parent, player, TerrorChangeStats(-1, 60, 100,
                     "\"Oh, James, that's so sweet!\"")))
             }
-        }
-    }
-
-    private fun nearestPerformer(parentRoomPosition: RoomPosition, parentAbsolutePosition: AbsolutePosition, encounterState: EncounterState): AbsolutePosition {
-        return encounterState.entitiesInRoom(parentRoomPosition.roomUuid)
-            .mapNotNull { it.getComponent(RoomPositionComponent::class).asAbsolutePosition(encounterState) }
-            .minBy { EncounterStateUtils.distanceBetween(it, parentAbsolutePosition)
-            }!!
-    }
-
-    private fun moveTo(parent: Entity, parentPos: AbsolutePosition, targetPos: AbsolutePosition, encounterState: EncounterState): MoveAction? {
-        val path = EncounterStateUtils.aStarWithNewGrid(parentPos, targetPos, encounterState)
-        return if (path != null) {
-            MoveAction(actor = parent, targetPosition = path[0])
-        } else {
-            null
         }
     }
 }

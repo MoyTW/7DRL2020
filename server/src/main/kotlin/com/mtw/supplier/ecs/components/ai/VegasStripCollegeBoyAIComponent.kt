@@ -31,7 +31,6 @@ class VegasStripCollegeBoyAIComponent: AIComponent() {
         }
 
         val parentAbsPos = parentRoomPos.asAbsolutePosition(encounterState)!!
-        val playerAbsPos = playerRoomPos.asAbsolutePosition(encounterState)!!
 
         val isInFow = encounterState.fovCache!!.isInFoV(parentAbsPos)
 

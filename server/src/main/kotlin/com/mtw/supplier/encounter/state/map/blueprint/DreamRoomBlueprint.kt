@@ -210,7 +210,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             "beautiful, buff men in some sort of weird policeman fetish costumes and impossibly tall and thin women " +
             "in entirely too little clothing and you want to shrink away and hide.",
         minWidth = 50, maxWidth = 60,
-        minHeight = 8, maxHeight = 8,
+        minHeight = 6, maxHeight = 6,
         wallColor = ThemeTags.FAMILIAR_FIGURE.tileColor,
         entities = listOf(
             EntityBlueprint.VEGAS_STRIP_COLLEGE_GIRL,

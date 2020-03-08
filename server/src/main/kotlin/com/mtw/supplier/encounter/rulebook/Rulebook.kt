@@ -7,10 +7,7 @@ import com.mtw.supplier.encounter.rulebook.actions.*
 import com.mtw.supplier.encounter.state.EncounterState
 import com.mtw.supplier.encounter.state.EncounterMessageLog
 import java.util.*
-import kotlin.math.ceil
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.roundToInt
+import kotlin.math.*
 
 object Rulebook {
 
@@ -160,7 +157,9 @@ object Rulebook {
                     defenderTerror.setTerror(newTerror)
                     encounterState.messageLog.logEvent("TERROR", action.terrorChangeStats.description)
                 } else {
-                    encounterState.messageLog.logEvent("TERROR", "You would feel reassured, but it's too little.")
+                    if (abs(action.terrorChangeStats.dTerror) > 1) {
+                        encounterState.messageLog.logEvent("TERROR", "You would feel reassured, but it's too little.")
+                    }
                 }
             } else { // If you're adding terror
                 val newTerror = min(defenderTerror.currentTerror + action.terrorChangeStats.dTerror, action.terrorChangeStats.changesUpToMax)
@@ -169,6 +168,9 @@ object Rulebook {
                     defenderTerror.setTerror(newTerror)
                     encounterState.messageLog.logEvent("TERROR", action.terrorChangeStats.description)
                 } else {
+                    if (abs(action.terrorChangeStats.dTerror) > 1) {
+                        encounterState.messageLog.logEvent("TERROR", "You would feel reassured, but it's too little.")
+                    }
                     encounterState.messageLog.logEvent("TERROR", "Such a small thing doesn't bother you now.")
                 }
             }

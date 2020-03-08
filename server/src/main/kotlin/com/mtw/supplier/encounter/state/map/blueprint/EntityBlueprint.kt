@@ -555,8 +555,8 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
             .addComponent(CollisionComponent.mover())
             .addComponent(DisplayComponent(false, character = 'R', foregroundRGB = ThemeTags.ER_ENTITY.rgb))
             .addComponent(HospitalErReceptionistAIComponent())
-            .addComponent(SpeedComponent(75))
-            .addComponent(ActionTimeComponent(75))
+            .addComponent(SpeedComponent(125))
+            .addComponent(ActionTimeComponent(125))
             .addComponent(InspectableComponent(
                 "A harried receptionist",
                 "You don't remember the person, more the idea of a person. She's a wavy figure in blue scrubs, but " +

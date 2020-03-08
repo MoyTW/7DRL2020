@@ -36,15 +36,21 @@ class VegasStripPerformerAIComponent(val performerType: PerformerType): AICompon
 
         val parentAbsPos = parentRoomPos.asAbsolutePosition(encounterState)!!
 
-        return when ((1..100).random()) {
-            in 1..50 -> listOf(TerrifyAction(parent, player, TerrorChangeStats(-1, 25, 75,
-                "The performer strikes a pose.")))
-            else -> {
-                val adjacent = encounterState.adjacentUnblockedPositions(parentAbsPos)
-                if (adjacent.isNotEmpty()) {
-                    listOf(MoveAction(parent, adjacent.random()))
-                } else {
-                    listOf(WaitAction(parent, null))
+        val isInFow = encounterState.fovCache!!.isInFoV(parentAbsPos)
+
+        return if (!isInFow) {
+            listOf(WaitAction(parent, null))
+        } else {
+            when ((1..100).random()) {
+                in 1..50 -> listOf(TerrifyAction(parent, player, TerrorChangeStats(-1, 60, 100,
+                    "The performer strikes a pose.")))
+                else -> {
+                    val adjacent = encounterState.adjacentUnblockedPositions(parentAbsPos)
+                    if (adjacent.isNotEmpty()) {
+                        listOf(MoveAction(parent, adjacent.random()))
+                    } else {
+                        listOf(WaitAction(parent, null))
+                    }
                 }
             }
         }
