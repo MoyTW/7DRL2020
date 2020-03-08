@@ -13,7 +13,11 @@ enum class ThemeTags(val tileColor: TileColor) {
 
     // Room Tags
     CURTIS_ST(TileColor.create(255, 153, 204)),
-    JULIANN(TileColor.create(128, 128, 255));
+    JULIANN(TileColor.create(128, 128, 255)),
+    HOSPITAL(TileColor.create(15, 15, 15)),
+
+    // Entity & Room Tags
+    FAMILIAR_FIGURE(TileColor.create(0, 0, 0));
 
     val rgb: RGB
         get() = RGB.fromTileColor(this.tileColor)
@@ -28,7 +32,7 @@ data class DreamRoomBlueprintData(
     val maxHeight: Int,
     val wallColor: TileColor,
     val entities: List<EntityBlueprint>,
-    val tags: List<ThemeTags> = listOf()
+    val tags: List<ThemeTags>
 )
 
 enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
@@ -124,7 +128,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             "Your mom is frantic. You can't breathe. You're dying.",
         minWidth = 25, maxWidth = 30,
         minHeight = 45, maxHeight = 50,
-        wallColor = TileColor.create(15, 15, 15),
+        wallColor = ThemeTags.HOSPITAL.tileColor,
         // hopefully wood veneer-ish
         entities = listOf(
             EntityBlueprint.HOSPITAL_ER_CHAIR,
@@ -166,7 +170,7 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.HOSPITAL_ER_BABY,
             EntityBlueprint.HOSPITAL_ER_PARENT,
             EntityBlueprint.HOSPITAL_ER_PARENT
-        ))),
+        ), tags = listOf(ThemeTags.HOSPITAL))),
     ASTHMA_HOSPITAL_WARD(DreamRoomBlueprintData(
         "Pediatric Ward",
         "They've hooked some tubing up your nose and given you an oxygen tank to wheel around. The tank " +
@@ -174,19 +178,20 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             "being hospitalized, after all.",
         minWidth = 5, maxWidth = 5,
         minHeight = 9, maxHeight = 9,
-        wallColor = TileColor.create(210, 210, 210),
+        wallColor = ThemeTags.HOSPITAL.tileColor,
         entities = listOf(
             EntityBlueprint.HOSPITAL_CURTAINS,
             EntityBlueprint.HOSPITAL_MACHINERY,
             EntityBlueprint.HOSPITAL_BED,
             EntityBlueprint.HOSPITAL_FOOD
-        ))),
+        ),
+        tags = listOf(ThemeTags.HOSPITAL))),
     AN_UNFAMILIAR_STREET(DreamRoomBlueprintData(
         "An unfamiliar street",
         "You don't feel safe here.",
         minWidth = 28, maxWidth = 36,
         minHeight = 5, maxHeight = 5,
-        wallColor = TileColor.create(0, 0, 0),
+        wallColor = ThemeTags.FAMILIAR_FIGURE.tileColor,
         entities = listOf(
             EntityBlueprint.A_FAMILIAR_CAR,
             EntityBlueprint.A_FAMILIAR_CAR,
@@ -205,27 +210,30 @@ enum class DreamRoomBlueprint(val blueprintData: DreamRoomBlueprintData) {
             EntityBlueprint.AN_UNFAMILIAR_STREET_LIGHT,
             EntityBlueprint.AN_UNFAMILIAR_STREET_LIGHT,
             EntityBlueprint.A_FAMILIAR_FIGURE
-        ))),
+        ),
+        tags = listOf(ThemeTags.FAMILIAR_FIGURE))),
     AN_UNFAMILIAR_APARTMENT(DreamRoomBlueprintData(
         "An unfamiliar apartment",
         "You're trapped. The walls are too close; he is too close. You can't breathe.",
         minWidth = 6, maxWidth = 6,
         minHeight = 6, maxHeight = 6,
-        wallColor = TileColor.create(0, 0, 0),
+        wallColor = ThemeTags.FAMILIAR_FIGURE.tileColor,
         entities = listOf(
             EntityBlueprint.A_FAMILIAR_FIGURE
-        ))),
+        ),
+        tags = listOf(ThemeTags.FAMILIAR_FIGURE))),
     A_FAMILIAR_CAR(DreamRoomBlueprintData(
         "A familiar car",
         "You felt safe in here, once, but now - you feel the stress, in your heart, in your rasping " +
             "breath. Alex is here, he grabs your hand. You'll be safe. You'll be safe as long as you stay with Alex.",
         minWidth = 4, maxWidth = 4,
         minHeight = 4, maxHeight = 4,
-        wallColor = TileColor.create(0, 0, 0),
+        wallColor = ThemeTags.FAMILIAR_FIGURE.tileColor,
         entities = listOf(
             EntityBlueprint.A_FAMILIAR_FIGURE,
             EntityBlueprint.A_FAMILIAR_CAR_ALEXANDER
-        ))),
+        ),
+        tags = listOf(ThemeTags.FAMILIAR_FIGURE))),
 }
 class CurtisStreetDadsRoom() {
     // Has a huge bed

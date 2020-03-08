@@ -533,16 +533,40 @@ enum class EntityBlueprint(val createFn: () -> Entity) {
             .addComponent(FamiliarFigureAIComponent())
             .addComponent(SpeedComponent(150))
             .addComponent(ActionTimeComponent(150))
+            .addComponent(InspectableComponent(
+                "A familiar figure",
+                "get the fuck away",
+                mutableListOf(InspectEvent("fuck!",
+                    "fuck fuck fuck fuck fuck",
+                    TerrorChangeStats(100, 0, 100, "fuck fuck fuck fuck fuck"),
+                    TerrorChangeMemory("fuck fuck fuck fuck fuck", TerrorChangeStats(100, 0, 100, "fuck fuck fuck fuck fuck")))
+                )))
     }),
     AN_UNFAMILIAR_STREET_LIGHT({
         Entity(UUID.randomUUID().toString(), "A harsh light")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(true, character = 'L', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(InspectableComponent(
+                "An unfamiliar street light",
+                "You don't come to this part of the city often. There is a menace in the architecture.",
+                mutableListOf(InspectEvent("You shouldn't be here",
+                    "You should leave.",
+                    TerrorChangeStats(10, 0, 95, "This place is dangerous."),
+                    TerrorChangeMemory("You don't want to remember this.", TerrorChangeStats(30, 0, 100, "Please don't remember this.")))
+                )))
     }),
     A_FAMILIAR_CAR({
         Entity(UUID.randomUUID().toString(), "A car you know well")
             .addComponent(CollisionComponent.blocker())
             .addComponent(DisplayComponent(true, character = 'C', foregroundRGB = RGB(0, 0, 0)))
+            .addComponent(InspectableComponent(
+                "A nightmare of a car",
+                "Why are you looking at this?",
+                mutableListOf(InspectEvent("This car is dangerous",
+                    "Don't get in.",
+                    TerrorChangeStats(10, 0, 95, "Nothing here is safe."),
+                    TerrorChangeMemory("You don't want to remember this.", TerrorChangeStats(30, 0, 100, "Please don't remember this.")))
+                )))
     }),
     A_FAMILIAR_CAR_ALEXANDER({
         Entity(UUID.randomUUID().toString(), "Alexander")
