@@ -49,7 +49,7 @@ class PlayerComponent(
     }
 
     fun addMemory(memory: Memory) {
-        if (memories.size > maxMemories) {
+        if (memories.size >= maxMemories) {
             memories.remove(memories.random())
         }
         memories.add(memory)
